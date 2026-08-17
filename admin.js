@@ -45,23 +45,17 @@ document.querySelector("#loginBtn").onclick = async () => {
       "లాగిన్ వివరాలు తప్పుగా ఉన్నాయి.";
   }
 };
+
 document.querySelector("#logoutBtn").onclick = () => signOut(auth);
+
 onAuthStateChanged(auth, async user => {
-  if (user && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+  if (
+    user &&
+    user.email &&
+    user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()
+  ) {
     loginBox.classList.add("hidden");
     panel.classList.remove("hidden");
-    loadMenu();
-    loadOrders();
-  } else {
-    if (user) {
-      await signOut(auth);
-    }
-    loginBox.classList.remove("hidden");
-    panel.classList.add("hidden");
-    document.querySelector("#loginStatus").textContent =
-      "ఈ ఖాతాకు Admin access లేదు.";
-  }
-});
 
     await loadMenu();
     await loadOrders();
@@ -72,10 +66,17 @@ onAuthStateChanged(auth, async user => {
 
     loginBox.classList.remove("hidden");
     panel.classList.add("hidden");
+
+    const status = document.querySelector("#loginStatus");
+    if (status) {
+      status.textContent = "ఈ ఖాతాకు Admin access లేదు.";
+    }
   }
 });
+
 document.querySelector("#menuForm").addEventListener("submit", async e => {
   e.preventDefault();
+
   try {
     await addDoc(collection(db, "menu"), {
       name: document.querySelector("#itemName").value.trim(),
@@ -116,9 +117,7 @@ async function loadMenu() {
             ₹${x.price}
           </div>
 
-          <button
-            data-id="${d.id}"
-            class="delete">
+          <button data-id="${d.id}" class="delete">
             తొలగించు
           </button>
         </div>
