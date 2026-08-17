@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="te">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>అడ్మిన్ · పల్లెటూరు భోజనం</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="admin-wrap">
+    <a href="index.html">← కస్టమర్ పేజీ</a>
+    <h1>అడ్మిన్ ప్యానెల్</h1>
+
+    <section id="loginBox" class="order-card">
+      <h2>అడ్మిన్ లాగిన్</h2>
+      <input id="email" type="email" placeholder="Admin email">
+      <input id="password" type="password" placeholder="Password">
+      <button id="loginBtn">లాగిన్</button>
+      <p id="loginStatus" class="status"></p>
+    </section>
+
+    <section id="panel" class="hidden">
+      <div class="admin-head">
+        <h2>మెనూ మార్చండి</h2>
+        <button id="logoutBtn" class="secondary">లాగౌట్</button>
+      </div>
+
+      <form id="menuForm" class="order-card">
+        <input id="itemName" required placeholder="కూర పేరు">
+        <input id="itemPrice" type="number" min="0" required placeholder="ధర">
+        <input id="itemImage" placeholder="చిత్ర URL (ఐచ్చికం)">
+        <button type="submit">మెనూలో చేర్చండి</button>
+      </form>
+
+      <div id="adminMenu" class="menu-grid"></div>
+
+      <h2>ఆర్డర్లు</h2>
+      <div id="orders" class="orders"></div>
+    </section>
+  </main>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="te">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>పల్లెటూరు భోజనం</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <img src="logo.png" alt="పల్లెటూరు భోజనం" class="logo">
+    <div>
+      <h1>పల్లెటూరు భోజనం</h1>
+      <p>ఇంటి రుచితో మీ మధ్యాహ్న భోజనం</p>
+    </div>
+    <a class="admin-link" href="admin.html">అడ్మిన్</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>ఈరోజు భోజన మెనూ</h2>
+      <p>ఉదయం 10 గంటలలోపు మీ భోజనాన్ని ఎంచుకోండి</p>
+    </section>
+
+    <section>
+      <div id="menu" class="menu-grid"><p class="muted">మెనూ లోడ్ అవుతోంది...</p></div>
+    </section>
+
+    <section class="order-card">
+      <h2>భోజనం ఆర్డర్ చేయండి</h2>
+      <form id="orderForm">
+        <input id="name" required placeholder="మీ పేరు">
+        <input id="phone" required inputmode="tel" placeholder="ఫోన్ నంబర్">
+        <textarea id="address" required placeholder="డెలివరీ చిరునామా"></textarea>
+        <input id="quantity" type="number" min="1" value="1" required placeholder="ఎన్ని భోజనాలు?">
+        <button type="submit">ఆర్డర్ పంపండి</button>
+      </form>
+      <p id="orderStatus" class="status"></p>
+    </section>
+  </main>
+
+  <footer>© పల్లెటూరు భోజనం · విజయవాడ</footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

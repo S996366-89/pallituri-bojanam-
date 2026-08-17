@@ -1,0 +1,12 @@
+:root{--green:#176b2c;--light:#f6f4ec;--orange:#e9952f;--text:#202020}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Noto Sans Telugu",sans-serif;color:var(--text);background:#fff}
+.top{display:flex;align-items:center;gap:16px;padding:14px;position:sticky;top:0;background:#fff;z-index:3;box-shadow:0 2px 12px #0001}
+.logo{width:78px;height:78px;object-fit:contain;border-radius:50%}.top h1{margin:0;color:var(--green);font-size:25px}.top p{margin:4px 0;color:#666}
+.admin-link{margin-left:auto;text-decoration:none;color:var(--green);font-weight:700}
+main{max-width:900px;margin:auto;padding:18px}.hero{text-align:center;padding:24px 10px}.hero h2{color:var(--green);font-size:28px;margin:0 0 6px}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}.card{border:1px solid #ddd;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 14px #0000000d}.card img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#eee}.card-body{padding:12px}.card h3{margin:0 0 6px;font-size:19px}.price{font-weight:800;color:var(--green)}
+.order-card{margin-top:28px;padding:18px;border-radius:18px;background:var(--light);border:1px solid #e5e1d4}.order-card form,.order-card{display:flex;flex-direction:column;gap:12px}
+input,textarea,button{font:inherit;border-radius:12px;padding:13px;border:1px solid #ccc}textarea{min-height:90px;resize:vertical}
+button{border:0;background:var(--green);color:white;font-weight:800;cursor:pointer}.secondary{background:#555}.hidden{display:none}.muted{color:#777}.status{font-weight:700}.admin-wrap{max-width:900px;margin:auto;padding:18px}.admin-wrap>a{color:var(--green);font-weight:700;text-decoration:none}.admin-head{display:flex;justify-content:space-between;align-items:center}.orders{display:grid;gap:12px}.order{padding:14px;border:1px solid #ddd;border-radius:14px;background:#fff}
+footer{text-align:center;padding:28px;color:#777}
+@media(max-width:520px){.top h1{font-size:20px}.logo{width:64px;height:64px}}
