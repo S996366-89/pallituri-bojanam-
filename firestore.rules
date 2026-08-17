@@ -1,13 +1,30 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /menu/{id} {
-      allow read: if true;
-      allow write, delete: if request.auth != null;
+
+    // Admin check
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == "s09858787@gmail.com";
     }
+
+    // Menu
+    match /menu/{id} {
+      // Customers can view menu
+      allow read: if true;
+
+      // Only Admin can add/edit/delete menu
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Orders
     match /orders/{id} {
+      // Customers can place orders
       allow create: if true;
-      allow read, update, delete: if request.auth != null;
+
+      // Only Admin can view/change/delete orders
+      allow read, update, delete: if isAdmin();
     }
   }
 }
