@@ -13,6 +13,9 @@ footer{text-align:center;padding:28px;color:#777}
 /* =========================
    TODAY MENU
 ========================= */
+/* =========================
+   TODAY MENU
+========================= */
 
 .today-menu {
   margin-top: 15px;
@@ -25,8 +28,8 @@ footer{text-align:center;padding:28px;color:#777}
 
 .menu-heading,
 .today-menu-item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 90px;
   align-items: center;
   padding: 14px 18px;
 }
@@ -36,6 +39,11 @@ footer{text-align:center;padding:28px;color:#777}
   color: var(--green);
   font-weight: 800;
   border-bottom: 2px solid #ddd;
+}
+
+.menu-heading span:last-child,
+.item-price {
+  text-align: right;
 }
 
 .today-menu-item {
