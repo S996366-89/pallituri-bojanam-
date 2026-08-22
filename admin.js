@@ -155,7 +155,6 @@ onAuthStateChanged(
     ) {
 
       loginBox.classList.add("hidden");
-
       panel.classList.remove("hidden");
 
       loginStatus.textContent = "";
@@ -163,7 +162,6 @@ onAuthStateChanged(
       try {
 
         await loadMenu();
-
         await loadOrders();
 
       } catch (error) {
@@ -177,12 +175,10 @@ onAuthStateChanged(
     } else {
 
       if (user) {
-
         await signOut(auth);
       }
 
       loginBox.classList.remove("hidden");
-
       panel.classList.add("hidden");
     }
 
@@ -211,14 +207,22 @@ menuForm.addEventListener(
           .value
       );
 
-    if (!name || !price) {
+    const category =
+      document.querySelector("#itemCategory")
+        .value;
+
+
+    /* VALIDATION */
+
+    if (!name || !price || !category) {
 
       alert(
-        "కూర పేరు మరియు ధర ఇవ్వండి."
+        "కూర పేరు, ధర మరియు వర్గం ఇవ్వండి."
       );
 
       return;
     }
+
 
     try {
 
@@ -227,6 +231,7 @@ menuForm.addEventListener(
         {
           name: name,
           price: price,
+          category: category,
           createdAt:
             new Date().toISOString()
         }
@@ -286,12 +291,18 @@ async function loadMenu() {
       return;
     }
 
+
     el.innerHTML =
       snap.docs
         .map((itemDoc) => {
 
           const item =
             itemDoc.data();
+
+          const categoryText =
+            item.category === "nonveg"
+              ? "🍗 Non-Veg"
+              : "🥬 Veg";
 
           return `
             <article class="card">
@@ -305,6 +316,10 @@ async function loadMenu() {
                 <div class="price">
                   ₹${item.price || 0}
                 </div>
+
+                <p class="muted">
+                  ${categoryText}
+                </p>
 
                 <button
                   type="button"
