@@ -1,42 +1,237 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
 import { firebaseConfig } from "./firebase-config.js";
+
+
+/* =========================
+   FIREBASE
+========================= */
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
 const menuEl = document.querySelector("#menu");
+const orderForm = document.querySelector("#orderForm");
+const orderStatus = document.querySelector("#orderStatus");
 
-function card(d){
-  const x=d.data();
-  return `<article class="card">
-    <img src="${x.image || 'https://placehold.co/600x600?text=పల్లెటూరు+భోజనం'}" alt="">
-    <div class="card-body"><h3>${escapeHtml(x.name||"కూర")}</h3><div class="price">₹${Number(x.price||0)}</div></div>
-  </article>`;
-}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
 
-async function loadMenu(){
-  try{
-    const snap=await getDocs(query(collection(db,"menu"),orderBy("createdAt","desc")));
-    menuEl.innerHTML=snap.empty ? '<p class="muted">ఇవాళ మెనూ ఇంకా పెట్టలేదు.</p>' : snap.docs.map(card).join("");
-  }catch(e){ menuEl.innerHTML='<p class="muted">Firebase configuration పెట్టిన తర్వాత మెనూ కనిపిస్తుంది.</p>'; console.error(e); }
+/* =========================
+   HTML SAFETY
+========================= */
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (char) => {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    }[char];
+  });
 }
+
+
+/* =========================
+   LOAD MENU
+========================= */
+
+async function loadMenu() {
+
+  try {
+
+    const snap = await getDocs(
+      query(
+        collection(db, "menu"),
+        orderBy("createdAt", "desc")
+      )
+    );
+
+    if (snap.empty) {
+
+      menuEl.innerHTML = `
+        <h2>ఈరోజు భోజనం</h2>
+        <p class="muted">
+          ఇవాళ మెనూ ఇంకా పెట్టలేదు.
+        </p>
+      `;
+
+      return;
+    }
+
+
+    menuEl.innerHTML = `
+      <h2>ఈరోజు భోజనం</h2>
+
+      <div class="menu-grid">
+
+        ${snap.docs.map((docSnap) => {
+
+          const item = docSnap.data();
+
+          return `
+            <article class="menu-card">
+
+              <div class="food-image">
+
+                <img
+                  src="${item.image || "https://placehold.co/600x600?text=పల్లెటూరు+భోజనం"}"
+                  alt="${escapeHtml(item.name || "కూర")}"
+                >
+
+              </div>
+
+              <h3>
+                ${escapeHtml(item.name || "కూర")}
+              </h3>
+
+              <p>
+                ₹${Number(item.price || 0)}
+              </p>
+
+            </article>
+          `;
+
+        }).join("")}
+
+      </div>
+    `;
+
+  } catch (error) {
+
+    console.error("MENU ERROR:", error);
+
+    menuEl.innerHTML = `
+      <h2>ఈరోజు భోజనం</h2>
+
+      <p class="muted">
+        మెనూ లోడ్ కాలేదు.
+      </p>
+    `;
+
+  }
+
+}
+
+
+/* =========================
+   ORDER
+========================= */
+
+orderForm.addEventListener("submit", async (event) => {
+
+  event.preventDefault();
+
+  orderStatus.textContent = "ఆర్డర్ పంపుతోంది...";
+
+
+  const name =
+    document.querySelector("#name").value.trim();
+
+  const phone =
+    document.querySelector("#phone").value.trim();
+
+  const address =
+    document.querySelector("#address").value.trim();
+
+  const quantity =
+    Number(document.querySelector("#quantity").value);
+
+
+  /* VALIDATION */
+
+  if (!name || !phone || !address || quantity < 1) {
+
+    orderStatus.textContent =
+      "దయచేసి అన్ని వివరాలు సరిగ్గా ఇవ్వండి.";
+
+    return;
+  }
+
+
+  try {
+
+    console.log("ORDER START");
+
+    const orderData = {
+
+      name: name,
+
+      phone: phone,
+
+      address: address,
+
+      quantity: quantity,
+
+      status: "new",
+
+      createdAt: new Date().toISOString()
+
+    };
+
+
+    console.log("ORDER DATA:", orderData);
+
+
+    const orderRef = await addDoc(
+      collection(db, "orders"),
+      orderData
+    );
+
+
+    console.log(
+      "ORDER SAVED:",
+      orderRef.id
+    );
+
+
+    orderStatus.textContent =
+      "✅ ఆర్డర్ విజయవంతంగా పంపబడింది. ధన్యవాదాలు!";
+
+
+    orderForm.reset();
+
+    document.querySelector("#quantity").value = 1;
+
+
+  } catch (error) {
+
+    console.error(
+      "ORDER ERROR:",
+      error
+    );
+
+
+    orderStatus.textContent =
+      `❌ ఆర్డర్ పంపలేకపోయాం: ${
+        error.code || error.message
+      }`;
+
+  }
+
+});
+
+
+/* =========================
+   START
+========================= */
+
 loadMenu();
 
-document.querySelector("#orderForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  const status=document.querySelector("#orderStatus");
-  try{
-    await addDoc(collection(db,"orders"),{
-      name:document.querySelector("#name").value.trim(),
-      phone:document.querySelector("#phone").value.trim(),
-      address:document.querySelector("#address").value.trim(),
-      quantity:Number(document.querySelector("#quantity").value),
-      createdAt:new Date().toISOString(),
-      status:"new"
-    });
-    status.textContent="ఆర్డర్ విజయవంతంగా పంపబడింది. ధన్యవాదాలు!";
-    e.target.reset();
-    document.querySelector("#quantity").value=1;
-  }catch(err){status.textContent="ఆర్డర్ పంపలేకపోయాం. Firebase settings చెక్ చేయండి.";console.error(err)}
-});
+console.log(
+  "పల్లెటూరు భోజనం website started successfully."
+);
