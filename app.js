@@ -65,6 +65,7 @@ async function loadMenu() {
 
       menuEl.innerHTML = `
         <h2>ఈరోజు భోజనం</h2>
+
         <p class="muted">
           ఇవాళ మెనూ ఇంకా పెట్టలేదు.
         </p>
@@ -85,15 +86,6 @@ async function loadMenu() {
 
           return `
             <article class="menu-card">
-
-              <div class="food-image">
-
-                <img
-                  src="${item.image || "https://placehold.co/600x600?text=పల్లెటూరు+భోజనం"}"
-                  alt="${escapeHtml(item.name || "కూర")}"
-                >
-
-              </div>
 
               <h3>
                 ${escapeHtml(item.name || "కూర")}
