@@ -44,11 +44,10 @@ function escapeHtml(value) {
     }[char];
   });
 }
-
-
 /* =========================
    LOAD MENU
 ========================= */
+
 async function loadMenu() {
 
   try {
@@ -64,6 +63,7 @@ async function loadMenu() {
 
       menuEl.innerHTML = `
         <h2>ఈరోజు భోజనం</h2>
+
         <p class="muted">
           ఇవాళ మెనూ ఇంకా పెట్టలేదు.
         </p>
@@ -77,20 +77,18 @@ async function loadMenu() {
 
       <div class="today-menu">
 
+        <div class="menu-heading">
+          <span>కూర పేరు</span>
+          <span>ధర</span>
+        </div>
+
         ${snap.docs.map((docSnap) => {
 
           const item = docSnap.data();
 
           return `
             <div class="today-menu-item">
-    <div class="today-menu">
 
-  <div class="menu-heading">
-    <span>కూర పేరు</span>
-    <span>ధర</span>
-  </div>
-
-  ${snap.docs.map((docSnap) => {
               <span class="item-name">
                 ${escapeHtml(item.name || "కూర")}
               </span>
