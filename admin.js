@@ -85,7 +85,8 @@ document.querySelector("#loginBtn").onclick = async () => {
       return;
     }
 
-    loginStatus.textContent = "Login విజయవంతమైంది.";
+    loginStatus.textContent =
+      "Login విజయవంతమైంది.";
 
   } catch (e) {
 
@@ -153,9 +154,6 @@ document.querySelector("#menuForm").addEventListener(
     const price =
       Number(document.querySelector("#itemPrice").value);
 
-    const image =
-      document.querySelector("#itemImage").value.trim();
-
     if (!name || !price) {
       alert("కూర పేరు మరియు ధర ఇవ్వండి.");
       return;
@@ -166,7 +164,6 @@ document.querySelector("#menuForm").addEventListener(
       await addDoc(collection(db, "menu"), {
         name: name,
         price: price,
-        image: image,
         createdAt: new Date().toISOString()
       });
 
@@ -218,11 +215,6 @@ async function loadMenu() {
       return `
         <article class="card">
 
-          <img
-            src="${x.image || "https://placehold.co/600x600"}"
-            alt="${x.name || "Menu item"}"
-          >
-
           <div class="card-body">
 
             <h3>${x.name || ""}</h3>
@@ -245,6 +237,7 @@ async function loadMenu() {
       `;
 
     }).join("");
+
 
     el.querySelectorAll(".delete").forEach((button) => {
 
@@ -269,7 +262,6 @@ async function loadMenu() {
           console.error("Delete error:", e);
 
           alert("తొలగించలేకపోయాము.");
-
         }
 
       };
@@ -282,7 +274,6 @@ async function loadMenu() {
 
     el.innerHTML =
       "Menu load కాలేదు. Firebase settings check చేయండి.";
-
   }
 
 }
@@ -342,7 +333,6 @@ async function loadOrders() {
 
     el.innerHTML =
       "Orders load కాలేదు.";
-
   }
 
 }
