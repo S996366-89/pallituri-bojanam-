@@ -41,10 +41,10 @@ document.querySelector("#loginBtn").onclick = async () => {
         "ఈ ఖాతాకు Admin access లేదు.";
     }
   } catch (e) {
-    document.querySelector("#loginStatus").textContent =
-      "లాగిన్ వివరాలు తప్పుగా ఉన్నాయి.";
-  }
-};
+  console.error("Firebase login error:", e);
+  document.querySelector("#loginStatus").textContent =
+    Login error: ${e.code || e.message};
+}
 
 document.querySelector("#logoutBtn").onclick = () => signOut(auth);
 
