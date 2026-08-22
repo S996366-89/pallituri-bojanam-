@@ -27,27 +27,33 @@ const ADMIN_EMAIL = "s09858787@gmail.com";
 
 const loginBox = document.querySelector("#loginBox");
 const panel = document.querySelector("#panel");
-
 document.querySelector("#loginBtn").onclick = async () => {
   const email = document.querySelector("#email").value.trim();
   const password = document.querySelector("#password").value;
 
   try {
-    const result = await signInWithEmailAndPassword(auth, email, password);
+    const result = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-    if (result.user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    if (
+      result.user.email.toLowerCase() !==
+      ADMIN_EMAIL.toLowerCase()
+    ) {
       await signOut(auth);
       document.querySelector("#loginStatus").textContent =
         "ఈ ఖాతాకు Admin access లేదు.";
+      return;
     }
+
   } catch (e) {
-  console.error("Firebase login error:", e);
-  document.querySelector("#loginStatus").textContent =
-    Login error: ${e.code || e.message};
-}
-
-document.querySelector("#logoutBtn").onclick = () => signOut(auth);
-
+    console.error("Firebase login error:", e);
+    document.querySelector("#loginStatus").textContent =
+      Login error: ${e.code || e.message};
+  }
+};
 onAuthStateChanged(auth, async user => {
   if (
     user &&
