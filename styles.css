@@ -10,3 +10,50 @@ input,textarea,button{font:inherit;border-radius:12px;padding:13px;border:1px so
 button{border:0;background:var(--green);color:white;font-weight:800;cursor:pointer}.secondary{background:#555}.hidden{display:none}.muted{color:#777}.status{font-weight:700}.admin-wrap{max-width:900px;margin:auto;padding:18px}.admin-wrap>a{color:var(--green);font-weight:700;text-decoration:none}.admin-head{display:flex;justify-content:space-between;align-items:center}.orders{display:grid;gap:12px}.order{padding:14px;border:1px solid #ddd;border-radius:14px;background:#fff}
 footer{text-align:center;padding:28px;color:#777}
 @media(max-width:520px){.top h1{font-size:20px}.logo{width:64px;height:64px}}
+/* =========================
+   TODAY MENU
+========================= */
+
+.today-menu {
+  margin-top: 15px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.menu-heading,
+.today-menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+}
+
+.menu-heading {
+  background: #f6f4ec;
+  color: var(--green);
+  font-weight: 800;
+  border-bottom: 2px solid #ddd;
+}
+
+.today-menu-item {
+  border-bottom: 1px solid #eee;
+}
+
+.today-menu-item:last-child {
+  border-bottom: 0;
+}
+
+.item-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.item-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
+}
