@@ -49,7 +49,6 @@ function escapeHtml(value) {
 /* =========================
    LOAD MENU
 ========================= */
-
 async function loadMenu() {
 
   try {
@@ -65,7 +64,6 @@ async function loadMenu() {
 
       menuEl.innerHTML = `
         <h2>ఈరోజు భోజనం</h2>
-
         <p class="muted">
           ఇవాళ మెనూ ఇంకా పెట్టలేదు.
         </p>
@@ -74,28 +72,34 @@ async function loadMenu() {
       return;
     }
 
-
     menuEl.innerHTML = `
       <h2>ఈరోజు భోజనం</h2>
 
-      <div class="menu-grid">
+      <div class="today-menu">
 
         ${snap.docs.map((docSnap) => {
 
           const item = docSnap.data();
 
           return `
-            <article class="menu-card">
+            <div class="today-menu-item">
+    <div class="today-menu">
 
-              <h3>
+  <div class="menu-heading">
+    <span>కూర పేరు</span>
+    <span>ధర</span>
+  </div>
+
+  ${snap.docs.map((docSnap) => {
+              <span class="item-name">
                 ${escapeHtml(item.name || "కూర")}
-              </h3>
+              </span>
 
-              <p>
+              <span class="item-price">
                 ₹${Number(item.price || 0)}
-              </p>
+              </span>
 
-            </article>
+            </div>
           `;
 
         }).join("")}
@@ -118,8 +122,6 @@ async function loadMenu() {
   }
 
 }
-
-
 /* =========================
    ORDER
 ========================= */
