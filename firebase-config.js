@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-  apiKey: "1:530571935718:web:e78395a87684dfa1602027",
+  apiKey: "AIzaSyAfxLa4jX8w570s9Rn5xm000uj-A20j6qc",
   authDomain: "pallituri-bojanam.firebaseapp.com",
   projectId: "pallituri-bojanam",
   storageBucket: "pallituri-bojanam.firebasestorage.app",
