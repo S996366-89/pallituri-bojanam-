@@ -34,13 +34,31 @@
         <h2>మెనూ మార్చండి</h2>
         <button id="logoutBtn" class="secondary">లాగౌట్</button>
       </div>
-
       <form id="menuForm" class="order-card">
-        <input id="itemName" required placeholder="కూర పేరు">
-        <input id="itemPrice" type="number" min="0" required placeholder="ధర">
-        <button type="submit">మెనూలో చేర్చండి</button>
-      </form>
 
+  <input
+    id="itemName"
+    required
+    placeholder="కూర పేరు"
+  >
+
+  <input
+    id="itemPrice"
+    type="number"
+    min="0"
+    required
+    placeholder="ధర"
+  >
+
+  <select id="itemCategory" required>
+    <option value="">వర్గం ఎంచుకోండి</option>
+    <option value="veg">🥬 Veg</option>
+    <option value="nonveg">🍗 Non-Veg</option>
+  </select>
+
+  <button type="submit">మెనూలో చేర్చండి</button>
+
+</form>
       <div id="adminMenu" class="menu-grid"></div>
 
       <h2>ఆర్డర్లు</h2>
