@@ -25,7 +25,7 @@ const db = getFirestore(app);
    ELEMENTS
 ========================= */
 
-const menuEl = document.querySelector("#menu");
+const menuEl = document.querySelector("#menuGrid");
 const orderForm = document.querySelector("#orderForm");
 const orderStatus = document.querySelector("#orderStatus");
 
