@@ -433,8 +433,6 @@ const monthlyPlanBtn =
 const monthlyPlanStatus =
   document.querySelector("#monthlyPlanStatus");
 
-
-const VEG_PRICE_PER_DAY = 69;
 const monthlyName =
   document.querySelector("#monthlyName");
 
@@ -447,7 +445,23 @@ const monthlyAddress =
 const monthlyQuantity =
   document.querySelector("#monthlyQuantity");
 
+const VEG_PRICE_PER_DAY = 69;
 
+if (planDays && monthlyQuantity) {
+
+  planDays.addEventListener(
+    "change",
+    updatePlanTotal
+  );
+
+  monthlyQuantity.addEventListener(
+    "input",
+    updatePlanTotal
+  );
+
+  updatePlanTotal();
+
+}
 /* =========================
    UPDATE MONTHLY TOTAL
 ========================= */
