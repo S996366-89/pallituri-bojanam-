@@ -1,8 +1,22 @@
 /* =========================
+   LOAD ALL ORDERS
+========================= */
+
+async function loadOrders() {
+
+  await loadMonthlyOrders();
+
+  await loadDailyOrders();
+
+}
+
+
+/* =========================
    MONTHLY PLAN ORDERS
 ========================= */
 
 async function loadMonthlyOrders() {
+
   const el =
     document.querySelector("#monthlyOrders");
 
@@ -21,7 +35,9 @@ async function loadMonthlyOrders() {
     if (snap.empty) {
 
       el.innerHTML =
-        `<p class="muted">నెలవారీ పథకం ఆర్డర్లు ఇంకా లేవు.</p>`;
+        `<p class="muted">
+          నెలవారీ పథకం ఆర్డర్లు ఇంకా లేవు.
+        </p>`;
 
       return;
     }
@@ -29,23 +45,49 @@ async function loadMonthlyOrders() {
     el.innerHTML =
       snap.docs.map((orderDoc) => {
 
-        const order = orderDoc.data();
+        const order =
+          orderDoc.data();
+
+        const dateTime =
+          order.createdAt
+            ? new Date(order.createdAt)
+            : null;
+
+        const date =
+          dateTime
+            ? dateTime.toLocaleDateString("en-IN")
+            : "";
+
+        const time =
+          dateTime
+            ? dateTime.toLocaleTimeString(
+                "en-IN",
+                {
+                  hour: "2-digit",
+                  minute: "2-digit"
+                }
+              )
+            : "";
 
         return `
           <div class="order">
 
-            <b>${order.name || "పేరు లేదు"}</b>
+            <b>
+              ${order.name || "పేరు లేదు"}
+            </b>
 
             · ${order.phone || ""}
 
             <br>
 
             భోజనాలు:
-            ${order.quantity || 0}
+            <strong>
+              ${order.quantity || 0}
+            </strong>
 
             <br>
 
-            ${order.address || "Address లేదు"}
+            📍 ${order.address || "Address లేదు"}
 
             <br>
 
@@ -54,6 +96,12 @@ async function loadMonthlyOrders() {
 
             · మొత్తం:
             ₹${order.totalAmount || 0}
+
+            <br>
+
+            📅 ${date}
+            &nbsp;&nbsp;
+            ⏰ ${time}
 
           </div>
         `;
@@ -99,7 +147,9 @@ async function loadDailyOrders() {
     if (snap.empty) {
 
       el.innerHTML =
-        `<p class="muted">రోజువారీ ఆర్డర్లు ఇంకా లేవు.</p>`;
+        `<p class="muted">
+          రోజువారీ ఆర్డర్లు ఇంకా లేవు.
+        </p>`;
 
       return;
     }
@@ -134,20 +184,24 @@ async function loadDailyOrders() {
         return `
           <div class="order">
 
-            <b>${order.name || "పేరు లేదు"}</b>
+            <b>
+              ${order.name || "పేరు లేదు"}
+            </b>
 
             · ${order.phone || ""}
 
             <br>
 
             📅 ${date}
-
-            · ⏰ ${time}
+            &nbsp;&nbsp;
+            ⏰ ${time}
 
             <br>
 
             భోజనాలు:
-            ${order.quantity || 0}
+            <strong>
+              ${order.quantity || 0}
+            </strong>
 
             <br>
 
