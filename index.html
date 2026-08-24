@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="te">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,50 +12,88 @@
 
 <body>
 
-  <header class="top">
-    <img src="logo.png" alt="పల్లెటూరు భోజనం" class="logo">
+  <!-- =========================
+       HEADER
+  ========================= -->
 
-    <div>
+  <header class="top">
+
+    <img
+      src="logo.png"
+      alt="పల్లెటూరు భోజనం"
+      class="logo"
+    >
+
+    <div class="brand-text">
       <h1>పల్లెటూరు భోజనం</h1>
       <p>ఇంటి రుచితో మీ మధ్యాహ్న భోజనం</p>
     </div>
 
-    <a class="admin-link" href="admin.html">అడ్మిన్</a>
+    <a
+      class="admin-link"
+      href="admin.html"
+    >
+      అడ్మిన్
+    </a>
+
   </header>
 
 
+  <!-- =========================
+       MAIN
+  ========================= -->
+
   <main>
 
-    <!-- Welcome Section -->
+    <!-- Welcome -->
+
     <section class="hero">
+
       <h2>పల్లెటూరు భోజనానికి స్వాగతం</h2>
 
       <p>
-        ప్రతిరోజూ ఇంటి రుచితో తయారుచేసిన రుచికరమైన
-        మధ్యాహ్న భోజనం మీకు అందిస్తున్నాము.
+        ప్రతిరోజూ ఇంటి రుచితో తయారుచేసిన
+        రుచికరమైన మధ్యాహ్న భోజనం
+        మీకు అందిస్తున్నాము.
       </p>
+
     </section>
 
 
-    <!-- Menu Section -->
-    <section id="menu" class="menu-section">
+    <!-- =========================
+         TODAY MENU
+    ========================= -->
+
+    <section
+      id="menu"
+      class="menu-section"
+    >
 
       <h2>ఈరోజు భోజనం</h2>
 
-      <!-- Firebase menu items ఇక్కడ కనిపిస్తాయి -->
-      <div class="menu-grid" id="menuGrid"></div>
+      <!-- Firebase menu items -->
+      <div
+        class="menu-grid"
+        id="menuGrid"
+      ></div>
 
     </section>
 
 
-    <!-- Order Section -->
+    <!-- =========================
+         ORDER
+    ========================= -->
+
     <section class="order-card">
 
       <h2>భోజనం ఆర్డర్ చేయండి</h2>
 
       <form id="orderForm">
 
-        <label for="name">పేరు</label>
+        <label for="name">
+          పేరు
+        </label>
+
         <input
           id="name"
           type="text"
@@ -62,7 +101,11 @@
           placeholder="మీ పేరు"
         >
 
-        <label for="phone">ఫోన్ నంబర్</label>
+
+        <label for="phone">
+          ఫోన్ నంబర్
+        </label>
+
         <input
           id="phone"
           type="tel"
@@ -71,14 +114,22 @@
           placeholder="మీ ఫోన్ నంబర్"
         >
 
-        <label for="address">చిరునామా</label>
+
+        <label for="address">
+          చిరునామా
+        </label>
+
         <textarea
           id="address"
           required
           placeholder="మీ చిరునామా"
         ></textarea>
 
-        <label for="quantity">ఎన్ని భోజనాలు?</label>
+
+        <label for="quantity">
+          ఎన్ని భోజనాలు?
+        </label>
+
         <input
           id="quantity"
           type="number"
@@ -87,25 +138,42 @@
           required
         >
 
+
         <button type="submit">
           ఆర్డర్ చేయండి
         </button>
 
       </form>
 
-      <p id="orderStatus" class="status"></p>
+
+      <p
+        id="orderStatus"
+        class="status"
+      ></p>
 
     </section>
 
   </main>
 
 
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
   <footer>
-    <p>© పల్లెటూరు భోజనం • విజయవాడ</p>
+
+    <p>
+      © పల్లెటూరు భోజనం • విజయవాడ
+    </p>
+
   </footer>
 
 
-  <script type="module" src="app.js"></script>
+  <script
+    type="module"
+    src="app.js"
+  ></script>
 
 </body>
+
 </html>
