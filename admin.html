@@ -15,7 +15,6 @@
 
     <h1>అడ్మిన్ ప్యానెల్</h1>
 
-
     <!-- LOGIN -->
     <section id="loginBox" class="order-card">
 
@@ -35,7 +34,9 @@
         placeholder="Password"
       >
 
-      <button id="loginBtn">లాగిన్</button>
+      <button id="loginBtn">
+        లాగిన్
+      </button>
 
       <p id="loginStatus" class="status"></p>
 
@@ -46,10 +47,13 @@
     <section id="panel" class="hidden">
 
       <div class="admin-head">
+
         <h2>మెనూ మార్చండి</h2>
+
         <button id="logoutBtn" class="secondary">
           లాగౌట్
         </button>
+
       </div>
 
 
@@ -71,9 +75,17 @@
         >
 
         <select id="itemCategory" required>
-          <option value="">వర్గం ఎంచుకోండి</option>
-          <option value="veg">🥬 Veg</option>
-          <option value="nonveg">🍗 Non-Veg</option>
+          <option value="">
+            వర్గం ఎంచుకోండి
+          </option>
+
+          <option value="veg">
+            🥬 Veg
+          </option>
+
+          <option value="nonveg">
+            🍗 Non-Veg
+          </option>
         </select>
 
         <button type="submit">
@@ -81,34 +93,6 @@
         </button>
 
       </form>
-
-
-      <!-- TODAY PHOTOS -->
-      <section class="order-card photo-upload-section">
-
-        <h2>ఈరోజు వంటల ఫోటోలు</h2>
-
-        <p class="muted">
-          గరిష్టంగా 4 ఫోటోలు మాత్రమే upload చేయండి.
-          ఇవి customer page లో ప్రతి 2 seconds కి మారుతూ కనిపిస్తాయి.
-        </p>
-
-        <input
-          id="foodPhotos"
-          type="file"
-          accept="image/*"
-          multiple
-        >
-
-        <button id="uploadPhotosBtn" type="button">
-          ఫోటోలు Upload చేయండి
-        </button>
-
-        <p id="photoStatus" class="status"></p>
-
-        <div id="adminPhotos" class="admin-photos"></div>
-
-      </section>
 
 
       <!-- MENU LIST -->
@@ -125,6 +109,7 @@
     </section>
 
   </main>
+
 
   <script type="module" src="admin.js"></script>
 
