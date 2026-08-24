@@ -1,12 +1,103 @@
+:root {
+  --green: #176b2c;
+  --light: #f6f4ec;
+  --orange: #e9952f;
+  --text: #202020;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, "Noto Sans Telugu", sans-serif;
+  color: var(--text);
+  background: #fff;
+}
+
 /* =========================
-   VEG / NON-VEG MENU BOXES
+   HEADER
 ========================= */
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  box-shadow: 0 2px 12px #0001;
+}
+
+.logo {
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.top h1 {
+  margin: 0;
+  color: var(--green);
+  font-size: 25px;
+}
+
+.top p {
+  margin: 4px 0;
+  color: #666;
+}
+
+.admin-link {
+  margin-left: auto;
+  text-decoration: none;
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 18px;
+}
+
+.hero {
+  text-align: center;
+  padding: 24px 10px;
+}
+
+.hero h2 {
+  color: var(--green);
+  font-size: 28px;
+  margin: 0 0 6px;
+}
+
+/* =========================
+   TODAY MENU
+========================= */
+
+.menu-section {
+  margin-top: 20px;
+}
+
+.menu-section > h2 {
+  color: var(--green);
+  margin-bottom: 10px;
+}
+
+/* VEG / NON-VEG రెండు boxes */
 
 .menu-grid {
   display: flex;
   gap: 18px;
   align-items: flex-start;
-  margin-top: 35px;
+  margin-top: 25px;
 }
 
 .customer-menu-section {
@@ -14,31 +105,36 @@
   min-width: 0;
 }
 
+/* Veg / Non-Veg పై title */
+
 .customer-menu-title {
   text-align: center;
-  margin: 0 0 18px;
+  margin: 0 0 12px;
   color: var(--green);
   font-size: 17px;
+  font-weight: 800;
 }
 
 /* Menu box */
+
 .today-menu {
   width: 100%;
   max-height: 210px;
   overflow-y: auto;
+  overflow-x: hidden;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 14px;
-  overflow-x: hidden;
 }
 
 /* కూర పేరు / ధర heading */
+
 .menu-heading {
   display: grid;
   grid-template-columns: 1fr 90px;
   align-items: center;
   padding: 14px 16px;
-  background: #f6f4ec;
+  background: var(--light);
   color: var(--green);
   font-weight: 800;
   border-bottom: 2px solid #ddd;
@@ -47,6 +143,8 @@
   top: 0;
   z-index: 2;
 }
+
+/* ఒక్కొక్క కూర */
 
 .today-menu-item {
   display: grid;
@@ -60,11 +158,6 @@
   border-bottom: 0;
 }
 
-.item-price,
-.menu-heading span:last-child {
-  text-align: right;
-}
-
 .item-name {
   font-size: 17px;
   font-weight: 600;
@@ -74,10 +167,159 @@
   font-size: 17px;
   font-weight: 800;
   color: var(--green);
+  text-align: right;
+  white-space: nowrap;
 }
 
-/* Mobile లో ఒకదాని కింద ఒకటి */
+.menu-heading span:last-child {
+  text-align: right;
+}
+
+/* =========================
+   ORDER FORM
+========================= */
+
+.order-card {
+  margin-top: 28px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--light);
+  border: 1px solid #e5e1d4;
+}
+
+.order-card form,
+.order-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+  border-radius: 12px;
+  padding: 13px;
+  border: 1px solid #ccc;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+button {
+  border: 0;
+  background: var(--green);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.secondary {
+  background: #555;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.muted {
+  color: #777;
+}
+
+.status {
+  font-weight: 700;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-wrap {
+  max-width: 900px;
+  margin: auto;
+  padding: 18px;
+}
+
+.admin-wrap > a {
+  color: var(--green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.admin-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 14px #0000000d;
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #eee;
+}
+
+.card-body {
+  padding: 12px;
+}
+
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+
+.price {
+  font-weight: 800;
+  color: var(--green);
+}
+
+/* =========================
+   ORDERS
+========================= */
+
+.orders {
+  display: grid;
+  gap: 12px;
+}
+
+.order {
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  background: #fff;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  text-align: center;
+  padding: 28px;
+  color: #777;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 600px) {
+
   .menu-grid {
     flex-direction: column;
   }
@@ -85,4 +327,33 @@
   .customer-menu-section {
     width: 100%;
   }
+
+}
+
+@media (max-width: 520px) {
+
+  .top h1 {
+    font-size: 20px;
+  }
+
+  .logo {
+    width: 64px;
+    height: 64px;
+  }
+
+  main {
+    padding: 12px;
+  }
+
+  .menu-heading,
+  .today-menu-item {
+    grid-template-columns: 1fr 75px;
+    padding: 12px;
+  }
+
+  .item-name,
+  .item-price {
+    font-size: 16px;
+  }
+
 }
