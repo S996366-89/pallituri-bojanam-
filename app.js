@@ -417,3 +417,35 @@ loadMenu();
 console.log(
   "పల్లెటూరు భోజనం website started successfully."
 );
+/* =========================
+   MONTHLY VEG PLAN
+========================= */
+
+const planDays = document.querySelector("#planDays");
+const planTotal = document.querySelector("#planTotal");
+
+const VEG_PRICE_PER_DAY = 69;
+
+
+function updatePlanTotal() {
+
+  const days = Number(planDays.value);
+
+  const total = days * VEG_PRICE_PER_DAY;
+
+  planTotal.textContent =
+    `₹${total.toLocaleString("en-IN")}`;
+
+}
+
+
+if (planDays && planTotal) {
+
+  planDays.addEventListener(
+    "change",
+    updatePlanTotal
+  );
+
+  updatePlanTotal();
+
+}
