@@ -421,21 +421,36 @@ console.log(
    MONTHLY VEG PLAN
 ========================= */
 
-const planDays = document.querySelector("#planDays");
-const planTotal = document.querySelector("#planTotal");
+const planDays =
+  document.querySelector("#planDays");
+
+const planTotal =
+  document.querySelector("#planTotal");
+
+const monthlyPlanBtn =
+  document.querySelector("#monthlyPlanBtn");
+
+const monthlyPlanStatus =
+  document.querySelector("#monthlyPlanStatus");
+
 
 const VEG_PRICE_PER_DAY = 69;
 
 
+/* =========================
+   UPDATE PLAN TOTAL
+========================= */
+
 function updatePlanTotal() {
 
-  const days = Number(planDays.value);
+  const days =
+    Number(planDays.value);
 
-  const total = days * VEG_PRICE_PER_DAY;
+  const total =
+    days * VEG_PRICE_PER_DAY;
 
   planTotal.textContent =
     `₹${total.toLocaleString("en-IN")}`;
-
 }
 
 
@@ -447,5 +462,140 @@ if (planDays && planTotal) {
   );
 
   updatePlanTotal();
+
+}
+
+
+/* =========================
+   MONTHLY PLAN ORDER
+========================= */
+
+if (monthlyPlanBtn) {
+
+  monthlyPlanBtn.addEventListener(
+    "click",
+    async () => {
+
+      const name =
+        document
+          .querySelector("#name")
+          .value
+          .trim();
+
+
+      const phone =
+        document
+          .querySelector("#phone")
+          .value
+          .trim();
+
+
+      const address =
+        document
+          .querySelector("#address")
+          .value
+          .trim();
+
+
+      const quantity =
+        Number(
+          document
+            .querySelector("#quantity")
+            .value
+        );
+
+
+      const days =
+        Number(
+          planDays.value
+        );
+
+
+      const total =
+        days * VEG_PRICE_PER_DAY;
+
+
+      /* =========================
+         VALIDATION
+      ========================= */
+
+      if (
+        !name ||
+        !phone ||
+        !address ||
+        quantity < 1
+      ) {
+
+        monthlyPlanStatus.textContent =
+          "దయచేసి పేరు, ఫోన్ నంబర్, చిరునామా మరియు భోజనాల సంఖ్య ఇవ్వండి.";
+
+        return;
+      }
+
+
+      monthlyPlanStatus.textContent =
+        "నెలవారీ పథకం పంపుతోంది...";
+
+
+      /* =========================
+         SAVE MONTHLY ORDER
+      ========================= */
+
+      try {
+
+        await addDoc(
+          collection(
+            db,
+            "monthlyOrders"
+          ),
+          {
+
+            name: name,
+
+            phone: phone,
+
+            address: address,
+
+            quantity: quantity,
+
+            planType: "Veg",
+
+            planDays: days,
+
+            pricePerDay:
+              VEG_PRICE_PER_DAY,
+
+            totalAmount:
+              total,
+
+            status: "new",
+
+            createdAt:
+              new Date().toISOString()
+
+          }
+        );
+
+
+        monthlyPlanStatus.textContent =
+          "✅ నెలవారీ పథకం విజయవంతంగా నమోదు అయింది. ధన్యవాదాలు!";
+
+
+      } catch (error) {
+
+        console.error(
+          "MONTHLY PLAN ERROR:",
+          error
+        );
+
+
+        monthlyPlanStatus.textContent =
+          "❌ నెలవారీ పథకం నమోదు కాలేదు: " +
+          (error.code || error.message);
+
+      }
+
+    }
+  );
 
 }
