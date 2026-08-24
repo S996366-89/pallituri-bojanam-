@@ -954,3 +954,11 @@ footer {
   overflow-y: auto;
   overflow-x: auto;
 }
+.monthly-order-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  white-space: nowrap;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
