@@ -2,15 +2,24 @@
   --green: #176b2c;
   --green-dark: #0f5120;
   --green-light: #eaf4e7;
+
   --light: #f6f4ec;
   --cream: #fffaf0;
+
   --orange: #e9952f;
   --orange-light: #fff1d8;
+
   --text: #202020;
   --muted: #6f6f6f;
+
   --border: #e2dfd3;
   --white: #ffffff;
 }
+
+
+/* =========================
+   RESET
+========================= */
 
 * {
   box-sizing: border-box;
@@ -21,25 +30,32 @@ html {
 }
 
 body {
+
   margin: 0;
-  font-family: system-ui, "Noto Sans Telugu", sans-serif;
+
+  font-family:
+    system-ui,
+    "Noto Sans Telugu",
+    sans-serif;
+
   color: var(--text);
 
-  /* పల్లెటూరు భోజనం soft natural background */
+  min-height: 100vh;
+
   background:
     radial-gradient(
       circle at top left,
       rgba(255, 241, 216, 0.85),
       transparent 34%
     ),
+
     radial-gradient(
       circle at bottom right,
       rgba(225, 241, 222, 0.85),
       transparent 38%
     ),
-    #f7f5ec;
 
-  min-height: 100vh;
+    #f7f5ec;
 }
 
 
@@ -48,71 +64,101 @@ body {
 ========================= */
 
 .top {
+
   display: flex;
+
   align-items: center;
+
   gap: 16px;
+
   padding: 12px 18px;
 
   position: sticky;
+
   top: 0;
+
   z-index: 10;
 
-  background: rgba(255, 255, 255, 0.96);
+  background:
+    rgba(255, 255, 255, 0.96);
+
   backdrop-filter: blur(8px);
 
-  border-bottom: 1px solid rgba(23, 107, 44, 0.08);
+  border-bottom:
+    1px solid rgba(23, 107, 44, 0.08);
 
   box-shadow:
     0 3px 15px rgba(0, 0, 0, 0.06);
 }
 
+
 .logo {
+
   width: 78px;
+
   height: 78px;
+
   object-fit: contain;
+
   border-radius: 50%;
 
   background: var(--white);
 
   box-shadow:
-    0 3px 12px rgba(23, 107, 44, 0.12);
+    0 3px 12px
+    rgba(23, 107, 44, 0.12);
 }
 
+
+.brand-text {
+  min-width: 0;
+}
+
+
 .top h1 {
+
   margin: 0;
 
   color: var(--green);
 
   font-size: 25px;
-  font-weight: 800;
 
-  letter-spacing: 0.2px;
+  font-weight: 800;
 }
 
+
 .top p {
+
   margin: 4px 0;
 
   color: var(--muted);
+
   font-size: 14px;
 }
 
+
 .admin-link {
+
   margin-left: auto;
 
   text-decoration: none;
 
   color: var(--green);
+
   font-weight: 700;
 
   padding: 8px 12px;
-  border-radius: 10px;
 
-  transition: 0.2s ease;
+  border-radius: 10px;
 }
 
 .admin-link:hover {
-  background: var(--green-light);
-  color: var(--green-dark);
+
+  background:
+    var(--green-light);
+
+  color:
+    var(--green-dark);
 }
 
 
@@ -121,8 +167,11 @@ body {
 ========================= */
 
 main {
+
   max-width: 900px;
+
   margin: auto;
+
   padding: 18px;
 }
 
@@ -132,75 +181,133 @@ main {
 ========================= */
 
 .hero {
+
   text-align: center;
-  padding: 30px 10px 24px;
+
+  padding:
+    30px 10px 24px;
 }
 
+
 .hero h2 {
+
   color: var(--green);
 
   font-size: 28px;
+
   font-weight: 800;
 
   margin: 0 0 7px;
-
-  text-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.08);
 }
 
+
 .hero p {
+
   color: var(--muted);
+
   margin: 0;
+
+  line-height: 1.7;
 }
 
 
 /* =========================
-   SECTION HEADINGS
+   MENU
 ========================= */
 
 .menu-section {
+
   margin-top: 20px;
 }
 
+
 .menu-section > h2 {
+
   color: var(--green);
 
-  margin-bottom: 10px;
+  margin:
+    0 0 14px;
 
   font-size: 23px;
+
   font-weight: 800;
+
+  text-align: center;
 }
 
 
 /* =========================
-   VEG / NON-VEG
+   VEG / NON VEG BOXES
 ========================= */
 
 .menu-grid {
+
   display: flex;
+
   gap: 18px;
+
   align-items: flex-start;
 
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
+
 .customer-menu-section {
+
   flex: 1;
+
   min-width: 0;
 }
 
 
-/* Veg / Non-Veg title */
+/* Box title */
 
 .customer-menu-title {
+
   text-align: center;
 
-  margin: 0 0 12px;
+  margin:
+    0 0 10px;
 
-  color: var(--green);
+  font-size: 18px;
 
-  font-size: 17px;
   font-weight: 800;
+
+  padding:
+    9px 12px;
+
+  border-radius:
+    12px 12px 0 0;
+}
+
+
+/* Veg */
+
+.veg-title {
+
+  color:
+    var(--green);
+
+  background:
+    var(--green-light);
+
+  border:
+    1px solid #d4e5d0;
+}
+
+
+/* Non Veg */
+
+.nonveg-title {
+
+  color:
+    #9a5411;
+
+  background:
+    var(--orange-light);
+
+  border:
+    1px solid #f0d5aa;
 }
 
 
@@ -209,38 +316,54 @@ main {
 ========================= */
 
 .today-menu {
+
   width: 100%;
 
-  max-height: 210px;
+  height: 220px;
+
+  max-height: 220px;
 
   overflow-y: auto;
+
   overflow-x: hidden;
 
-  background: rgba(255, 255, 255, 0.97);
+  background:
+    rgba(255, 255, 255, 0.97);
 
-  border: 1px solid var(--border);
+  border:
+    1px solid var(--border);
 
-  border-radius: 14px;
+  border-radius:
+    0 0 14px 14px;
 
   box-shadow:
-    0 5px 18px rgba(23, 107, 44, 0.07);
+    0 5px 18px
+    rgba(23, 107, 44, 0.07);
 }
 
 
-/* scrollbar */
+/* Scrollbar */
 
 .today-menu::-webkit-scrollbar {
   width: 6px;
 }
 
 .today-menu::-webkit-scrollbar-track {
-  background: #f1f1eb;
-  border-radius: 10px;
+
+  background:
+    #f1f1eb;
+
+  border-radius:
+    10px;
 }
 
 .today-menu::-webkit-scrollbar-thumb {
-  background: #b7cdb3;
-  border-radius: 10px;
+
+  background:
+    #b7cdb3;
+
+  border-radius:
+    10px;
 }
 
 
@@ -249,13 +372,16 @@ main {
 ========================= */
 
 .menu-heading {
+
   display: grid;
 
-  grid-template-columns: 1fr 90px;
+  grid-template-columns:
+    1fr 90px;
 
   align-items: center;
 
-  padding: 14px 16px;
+  padding:
+    13px 16px;
 
   background:
     linear-gradient(
@@ -264,82 +390,138 @@ main {
       var(--green-light)
     );
 
-  color: var(--green);
+  color:
+    var(--green);
 
-  font-weight: 800;
+  font-weight:
+    800;
 
-  border-bottom: 2px solid #dfe5d9;
+  border-bottom:
+    2px solid #dfe5d9;
 
-  position: sticky;
+  position:
+    sticky;
+
   top: 0;
 
   z-index: 2;
 }
 
+
 .menu-heading span:last-child {
-  text-align: right;
+
+  text-align:
+    right;
 }
 
 
 /* =========================
-   MENU ITEMS
+   MENU ITEM
 ========================= */
 
 .today-menu-item {
+
   display: grid;
 
-  grid-template-columns: 1fr 90px;
+  grid-template-columns:
+    1fr 90px;
 
   align-items: center;
 
-  padding: 14px 16px;
+  padding:
+    14px 16px;
 
-  background: rgba(255, 255, 255, 0.95);
+  background:
+    rgba(255, 255, 255, 0.96);
 
-  border-bottom: 1px solid #eeeae0;
-
-  transition:
-    background 0.2s ease,
-    padding-left 0.2s ease;
+  border-bottom:
+    1px solid #eeeae0;
 }
 
-.today-menu-item:hover {
-  background: #fffaf0;
-  padding-left: 19px;
-}
 
 .today-menu-item:last-child {
   border-bottom: 0;
 }
 
+
 .item-name {
-  font-size: 17px;
-  font-weight: 600;
+
+  font-size:
+    17px;
+
+  font-weight:
+    600;
 }
 
+
 .item-price {
-  font-size: 17px;
 
-  font-weight: 800;
+  font-size:
+    17px;
 
-  color: var(--green);
+  font-weight:
+    800;
 
-  text-align: right;
+  color:
+    var(--green);
 
-  white-space: nowrap;
+  text-align:
+    right;
+
+  white-space:
+    nowrap;
+}
+
+
+.menu-empty {
+
+  padding:
+    20px;
+
+  text-align:
+    center;
 }
 
 
 /* =========================
-   ORDER FORM
+   EMPTY MENU
+========================= */
+
+.empty-menu {
+
+  width: 100%;
+
+  padding:
+    25px;
+
+  text-align:
+    center;
+
+  background:
+    rgba(255, 255, 255, 0.9);
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    14px;
+}
+
+
+/* =========================
+   ORDER
 ========================= */
 
 .order-card {
-  margin-top: 28px;
 
-  padding: 20px;
+  margin-top:
+    30px;
 
-  border-radius: 18px;
+  padding:
+    20px;
+
+  border-radius:
+    18px;
 
   background:
     linear-gradient(
@@ -348,19 +530,35 @@ main {
       rgba(246, 244, 236, 0.98)
     );
 
-  border: 1px solid #e5e1d4;
+  border:
+    1px solid #e5e1d4;
 
   box-shadow:
-    0 7px 22px rgba(0, 0, 0, 0.06);
+    0 7px 22px
+    rgba(0, 0, 0, 0.06);
 }
 
-.order-card form,
-.order-card {
-  display: flex;
 
-  flex-direction: column;
+.order-card h2 {
 
-  gap: 12px;
+  margin-top:
+    0;
+
+  color:
+    var(--green);
+}
+
+
+.order-card form {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    12px;
 }
 
 
@@ -372,40 +570,53 @@ input,
 textarea,
 select,
 button {
-  font: inherit;
 
-  border-radius: 12px;
+  font:
+    inherit;
 
-  padding: 13px;
+  border-radius:
+    12px;
 
-  border: 1px solid #ccc;
+  padding:
+    13px;
 
-  outline: none;
+  border:
+    1px solid #ccc;
 
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  outline:
+    none;
 }
+
 
 input,
 textarea,
 select {
-  background: #fff;
+
+  background:
+    #fff;
 }
+
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--green);
+
+  border-color:
+    var(--green);
 
   box-shadow:
-    0 0 0 3px rgba(23, 107, 44, 0.10);
+    0 0 0 3px
+    rgba(23, 107, 44, 0.10);
 }
 
-textarea {
-  min-height: 90px;
 
-  resize: vertical;
+textarea {
+
+  min-height:
+    90px;
+
+  resize:
+    vertical;
 }
 
 
@@ -414,7 +625,9 @@ textarea {
 ========================= */
 
 button {
-  border: 0;
+
+  border:
+    0;
 
   background:
     linear-gradient(
@@ -423,39 +636,31 @@ button {
       var(--green-dark)
     );
 
-  color: white;
+  color:
+    white;
 
-  font-weight: 800;
+  font-weight:
+    800;
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
-  box-shadow:
-    0 4px 10px rgba(23, 107, 44, 0.18);
-
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    opacity 0.15s ease;
+  padding:
+    14px;
 }
+
 
 button:hover {
-  opacity: 0.95;
 
-  transform: translateY(-1px);
-
-  box-shadow:
-    0 6px 14px rgba(23, 107, 44, 0.22);
+  opacity:
+    0.95;
 }
 
-button:active {
-  transform: translateY(0);
-}
 
 .secondary {
-  background: #555;
 
-  box-shadow:
-    0 3px 8px rgba(0, 0, 0, 0.10);
+  background:
+    #555;
 }
 
 
@@ -464,131 +669,23 @@ button:active {
 ========================= */
 
 .hidden {
-  display: none !important;
+
+  display:
+    none !important;
 }
+
 
 .muted {
-  color: var(--muted);
+
+  color:
+    var(--muted);
 }
+
 
 .status {
-  font-weight: 700;
-}
 
-
-/* =========================
-   ADMIN
-========================= */
-
-.admin-wrap {
-  max-width: 900px;
-
-  margin: auto;
-
-  padding: 18px;
-}
-
-.admin-wrap > a {
-  color: var(--green);
-
-  font-weight: 700;
-
-  text-decoration: none;
-}
-
-.admin-wrap > a:hover {
-  text-decoration: underline;
-}
-
-.admin-head {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  gap: 12px;
-}
-
-
-/* =========================
-   ADMIN CARDS
-========================= */
-
-.card {
-  border: 1px solid var(--border);
-
-  border-radius: 18px;
-
-  overflow: hidden;
-
-  background: rgba(255, 255, 255, 0.97);
-
-  box-shadow:
-    0 5px 18px rgba(0, 0, 0, 0.07);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 8px 22px rgba(0, 0, 0, 0.10);
-}
-
-.card img {
-  width: 100%;
-
-  aspect-ratio: 1 / 1;
-
-  object-fit: cover;
-
-  background: #eee;
-}
-
-.card-body {
-  padding: 12px;
-}
-
-.card h3 {
-  margin: 0 0 6px;
-
-  font-size: 19px;
-
-  color: var(--text);
-}
-
-.price {
-  font-weight: 800;
-
-  color: var(--green);
-}
-
-
-/* =========================
-   ORDERS
-========================= */
-
-.orders {
-  display: grid;
-
-  gap: 12px;
-}
-
-.order {
-  padding: 14px;
-
-  border: 1px solid var(--border);
-
-  border-radius: 14px;
-
-  background: rgba(255, 255, 255, 0.97);
-
-  box-shadow:
-    0 3px 12px rgba(0, 0, 0, 0.05);
+  font-weight:
+    700;
 }
 
 
@@ -597,13 +694,18 @@ button:active {
 ========================= */
 
 footer {
-  text-align: center;
 
-  padding: 30px 18px;
+  text-align:
+    center;
 
-  color: var(--muted);
+  padding:
+    30px 18px;
 
-  font-size: 14px;
+  color:
+    var(--muted);
+
+  font-size:
+    14px;
 }
 
 
@@ -614,21 +716,36 @@ footer {
 @media (max-width: 600px) {
 
   .menu-grid {
-    flex-direction: column;
 
-    gap: 22px;
+    flex-direction:
+      column;
+
+    gap:
+      22px;
   }
+
 
   .customer-menu-section {
-    width: 100%;
+
+    width:
+      100%;
   }
+
 
   .today-menu {
-    max-height: 220px;
+
+    height:
+      220px;
+
+    max-height:
+      220px;
   }
 
+
   .hero {
-    padding-top: 24px;
+
+    padding-top:
+      24px;
   }
 }
 
@@ -640,56 +757,100 @@ footer {
 @media (max-width: 520px) {
 
   .top {
-    padding: 10px 12px;
 
-    gap: 10px;
+    padding:
+      10px 12px;
+
+    gap:
+      10px;
   }
+
 
   .top h1 {
-    font-size: 20px;
+
+    font-size:
+      20px;
   }
+
 
   .top p {
-    font-size: 12px;
+
+    font-size:
+      12px;
   }
+
 
   .logo {
-    width: 64px;
-    height: 64px;
+
+    width:
+      64px;
+
+    height:
+      64px;
   }
+
 
   .admin-link {
-    padding: 6px 8px;
 
-    font-size: 13px;
+    padding:
+      6px 8px;
+
+    font-size:
+      13px;
   }
+
 
   main {
-    padding: 12px;
+
+    padding:
+      12px;
   }
+
 
   .hero h2 {
-    font-size: 24px;
+
+    font-size:
+      24px;
   }
 
+
   .menu-section > h2 {
-    font-size: 21px;
+
+    font-size:
+      21px;
   }
+
+
+  .customer-menu-title {
+
+    font-size:
+      17px;
+  }
+
 
   .menu-heading,
   .today-menu-item {
-    grid-template-columns: 1fr 75px;
 
-    padding: 12px;
+    grid-template-columns:
+      1fr 75px;
+
+    padding:
+      12px;
   }
+
 
   .item-name,
   .item-price {
-    font-size: 16px;
+
+    font-size:
+      16px;
   }
 
+
   .order-card {
-    padding: 16px;
+
+    padding:
+      16px;
   }
 }
 
@@ -701,19 +862,32 @@ footer {
 @media (max-width: 380px) {
 
   .top h1 {
-    font-size: 18px;
+
+    font-size:
+      18px;
   }
+
 
   .top p {
-    font-size: 11px;
+
+    font-size:
+      11px;
   }
+
 
   .logo {
-    width: 58px;
-    height: 58px;
+
+    width:
+      58px;
+
+    height:
+      58px;
   }
 
+
   .admin-link {
-    font-size: 12px;
+
+    font-size:
+      12px;
   }
 }
