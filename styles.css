@@ -738,3 +738,89 @@ footer {
     font-size: 12px;
   }
 }
+/* =========================
+   MONTHLY LUNCH PLAN
+========================= */
+
+.monthly-plan {
+  margin-top: 32px;
+  padding: 22px;
+  text-align: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffaf0,
+      #edf6e9
+    );
+
+  border: 1px solid #dddcca;
+  border-radius: 18px;
+
+  box-shadow:
+    0 6px 20px
+    rgba(23, 107, 44, 0.07);
+}
+
+.monthly-plan h2 {
+  margin: 0 0 8px;
+
+  color: var(--green);
+
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.monthly-location {
+  margin: 0 0 10px;
+
+  color: var(--orange);
+
+  font-weight: 800;
+}
+
+.monthly-text {
+  margin: 0 auto 18px;
+
+  max-width: 600px;
+
+  color: var(--muted);
+
+  line-height: 1.7;
+}
+
+.monthly-plan label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--green-dark);
+
+  font-weight: 700;
+}
+
+.monthly-plan select {
+  width: 100%;
+  max-width: 320px;
+
+  background: white;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   MONTHLY PLAN - MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+  .monthly-plan {
+    padding: 18px 14px;
+  }
+
+  .monthly-plan h2 {
+    font-size: 20px;
+  }
+
+}
