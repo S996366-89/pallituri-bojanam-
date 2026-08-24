@@ -564,49 +564,32 @@ async function loadMonthlyOrders() {
                   }
                 )
               : "";
+return `
+  <div class="order monthly-order-row">
 
+    <span>
+      👤 ${order.name || "పేరు లేదు"}
+    </span>
 
-          return `
-            <div class="order">
+    <span>
+      📞 ${order.phone || ""}
+    </span>
 
-              <b>
-                ${order.name || "పేరు లేదు"}
-              </b>
+    <span>
+      📅 ${date}
+    </span>
 
-              · ${order.phone || ""}
+    <span>
+      ⏰ ${time}
+    </span>
 
-              <br>
+    <span>
+      🍱 ${order.quantity || 0}
+    </span>
 
-              భోజనాలు:
-              <strong>
-                ${order.quantity || 0}
-              </strong>
-
-              <br>
-
-              📍
-              ${order.address || "Address లేదు"}
-
-              <br>
-
-              పథకం:
-              ${order.planDays || 0}
-              రోజులు
-
-              · మొత్తం:
-              ₹${order.totalAmount || 0}
-
-              <br>
-
-              📅 ${date}
-
-              &nbsp;&nbsp;
-
-              ⏰ ${time}
-
-            </div>
-          `;
-
+  </div>
+`;
+  
         })
         .join("");
 
