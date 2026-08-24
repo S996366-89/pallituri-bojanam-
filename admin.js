@@ -1,16 +1,4 @@
 /* =========================
-   LOAD ALL ORDERS
-========================= */
-
-async function loadOrders() {
-
-  await loadMonthlyOrders();
-
-  await loadDailyOrders();
-
-}
-
-/* =========================
    MONTHLY PLAN ORDERS
 ========================= */
 
