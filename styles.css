@@ -824,3 +824,127 @@ footer {
   }
 
 }
+/* =========================
+   MONTHLY VEG PLAN
+========================= */
+
+.monthly-plan {
+  margin-top: 30px;
+  padding: 20px;
+  background: linear-gradient(
+    135deg,
+    #fffaf0,
+    #f3f8ef
+  );
+  border: 1px solid #e2dfd3;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.monthly-plan h2 {
+  margin: 0 0 10px;
+  text-align: center;
+  color: var(--green);
+  font-size: 23px;
+}
+
+.monthly-location {
+  margin: 0 0 8px;
+  text-align: center;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.monthly-text {
+  margin: 0 0 18px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.veg-plan {
+  max-width: 500px;
+  margin: auto;
+  padding: 18px;
+  background: #ffffff;
+  border: 1px solid #dce8d8;
+  border-radius: 16px;
+}
+
+.veg-plan h3 {
+  margin: 0 0 10px;
+  text-align: center;
+  color: var(--green);
+  font-size: 20px;
+}
+
+.plan-price {
+  margin: 0 0 18px;
+  text-align: center;
+  color: var(--orange);
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.plan-price span {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.veg-plan label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.veg-plan select {
+  width: 100%;
+  cursor: pointer;
+}
+
+.plan-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--green-light);
+  border-radius: 12px;
+  color: var(--green-dark);
+}
+
+.plan-total strong {
+  font-size: 22px;
+  color: var(--green);
+}
+
+
+/* =========================
+   MONTHLY PLAN MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+  .monthly-plan {
+    padding: 16px;
+    margin-top: 24px;
+  }
+
+  .monthly-plan h2 {
+    font-size: 20px;
+  }
+
+  .veg-plan {
+    padding: 15px;
+  }
+
+  .plan-price {
+    font-size: 27px;
+  }
+
+  .plan-total strong {
+    font-size: 20px;
+  }
+
+}
