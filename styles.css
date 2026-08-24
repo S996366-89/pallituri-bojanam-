@@ -960,8 +960,9 @@ footer {
 }
 
 #monthlyOrders {
-  height: 200px;
-  overflow-y: scroll;
+  height: 180px !important;
+  max-height: 180px !important;
+  overflow-y: scroll !important;
   overflow-x: auto;
   border: 2px solid #ddd;
   border-radius: 10px;
@@ -974,6 +975,7 @@ footer {
   align-items: center;
   gap: 18px;
   min-height: 60px;
+  box-sizing: border-box;
   padding: 0 15px;
   white-space: nowrap;
   border-bottom: 1px solid #ddd;
