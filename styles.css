@@ -742,26 +742,6 @@ footer {
    MONTHLY LUNCH PLAN
 ========================= */
 
-.monthly-plan {
-  margin-top: 32px;
-  padding: 22px;
-  text-align: center;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fffaf0,
-      #edf6e9
-    );
-
-  border: 1px solid #dddcca;
-  border-radius: 18px;
-
-  box-shadow:
-    0 6px 20px
-    rgba(23, 107, 44, 0.07);
-}
-
 .monthly-plan h2 {
   margin: 0 0 8px;
 
