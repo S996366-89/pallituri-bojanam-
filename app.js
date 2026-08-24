@@ -485,36 +485,6 @@ function updatePlanTotal() {
 
 
 /* =========================
-   PLAN TOTAL EVENTS
-========================= */
-
-if (planDays) {
-
-  planDays.addEventListener(
-    "change",
-    updatePlanTotal
-  );
-
-}
-
-if (monthlyQuantity) {
-
-  monthlyQuantity.addEventListener(
-    "input",
-    updatePlanTotal
-  );
-
-}
-
-
-/* =========================
-   INITIAL TOTAL
-========================= */
-
-updatePlanTotal();
-
-
-/* =========================
    MONTHLY PLAN ORDER
 ========================= */
 
