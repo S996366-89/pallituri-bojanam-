@@ -1,20 +1,47 @@
 :root {
   --green: #176b2c;
+  --green-dark: #0f5120;
+  --green-light: #eaf4e7;
   --light: #f6f4ec;
+  --cream: #fffaf0;
   --orange: #e9952f;
+  --orange-light: #fff1d8;
   --text: #202020;
+  --muted: #6f6f6f;
+  --border: #e2dfd3;
+  --white: #ffffff;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: system-ui, "Noto Sans Telugu", sans-serif;
   color: var(--text);
-  background: #fff;
+
+  /* పల్లెటూరు భోజనం soft natural background */
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255, 241, 216, 0.85),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(225, 241, 222, 0.85),
+      transparent 38%
+    ),
+    #f7f5ec;
+
+  min-height: 100vh;
 }
+
 
 /* =========================
    HEADER
@@ -24,12 +51,19 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 14px;
+  padding: 12px 18px;
+
   position: sticky;
   top: 0;
-  background: #fff;
   z-index: 10;
-  box-shadow: 0 2px 12px #0001;
+
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+
+  border-bottom: 1px solid rgba(23, 107, 44, 0.08);
+
+  box-shadow:
+    0 3px 15px rgba(0, 0, 0, 0.06);
 }
 
 .logo {
@@ -37,25 +71,50 @@ body {
   height: 78px;
   object-fit: contain;
   border-radius: 50%;
+
+  background: var(--white);
+
+  box-shadow:
+    0 3px 12px rgba(23, 107, 44, 0.12);
 }
 
 .top h1 {
   margin: 0;
+
   color: var(--green);
+
   font-size: 25px;
+  font-weight: 800;
+
+  letter-spacing: 0.2px;
 }
 
 .top p {
   margin: 4px 0;
-  color: #666;
+
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .admin-link {
   margin-left: auto;
+
   text-decoration: none;
+
   color: var(--green);
   font-weight: 700;
+
+  padding: 8px 12px;
+  border-radius: 10px;
+
+  transition: 0.2s ease;
 }
+
+.admin-link:hover {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
 
 /* =========================
    MAIN
@@ -67,19 +126,36 @@ main {
   padding: 18px;
 }
 
+
+/* =========================
+   HERO
+========================= */
+
 .hero {
   text-align: center;
-  padding: 24px 10px;
+  padding: 30px 10px 24px;
 }
 
 .hero h2 {
   color: var(--green);
+
   font-size: 28px;
-  margin: 0 0 6px;
+  font-weight: 800;
+
+  margin: 0 0 7px;
+
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.08);
 }
 
+.hero p {
+  color: var(--muted);
+  margin: 0;
+}
+
+
 /* =========================
-   TODAY MENU
+   SECTION HEADINGS
 ========================= */
 
 .menu-section {
@@ -88,15 +164,23 @@ main {
 
 .menu-section > h2 {
   color: var(--green);
+
   margin-bottom: 10px;
+
+  font-size: 23px;
+  font-weight: 800;
 }
 
-/* VEG / NON-VEG రెండు boxes */
+
+/* =========================
+   VEG / NON-VEG
+========================= */
 
 .menu-grid {
   display: flex;
   gap: 18px;
   align-items: flex-start;
+
   margin-top: 25px;
 }
 
@@ -105,53 +189,123 @@ main {
   min-width: 0;
 }
 
-/* Veg / Non-Veg పై title */
+
+/* Veg / Non-Veg title */
 
 .customer-menu-title {
   text-align: center;
+
   margin: 0 0 12px;
+
   color: var(--green);
+
   font-size: 17px;
   font-weight: 800;
 }
 
-/* Menu box */
+
+/* =========================
+   MENU BOX
+========================= */
 
 .today-menu {
   width: 100%;
+
   max-height: 210px;
+
   overflow-y: auto;
   overflow-x: hidden;
-  background: #fff;
-  border: 1px solid #ddd;
+
+  background: rgba(255, 255, 255, 0.97);
+
+  border: 1px solid var(--border);
+
   border-radius: 14px;
+
+  box-shadow:
+    0 5px 18px rgba(23, 107, 44, 0.07);
 }
 
-/* కూర పేరు / ధర heading */
+
+/* scrollbar */
+
+.today-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.today-menu::-webkit-scrollbar-track {
+  background: #f1f1eb;
+  border-radius: 10px;
+}
+
+.today-menu::-webkit-scrollbar-thumb {
+  background: #b7cdb3;
+  border-radius: 10px;
+}
+
+
+/* =========================
+   MENU HEADING
+========================= */
 
 .menu-heading {
   display: grid;
+
   grid-template-columns: 1fr 90px;
+
   align-items: center;
+
   padding: 14px 16px;
-  background: var(--light);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--light),
+      var(--green-light)
+    );
+
   color: var(--green);
+
   font-weight: 800;
-  border-bottom: 2px solid #ddd;
+
+  border-bottom: 2px solid #dfe5d9;
 
   position: sticky;
   top: 0;
+
   z-index: 2;
 }
 
-/* ఒక్కొక్క కూర */
+.menu-heading span:last-child {
+  text-align: right;
+}
+
+
+/* =========================
+   MENU ITEMS
+========================= */
 
 .today-menu-item {
   display: grid;
+
   grid-template-columns: 1fr 90px;
+
   align-items: center;
+
   padding: 14px 16px;
-  border-bottom: 1px solid #eee;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  border-bottom: 1px solid #eeeae0;
+
+  transition:
+    background 0.2s ease,
+    padding-left 0.2s ease;
+}
+
+.today-menu-item:hover {
+  background: #fffaf0;
+  padding-left: 19px;
 }
 
 .today-menu-item:last-child {
@@ -165,15 +319,16 @@ main {
 
 .item-price {
   font-size: 17px;
+
   font-weight: 800;
+
   color: var(--green);
+
   text-align: right;
+
   white-space: nowrap;
 }
 
-.menu-heading span:last-child {
-  text-align: right;
-}
 
 /* =========================
    ORDER FORM
@@ -181,61 +336,145 @@ main {
 
 .order-card {
   margin-top: 28px;
-  padding: 18px;
+
+  padding: 20px;
+
   border-radius: 18px;
-  background: var(--light);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 250, 240, 0.98),
+      rgba(246, 244, 236, 0.98)
+    );
+
   border: 1px solid #e5e1d4;
+
+  box-shadow:
+    0 7px 22px rgba(0, 0, 0, 0.06);
 }
 
 .order-card form,
 .order-card {
   display: flex;
+
   flex-direction: column;
+
   gap: 12px;
 }
+
+
+/* =========================
+   INPUTS
+========================= */
 
 input,
 textarea,
 select,
 button {
   font: inherit;
+
   border-radius: 12px;
+
   padding: 13px;
+
   border: 1px solid #ccc;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input,
+textarea,
+select {
+  background: #fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--green);
+
+  box-shadow:
+    0 0 0 3px rgba(23, 107, 44, 0.10);
 }
 
 textarea {
   min-height: 90px;
+
   resize: vertical;
 }
 
+
+/* =========================
+   BUTTON
+========================= */
+
 button {
   border: 0;
-  background: var(--green);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green),
+      var(--green-dark)
+    );
+
   color: white;
+
   font-weight: 800;
+
   cursor: pointer;
+
+  box-shadow:
+    0 4px 10px rgba(23, 107, 44, 0.18);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
 }
 
 button:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 14px rgba(23, 107, 44, 0.22);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 .secondary {
   background: #555;
+
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.10);
 }
+
+
+/* =========================
+   COMMON
+========================= */
 
 .hidden {
   display: none !important;
 }
 
 .muted {
-  color: #777;
+  color: var(--muted);
 }
 
 .status {
   font-weight: 700;
 }
+
 
 /* =========================
    ADMIN
@@ -243,34 +482,70 @@ button:hover {
 
 .admin-wrap {
   max-width: 900px;
+
   margin: auto;
+
   padding: 18px;
 }
 
 .admin-wrap > a {
   color: var(--green);
+
   font-weight: 700;
+
   text-decoration: none;
+}
+
+.admin-wrap > a:hover {
+  text-decoration: underline;
 }
 
 .admin-head {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
+  gap: 12px;
 }
 
+
+/* =========================
+   ADMIN CARDS
+========================= */
+
 .card {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
+
   border-radius: 18px;
+
   overflow: hidden;
-  background: #fff;
-  box-shadow: 0 4px 14px #0000000d;
+
+  background: rgba(255, 255, 255, 0.97);
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.07);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.10);
 }
 
 .card img {
   width: 100%;
+
   aspect-ratio: 1 / 1;
+
   object-fit: cover;
+
   background: #eee;
 }
 
@@ -280,13 +555,18 @@ button:hover {
 
 .card h3 {
   margin: 0 0 6px;
+
   font-size: 19px;
+
+  color: var(--text);
 }
 
 .price {
   font-weight: 800;
+
   color: var(--green);
 }
+
 
 /* =========================
    ORDERS
@@ -294,15 +574,23 @@ button:hover {
 
 .orders {
   display: grid;
+
   gap: 12px;
 }
 
 .order {
   padding: 14px;
-  border: 1px solid #ddd;
+
+  border: 1px solid var(--border);
+
   border-radius: 14px;
-  background: #fff;
+
+  background: rgba(255, 255, 255, 0.97);
+
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.05);
 }
+
 
 /* =========================
    FOOTER
@@ -310,9 +598,14 @@ button:hover {
 
 footer {
   text-align: center;
-  padding: 28px;
-  color: #777;
+
+  padding: 30px 18px;
+
+  color: var(--muted);
+
+  font-size: 14px;
 }
+
 
 /* =========================
    MOBILE
@@ -322,18 +615,42 @@ footer {
 
   .menu-grid {
     flex-direction: column;
+
+    gap: 22px;
   }
 
   .customer-menu-section {
     width: 100%;
   }
 
+  .today-menu {
+    max-height: 220px;
+  }
+
+  .hero {
+    padding-top: 24px;
+  }
 }
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
 
 @media (max-width: 520px) {
 
+  .top {
+    padding: 10px 12px;
+
+    gap: 10px;
+  }
+
   .top h1 {
     font-size: 20px;
+  }
+
+  .top p {
+    font-size: 12px;
   }
 
   .logo {
@@ -341,13 +658,28 @@ footer {
     height: 64px;
   }
 
+  .admin-link {
+    padding: 6px 8px;
+
+    font-size: 13px;
+  }
+
   main {
     padding: 12px;
+  }
+
+  .hero h2 {
+    font-size: 24px;
+  }
+
+  .menu-section > h2 {
+    font-size: 21px;
   }
 
   .menu-heading,
   .today-menu-item {
     grid-template-columns: 1fr 75px;
+
     padding: 12px;
   }
 
@@ -356,4 +688,32 @@ footer {
     font-size: 16px;
   }
 
+  .order-card {
+    padding: 16px;
+  }
+}
+
+
+/* =========================
+   VERY SMALL MOBILE
+========================= */
+
+@media (max-width: 380px) {
+
+  .top h1 {
+    font-size: 18px;
+  }
+
+  .top p {
+    font-size: 11px;
+  }
+
+  .logo {
+    width: 58px;
+    height: 58px;
+  }
+
+  .admin-link {
+    font-size: 12px;
+  }
 }
