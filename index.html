@@ -12,7 +12,6 @@
 <body>
 
   <header class="top">
-
     <img src="logo.png" alt="పల్లెటూరు భోజనం" class="logo">
 
     <div>
@@ -21,7 +20,6 @@
     </div>
 
     <a class="admin-link" href="admin.html">అడ్మిన్</a>
-
   </header>
 
 
@@ -29,14 +27,12 @@
 
     <!-- Welcome Section -->
     <section class="hero">
-
       <h2>పల్లెటూరు భోజనానికి స్వాగతం</h2>
 
       <p>
         ప్రతిరోజూ ఇంటి రుచితో తయారుచేసిన రుచికరమైన
         మధ్యాహ్న భోజనం మీకు అందిస్తున్నాము.
       </p>
-
     </section>
 
 
@@ -45,33 +41,8 @@
 
       <h2>ఈరోజు భోజనం</h2>
 
-      <div class="menu-grid">
-
-        <div class="menu-card">
-          <div class="food-image">
-            <img src="logo.png" alt="కూర">
-          </div>
-          <h3>కూర</h3>
-          <p>ఇంటి రుచితో తయారు చేసిన కూర</p>
-        </div>
-
-        <div class="menu-card">
-          <div class="food-image">
-            <img src="logo.png" alt="పప్పు">
-          </div>
-          <h3>పప్పు</h3>
-          <p>సంప్రదాయ పల్లెటూరు రుచితో</p>
-        </div>
-
-        <div class="menu-card">
-          <div class="food-image">
-            <img src="logo.png" alt="అన్నం">
-          </div>
-          <h3>అన్నం</h3>
-          <p>వేడివేడిగా వడ్డించే అన్నం</p>
-        </div>
-
-      </div>
+      <!-- Firebase menu items ఇక్కడ కనిపిస్తాయి -->
+      <div class="menu-grid" id="menuGrid"></div>
 
     </section>
 
@@ -97,7 +68,7 @@
           type="tel"
           inputmode="tel"
           required
-          placeholder="మీ  ఫోన్ నంబర్"
+          placeholder="మీ ఫోన్ నంబర్"
         >
 
         <label for="address">చిరునామా</label>
