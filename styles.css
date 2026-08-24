@@ -937,3 +937,58 @@ footer {
   }
 
 }
+/* =========================
+   FINAL SPACING FIX
+========================= */
+
+.order-card label {
+  display: block;
+  width: 100%;
+  margin: 6px 0 4px;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
+.order-card input,
+.order-card textarea {
+  display: block;
+  width: 100%;
+  margin: 0 0 6px;
+}
+
+
+/* MENU COLUMN SPACING */
+
+.menu-heading,
+.today-menu-item {
+  column-gap: 18px;
+}
+
+.menu-heading span:first-child,
+.today-menu-item .item-name {
+  min-width: 0;
+  padding-right: 10px;
+}
+
+.menu-heading span:last-child,
+.today-menu-item .item-price {
+  width: 90px;
+  text-align: right;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 520px) {
+
+  .menu-heading,
+  .today-menu-item {
+    column-gap: 10px;
+  }
+
+  .menu-heading span:last-child,
+  .today-menu-item .item-price {
+    width: 75px;
+  }
+
+}
