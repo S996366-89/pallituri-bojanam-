@@ -1,94 +1,4 @@
 /* =========================
-   LOAD DAILY ORDERS
-========================= */
-
-async function loadOrders() {
-
-  const el =
-    document.querySelector("#orders");
-
-  try {
-
-    const snap =
-      await getDocs(
-        query(
-          collection(db, "orders"),
-          orderBy(
-            "createdAt",
-            "desc"
-          )
-        )
-      );
-
-    if (snap.empty) {
-
-      el.innerHTML =
-        "రోజువారీ ఆర్డర్లు ఇంకా లేవు.";
-
-      return;
-    }
-
-
-    el.innerHTML =
-      snap.docs
-        .map((orderDoc) => {
-
-          const order =
-            orderDoc.data();
-
-          const dateTime =
-            formatDateTime(
-              order.createdAt
-            );
-
-          return `
-            <div class="order">
-
-              <b>
-                ${order.name || "పేరు లేదు"}
-              </b>
-
-              · ${order.phone || ""}
-
-              <br>
-
-              భోజనాలు:
-              <strong>
-                ${order.quantity || 0}
-              </strong>
-
-              <br>
-
-              చిరునామా:
-              ${order.address || "Address లేదు"}
-
-              <br>
-
-              <small>
-                📅 ${dateTime.date}
-                &nbsp;&nbsp;
-                ⏰ ${dateTime.time}
-              </small>
-
-            </div>
-          `;
-
-        })
-        .join("");
-
-  } catch (error) {
-
-    console.error(
-      "Daily orders load error:",
-      error
-    );
-
-    el.innerHTML =
-      "రోజువారీ Orders load కాలేదు.";
-  }
-}
-
-/* =========================
    LOAD ALL ORDERS
 ========================= */
 
@@ -99,7 +9,6 @@ async function loadOrders() {
   await loadDailyOrders();
 
 }
-
 
 /* =========================
    MONTHLY PLAN ORDERS
