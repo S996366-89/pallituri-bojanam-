@@ -78,7 +78,6 @@
       ></div>
 
     </section>
-
 <!-- =========================
      MONTHLY VEG PLAN
 ========================= -->
@@ -108,14 +107,68 @@
     </label>
 
     <select id="planDays">
-
       <option value="26">26 రోజులు</option>
       <option value="27">27 రోజులు</option>
       <option value="28">28 రోజులు</option>
       <option value="29">29 రోజులు</option>
       <option value="30">30 రోజులు</option>
-
     </select>
+
+
+    <!-- =========================
+         MONTHLY CUSTOMER DETAILS
+    ========================= -->
+
+    <h3>👤 మీ వివరాలు</h3>
+
+    <label for="monthlyName">
+      పేరు
+    </label>
+
+    <input
+      type="text"
+      id="monthlyName"
+      placeholder="మీ పేరు"
+    >
+
+
+    <label for="monthlyPhone">
+      ఫోన్ నంబర్
+    </label>
+
+    <input
+      type="tel"
+      id="monthlyPhone"
+      placeholder="మీ ఫోన్ నంబర్"
+    >
+
+
+    <label for="monthlyAddress">
+      చిరునామా
+    </label>
+
+    <textarea
+      id="monthlyAddress"
+      placeholder="మీ పూర్తి చిరునామా"
+      rows="3"
+    ></textarea>
+
+
+    <label for="monthlyQuantity">
+      రోజుకు ఎన్ని భోజనాలు?
+    </label>
+
+    <input
+      type="number"
+      id="monthlyQuantity"
+      min="1"
+      value="1"
+    >
+
+
+    <!-- =========================
+         TOTAL
+    ========================= -->
 
     <div class="plan-total">
 
@@ -126,20 +179,25 @@
       </strong>
 
     </div>
-<button
-  type="button"
-  id="monthlyPlanBtn"
->
-  నెలవారీ పథకం తీసుకోండి
-</button>
 
-<p
-  id="monthlyPlanStatus"
-  class="status"
-></p>
+
+    <button
+      type="button"
+      id="monthlyPlanBtn"
+    >
+      నెలవారీ పథకం తీసుకోండి
+    </button>
+
+
+    <p
+      id="monthlyPlanStatus"
+      class="status"
+    ></p>
+
   </div>
 
 </section>
+
     <!-- =========================
          ORDER
     ========================= -->
