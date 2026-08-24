@@ -891,3 +891,49 @@ footer {
       12px;
   }
 }
+/* =========================
+   FORM LABELS
+========================= */
+
+.order-card label {
+  display: block;
+  margin-top: 4px;
+  margin-bottom: 5px;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
+
+/* =========================
+   MENU SPACING
+========================= */
+
+.menu-heading {
+  column-gap: 15px;
+}
+
+.today-menu-item {
+  column-gap: 15px;
+}
+
+.item-name {
+  padding-right: 8px;
+}
+
+
+/* =========================
+   MOBILE MENU SPACING
+========================= */
+
+@media (max-width: 520px) {
+
+  .menu-heading,
+  .today-menu-item {
+    column-gap: 10px;
+  }
+
+  .item-name {
+    padding-right: 5px;
+  }
+
+}
