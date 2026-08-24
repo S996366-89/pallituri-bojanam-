@@ -686,39 +686,31 @@ async function loadDailyOrders() {
                 )
               : "";
 
+         return `
+  <div class="order daily-order-row">
 
-          return `
-            <div class="order">
+    <span>
+      👤 ${order.name || "పేరు లేదు"}
+    </span>
 
-              <b>
-                ${order.name || "పేరు లేదు"}
-              </b>
+    <span>
+      📞 ${order.phone || ""}
+    </span>
 
-              · ${order.phone || ""}
+    <span>
+      📅 ${date}
+    </span>
 
-              <br>
+    <span>
+      ⏰ ${time}
+    </span>
 
-              📅 ${date}
+    <span>
+      🍱 ${order.quantity || 0}
+    </span>
 
-              &nbsp;&nbsp;
-
-              ⏰ ${time}
-
-              <br>
-
-              భోజనాలు:
-              <strong>
-                ${order.quantity || 0}
-              </strong>
-
-              <br>
-
-              📍
-              ${order.address || "Address లేదు"}
-
-            </div>
-          `;
-
+  </div>
+`;
         })
         .join("");
 
