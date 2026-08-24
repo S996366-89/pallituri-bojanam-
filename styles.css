@@ -65,3 +65,17 @@ footer{text-align:center;padding:28px;color:#777}
   color: var(--green);
   white-space: nowrap;
 }
+/* Veg / Non-Veg menu scroll */
+.today-menu {
+  max-height: 210px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* Heading పైకి స్థిరంగా ఉంటుంది */
+.menu-heading {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 2;
+}
