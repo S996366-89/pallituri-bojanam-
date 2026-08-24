@@ -88,15 +88,28 @@ async function loadOrders() {
   }
 }
 
+/* =========================
+   LOAD ALL ORDERS
+========================= */
+
+async function loadOrders() {
+
+  await loadMonthlyOrders();
+
+  await loadDailyOrders();
+
+}
+
 
 /* =========================
-   LOAD MONTHLY PLAN ORDERS
+   MONTHLY PLAN ORDERS
 ========================= */
 
 async function loadMonthlyOrders() {
-
   const el =
     document.querySelector("#monthlyOrders");
+
+  if (!el) return;
 
   try {
 
@@ -104,145 +117,160 @@ async function loadMonthlyOrders() {
       await getDocs(
         query(
           collection(db, "monthlyOrders"),
-          orderBy(
-            "createdAt",
-            "desc"
-          )
+          orderBy("createdAt", "desc")
         )
       );
 
     if (snap.empty) {
 
       el.innerHTML =
-        "నెలవారీ పథకం ఆర్డర్లు ఇంకా లేవు.";
+        `<p class="muted">నెలవారీ పథకం ఆర్డర్లు ఇంకా లేవు.</p>`;
 
       return;
     }
 
-
     el.innerHTML =
-      snap.docs
-        .map((orderDoc) => {
+      snap.docs.map((orderDoc) => {
 
-          const order =
-            orderDoc.data();
+        const order = orderDoc.data();
 
-          const dateTime =
-            formatDateTime(
-              order.createdAt
-            );
+        return `
+          <div class="order">
 
-          return `
-            <div class="order">
+            <b>${order.name || "పేరు లేదు"}</b>
 
-              <b>
-                ${order.name || "పేరు లేదు"}
-              </b>
+            · ${order.phone || ""}
 
-              · ${order.phone || ""}
+            <br>
 
-              <br>
+            భోజనాలు:
+            ${order.quantity || 0}
 
-              భోజనాలు:
-              <strong>
-                ${order.quantity || 1}
-              </strong>
+            <br>
 
-              <br>
+            ${order.address || "Address లేదు"}
 
-              పథకం:
-              <strong>
-                ${order.planType || "Veg"}
-              </strong>
+            <br>
 
-              <br>
+            పథకం:
+            ${order.planDays || 0} రోజులు
 
-              రోజులు:
-              <strong>
-                ${order.planDays || 0}
-              </strong>
+            · మొత్తం:
+            ₹${order.totalAmount || 0}
 
-              <br>
+          </div>
+        `;
 
-              చిరునామా:
-              ${order.address || "Address లేదు"}
-
-              <br>
-
-              <small>
-                📅 ${dateTime.date}
-                &nbsp;&nbsp;
-                ⏰ ${dateTime.time}
-              </small>
-
-            </div>
-          `;
-
-        })
-        .join("");
+      }).join("");
 
   } catch (error) {
 
     console.error(
-      "Monthly orders load error:",
+      "Monthly orders error:",
       error
     );
 
     el.innerHTML =
-      "నెలవారీ Orders load కాలేదు.";
+      "నెలవారీ ఆర్డర్లు load కాలేదు.";
+
   }
+
 }
 
 
 /* =========================
-   DATE + TIME
+   DAILY FOOD ORDERS
 ========================= */
 
-function formatDateTime(value) {
+async function loadDailyOrders() {
 
-  if (!value) {
+  const el =
+    document.querySelector("#orders");
 
-    return {
-      date: "-",
-      time: "-"
-    };
+  if (!el) return;
+
+  try {
+
+    const snap =
+      await getDocs(
+        query(
+          collection(db, "orders"),
+          orderBy("createdAt", "desc")
+        )
+      );
+
+    if (snap.empty) {
+
+      el.innerHTML =
+        `<p class="muted">రోజువారీ ఆర్డర్లు ఇంకా లేవు.</p>`;
+
+      return;
+    }
+
+    el.innerHTML =
+      snap.docs.map((orderDoc) => {
+
+        const order =
+          orderDoc.data();
+
+        const dateTime =
+          order.createdAt
+            ? new Date(order.createdAt)
+            : null;
+
+        const date =
+          dateTime
+            ? dateTime.toLocaleDateString("en-IN")
+            : "";
+
+        const time =
+          dateTime
+            ? dateTime.toLocaleTimeString(
+                "en-IN",
+                {
+                  hour: "2-digit",
+                  minute: "2-digit"
+                }
+              )
+            : "";
+
+        return `
+          <div class="order">
+
+            <b>${order.name || "పేరు లేదు"}</b>
+
+            · ${order.phone || ""}
+
+            <br>
+
+            📅 ${date}
+
+            · ⏰ ${time}
+
+            <br>
+
+            భోజనాలు:
+            ${order.quantity || 0}
+
+            <br>
+
+            📍 ${order.address || "Address లేదు"}
+
+          </div>
+        `;
+
+      }).join("");
+
+  } catch (error) {
+
+    console.error(
+      "Daily orders error:",
+      error
+    );
+
+    el.innerHTML =
+      "రోజువారీ ఆర్డర్లు load కాలేదు.";
 
   }
-
-
-  const date =
-    new Date(value);
-
-  if (
-    Number.isNaN(
-      date.getTime()
-    )
-  ) {
-
-    return {
-      date: "-",
-      time: "-"
-    };
-
-  }
-
-
-  return {
-
-    date:
-      date.toLocaleDateString(
-        "en-IN"
-      ),
-
-    time:
-      date.toLocaleTimeString(
-        "en-IN",
-        {
-          hour: "2-digit",
-          minute: "2-digit"
-        }
-      )
-
-  };
 
 }
