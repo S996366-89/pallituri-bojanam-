@@ -99,19 +99,56 @@
       <h2>ప్రస్తుత మెనూ</h2>
 
       <div id="adminMenu" class="menu-grid"></div>
+          <!-- =========================
+           MONTHLY PLAN ORDERS
+      ========================= -->
+
+      <section class="admin-orders-section">
+
+        <h2>🍱 నెలవారీ పథకం ఆర్డర్లు</h2>
+
+        <p class="admin-note">
+          నెలవారీ పథకం తీసుకున్న కస్టమర్ల వివరాలు
+          ఇక్కడ ఒకసారి మాత్రమే కనిపిస్తాయి.
+        </p>
+
+        <div
+          id="monthlyOrders"
+          class="orders"
+        ></div>
+
+      </section>
 
 
-      <!-- ORDERS -->
-      <h2>ఆర్డర్లు</h2>
+      <!-- =========================
+           DAILY FOOD ORDERS
+      ========================= -->
 
-      <div id="orders" class="orders"></div>
+      <section class="admin-orders-section">
+
+        <h2>🍛 రోజువారీ భోజన ఆర్డర్లు</h2>
+
+        <p class="admin-note">
+          ప్రతిరోజూ వచ్చిన భోజన ఆర్డర్లు
+          తేదీ మరియు సమయంతో ఇక్కడ కనిపిస్తాయి.
+        </p>
+
+        <div
+          id="orders"
+          class="orders"
+        ></div>
+
+      </section>
 
     </section>
 
   </main>
 
 
-  <script type="module" src="admin.js"></script>
+  <script
+    type="module"
+    src="admin.js"
+  ></script>
 
 </body>
 </html>
