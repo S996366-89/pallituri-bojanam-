@@ -435,10 +435,21 @@ const monthlyPlanStatus =
 
 
 const VEG_PRICE_PER_DAY = 69;
+const monthlyName =
+  document.querySelector("#monthlyName");
+
+const monthlyPhone =
+  document.querySelector("#monthlyPhone");
+
+const monthlyAddress =
+  document.querySelector("#monthlyAddress");
+
+const monthlyQuantity =
+  document.querySelector("#monthlyQuantity");
 
 
 /* =========================
-   UPDATE PLAN TOTAL
+   UPDATE MONTHLY TOTAL
 ========================= */
 
 function updatePlanTotal() {
@@ -446,24 +457,47 @@ function updatePlanTotal() {
   const days =
     Number(planDays.value);
 
+  const quantity =
+    Number(monthlyQuantity.value);
+
   const total =
-    days * VEG_PRICE_PER_DAY;
+    days *
+    VEG_PRICE_PER_DAY *
+    quantity;
 
   planTotal.textContent =
     `₹${total.toLocaleString("en-IN")}`;
 }
 
 
-if (planDays && planTotal) {
+/* =========================
+   PLAN TOTAL EVENTS
+========================= */
+
+if (planDays) {
 
   planDays.addEventListener(
     "change",
     updatePlanTotal
   );
 
-  updatePlanTotal();
+}
+
+if (monthlyQuantity) {
+
+  monthlyQuantity.addEventListener(
+    "input",
+    updatePlanTotal
+  );
 
 }
+
+
+/* =========================
+   INITIAL TOTAL
+========================= */
+
+updatePlanTotal();
 
 
 /* =========================
@@ -477,42 +511,24 @@ if (monthlyPlanBtn) {
     async () => {
 
       const name =
-        document
-          .querySelector("#name")
-          .value
-          .trim();
-
+        monthlyName.value.trim();
 
       const phone =
-        document
-          .querySelector("#phone")
-          .value
-          .trim();
-
+        monthlyPhone.value.trim();
 
       const address =
-        document
-          .querySelector("#address")
-          .value
-          .trim();
-
+        monthlyAddress.value.trim();
 
       const quantity =
-        Number(
-          document
-            .querySelector("#quantity")
-            .value
-        );
-
+        Number(monthlyQuantity.value);
 
       const days =
-        Number(
-          planDays.value
-        );
-
+        Number(planDays.value);
 
       const total =
-        days * VEG_PRICE_PER_DAY;
+        days *
+        VEG_PRICE_PER_DAY *
+        quantity;
 
 
       /* =========================
@@ -523,7 +539,8 @@ if (monthlyPlanBtn) {
         !name ||
         !phone ||
         !address ||
-        quantity < 1
+        quantity < 1 ||
+        days < 1
       ) {
 
         monthlyPlanStatus.textContent =
@@ -581,13 +598,27 @@ if (monthlyPlanBtn) {
           "✅ నెలవారీ పథకం విజయవంతంగా నమోదు అయింది. ధన్యవాదాలు!";
 
 
+        /* clear ONLY monthly fields */
+
+        monthlyName.value = "";
+
+        monthlyPhone.value = "";
+
+        monthlyAddress.value = "";
+
+        monthlyQuantity.value = 1;
+
+        planDays.value = 26;
+
+        updatePlanTotal();
+
+
       } catch (error) {
 
         console.error(
           "MONTHLY PLAN ERROR:",
           error
         );
-
 
         monthlyPlanStatus.textContent =
           "❌ నెలవారీ పథకం నమోదు కాలేదు: " +
