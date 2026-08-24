@@ -6,65 +6,127 @@
   <title>అడ్మిన్ · పల్లెటూరు భోజనం</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
   <main class="admin-wrap">
+
     <a href="index.html">← కస్టమర్ పేజీ</a>
+
     <h1>అడ్మిన్ ప్యానెల్</h1>
 
+
+    <!-- LOGIN -->
     <section id="loginBox" class="order-card">
+
       <h2>అడ్మిన్ లాగిన్</h2>
+
       <input
-  id="email"
-  type="email"
-  autocomplete="username"
-  placeholder="Admin email"
->
-<input
-  id="password"
-  type="password"
-  autocomplete="current-password"
-  placeholder="Password"
->
+        id="email"
+        type="email"
+        autocomplete="username"
+        placeholder="Admin email"
+      >
+
+      <input
+        id="password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Password"
+      >
+
       <button id="loginBtn">లాగిన్</button>
+
       <p id="loginStatus" class="status"></p>
+
     </section>
 
+
+    <!-- ADMIN PANEL -->
     <section id="panel" class="hidden">
+
       <div class="admin-head">
         <h2>మెనూ మార్చండి</h2>
-        <button id="logoutBtn" class="secondary">లాగౌట్</button>
+        <button id="logoutBtn" class="secondary">
+          లాగౌట్
+        </button>
       </div>
+
+
+      <!-- ADD MENU -->
       <form id="menuForm" class="order-card">
 
-  <input
-    id="itemName"
-    required
-    placeholder="కూర పేరు"
-  >
+        <input
+          id="itemName"
+          required
+          placeholder="కూర పేరు"
+        >
 
-  <input
-    id="itemPrice"
-    type="number"
-    min="0"
-    required
-    placeholder="ధర"
-  >
+        <input
+          id="itemPrice"
+          type="number"
+          min="0"
+          required
+          placeholder="ధర"
+        >
 
-  <select id="itemCategory" required>
-    <option value="">వర్గం ఎంచుకోండి</option>
-    <option value="veg">🥬 Veg</option>
-    <option value="nonveg">🍗 Non-Veg</option>
-  </select>
+        <select id="itemCategory" required>
+          <option value="">వర్గం ఎంచుకోండి</option>
+          <option value="veg">🥬 Veg</option>
+          <option value="nonveg">🍗 Non-Veg</option>
+        </select>
 
-  <button type="submit">మెనూలో చేర్చండి</button>
+        <button type="submit">
+          మెనూలో చేర్చండి
+        </button>
 
-</form>
+      </form>
+
+
+      <!-- TODAY PHOTOS -->
+      <section class="order-card photo-upload-section">
+
+        <h2>ఈరోజు వంటల ఫోటోలు</h2>
+
+        <p class="muted">
+          గరిష్టంగా 4 ఫోటోలు మాత్రమే upload చేయండి.
+          ఇవి customer page లో ప్రతి 2 seconds కి మారుతూ కనిపిస్తాయి.
+        </p>
+
+        <input
+          id="foodPhotos"
+          type="file"
+          accept="image/*"
+          multiple
+        >
+
+        <button id="uploadPhotosBtn" type="button">
+          ఫోటోలు Upload చేయండి
+        </button>
+
+        <p id="photoStatus" class="status"></p>
+
+        <div id="adminPhotos" class="admin-photos"></div>
+
+      </section>
+
+
+      <!-- MENU LIST -->
+      <h2>ప్రస్తుత మెనూ</h2>
+
       <div id="adminMenu" class="menu-grid"></div>
 
+
+      <!-- ORDERS -->
       <h2>ఆర్డర్లు</h2>
+
       <div id="orders" class="orders"></div>
+
     </section>
+
   </main>
+
   <script type="module" src="admin.js"></script>
+
 </body>
 </html>
