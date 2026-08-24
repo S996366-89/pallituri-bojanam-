@@ -1005,3 +1005,17 @@ footer {
 #orders .order:last-child {
   border-bottom: none;
 }
+.daily-order-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 60px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  white-space: nowrap;
+  border-bottom: 1px solid #ddd;
+}
+
+.daily-order-row:last-child {
+  border-bottom: none;
+}
