@@ -959,6 +959,16 @@ footer {
   margin-top: 15px;
 }
 
+#monthlyOrders {
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: auto;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 0;
+  margin-top: 15px;
+}
+
 .monthly-order-row {
   display: flex;
   align-items: center;
