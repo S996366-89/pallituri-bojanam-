@@ -1,4 +1,3 @@
-```javascript
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
@@ -12,27 +11,12 @@ import {
 
 import { firebaseConfig } from "./firebase-config.js";
 
-
-/* =========================
-   FIREBASE
-========================= */
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-
-/* =========================
-   ELEMENTS
-========================= */
 
 const menuEl = document.querySelector("#menuGrid");
 const orderForm = document.querySelector("#orderForm");
 const orderStatus = document.querySelector("#orderStatus");
-
-
-/* =========================
-   HTML SAFETY
-========================= */
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => {
@@ -46,15 +30,8 @@ function escapeHtml(value) {
   });
 }
 
-
-/* =========================
-   LOAD MENU
-========================= */
-
 async function loadMenu() {
-
   try {
-
     const snap = await getDocs(
       query(
         collection(db, "menu"),
@@ -62,34 +39,17 @@ async function loadMenu() {
       )
     );
 
-
-    /* =========================
-       NO MENU
-    ========================= */
-
     if (snap.empty) {
-
       menuEl.innerHTML = `
-        <h2>ఈరోజు భోజనం</h2>
-
-        <p class="muted">
-          ఇవాళ మెనూ ఇంకా పెట్టలేదు.
-        </p>
+        <p class="muted">ఇవాళ మెనూ ఇంకా పెట్టలేదు.</p>
       `;
-
       return;
     }
-
-
-    /* =========================
-       SEPARATE VEG / NON-VEG
-    ========================= */
 
     const vegItems = [];
     const nonVegItems = [];
 
     snap.docs.forEach((docSnap) => {
-
       const item = docSnap.data();
 
       if (item.category === "nonveg") {
@@ -97,59 +57,23 @@ async function loadMenu() {
       } else {
         vegItems.push(item);
       }
-
     });
 
-
-    /* =========================
-       MENU HTML
-    ========================= */
-
     menuEl.innerHTML = `
-
-      <h2>ఈరోజు భోజనం</h2>
-
-
-      <!-- CATEGORY DROPDOWN -->
-
       <div class="menu-filter">
-
-        <label for="menuCategory">
-          మెనూ ఎంచుకోండి
-        </label>
+        <label for="menuCategory">మెనూ ఎంచుకోండి</label>
 
         <select id="menuCategory">
-
-          <option value="all">
-            అన్ని రకాల భోజనం
-          </option>
-
-          <option value="veg">
-            🥬 Veg
-          </option>
-
-          <option value="nonveg">
-            🍗 Non-Veg
-          </option>
-
+          <option value="all">అన్ని రకాల భోజనం</option>
+          <option value="veg">🥬 Veg</option>
+          <option value="nonveg">🍗 Non-Veg</option>
         </select>
-
       </div>
 
-
-      <!-- VEG MENU -->
-
-      <section
-        class="customer-menu-section"
-        data-category="veg"
-      >
-
-        <h3 class="customer-menu-title">
-          🥬 Veg
-        </h3>
+      <section class="customer-menu-section" data-category="veg">
+        <h3 class="customer-menu-title">🥬 Veg</h3>
 
         <div class="today-menu">
-
           <div class="menu-heading">
             <span>కూర పేరు</span>
             <span>ధర</span>
@@ -159,42 +83,23 @@ async function loadMenu() {
             vegItems.length
               ? vegItems.map((item) => `
                 <div class="today-menu-item">
-
                   <span class="item-name">
                     ${escapeHtml(item.name || "కూర")}
                   </span>
-
                   <span class="item-price">
                     ₹${Number(item.price || 0)}
                   </span>
-
                 </div>
               `).join("")
-              : `
-                <p class="muted menu-empty">
-                  Veg మెనూ ఇంకా లేదు.
-                </p>
-              `
+              : `<p class="muted menu-empty">Veg మెనూ ఇంకా లేదు.</p>`
           }
-
         </div>
-
       </section>
 
-
-      <!-- NON VEG MENU -->
-
-      <section
-        class="customer-menu-section"
-        data-category="nonveg"
-      >
-
-        <h3 class="customer-menu-title">
-          🍗 Non-Veg
-        </h3>
+      <section class="customer-menu-section" data-category="nonveg">
+        <h3 class="customer-menu-title">🍗 Non-Veg</h3>
 
         <div class="today-menu">
-
           <div class="menu-heading">
             <span>కూర పేరు</span>
             <span>ధర</span>
@@ -204,246 +109,90 @@ async function loadMenu() {
             nonVegItems.length
               ? nonVegItems.map((item) => `
                 <div class="today-menu-item">
-
                   <span class="item-name">
                     ${escapeHtml(item.name || "కూర")}
                   </span>
-
                   <span class="item-price">
                     ₹${Number(item.price || 0)}
                   </span>
-
                 </div>
               `).join("")
-              : `
-                <p class="muted menu-empty">
-                  Non-Veg మెనూ ఇంకా లేదు.
-                </p>
-              `
+              : `<p class="muted menu-empty">Non-Veg మెనూ ఇంకా లేదు.</p>`
           }
-
         </div>
-
       </section>
-
     `;
 
+    const categorySelect = document.querySelector("#menuCategory");
+    const sections = document.querySelectorAll(".customer-menu-section");
 
-    /* =========================
-       DROPDOWN FILTER
-    ========================= */
+    categorySelect.addEventListener("change", () => {
+      const selected = categorySelect.value;
 
-    const categorySelect =
-      document.querySelector("#menuCategory");
-
-    const sections =
-      document.querySelectorAll(
-        ".customer-menu-section"
-      );
-
-
-    categorySelect.addEventListener(
-      "change",
-      () => {
-
-        const selected =
-          categorySelect.value;
-
-
-        sections.forEach((section) => {
-
-          const category =
-            section.dataset.category;
-
-
-          if (
-            selected === "all" ||
-            selected === category
-          ) {
-
-            section.style.display = "block";
-
-          } else {
-
-            section.style.display = "none";
-
-          }
-
-        });
-
-      }
-    );
+      sections.forEach((section) => {
+        if (
+          selected === "all" ||
+          selected === section.dataset.category
+        ) {
+          section.style.display = "block";
+        } else {
+          section.style.display = "none";
+        }
+      });
+    });
 
   } catch (error) {
-
-    console.error(
-      "MENU ERROR:",
-      error
-    );
+    console.error("MENU ERROR:", error);
 
     menuEl.innerHTML = `
-
-      <h2>ఈరోజు భోజనం</h2>
-
-      <p class="muted">
-        మెనూ లోడ్ కాలేదు.
-      </p>
-
+      <p class="muted">మెనూ లోడ్ కాలేదు.</p>
     `;
-
   }
-
 }
 
+orderForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-/* =========================
-   ORDER
-========================= */
+  orderStatus.textContent = "ఆర్డర్ పంపుతోంది...";
 
-orderForm.addEventListener(
-  "submit",
-  async (event) => {
+  const name = document.querySelector("#name").value.trim();
+  const phone = document.querySelector("#phone").value.trim();
+  const address = document.querySelector("#address").value.trim();
+  const quantity = Number(
+    document.querySelector("#quantity").value
+  );
 
-    event.preventDefault();
+  if (!name || !phone || !address || quantity < 1) {
+    orderStatus.textContent =
+      "దయచేసి అన్ని వివరాలు సరిగ్గా ఇవ్వండి.";
+    return;
+  }
 
+  try {
+    await addDoc(collection(db, "orders"), {
+      name: name,
+      phone: phone,
+      address: address,
+      quantity: quantity,
+      status: "new",
+      createdAt: new Date().toISOString()
+    });
 
     orderStatus.textContent =
-      "ఆర్డర్ పంపుతోంది...";
+      "✅ ఆర్డర్ విజయవంతంగా పంపబడింది. ధన్యవాదాలు!";
 
+    orderForm.reset();
+    document.querySelector("#quantity").value = 1;
 
-    const name =
-      document.querySelector("#name")
-        .value
-        .trim();
+  } catch (error) {
+    console.error("ORDER ERROR:", error);
 
-
-    const phone =
-      document.querySelector("#phone")
-        .value
-        .trim();
-
-
-    const address =
-      document.querySelector("#address")
-        .value
-        .trim();
-
-
-    const quantity =
-      Number(
-        document.querySelector("#quantity")
-          .value
-      );
-
-
-    /* =========================
-       VALIDATION
-    ========================= */
-
-    if (
-      !name ||
-      !phone ||
-      !address ||
-      quantity < 1
-    ) {
-
-      orderStatus.textContent =
-        "దయచేసి అన్ని వివరాలు సరిగ్గా ఇవ్వండి.";
-
-      return;
-    }
-
-
-    /* =========================
-       SAVE ORDER
-    ========================= */
-
-    try {
-
-      console.log(
-        "ORDER START"
-      );
-
-
-      const orderData = {
-
-        name: name,
-
-        phone: phone,
-
-        address: address,
-
-        quantity: quantity,
-
-        status: "new",
-
-        createdAt:
-          new Date().toISOString()
-
-      };
-
-
-      console.log(
-        "ORDER DATA:",
-        orderData
-      );
-
-
-      const orderRef =
-        await addDoc(
-          collection(
-            db,
-            "orders"
-          ),
-          orderData
-        );
-
-
-      console.log(
-        "ORDER SAVED:",
-        orderRef.id
-      );
-
-
-      orderStatus.textContent =
-        "✅ ఆర్డర్ విజయవంతంగా పంపబడింది. ధన్యవాదాలు!";
-
-
-      orderForm.reset();
-
-
-      document.querySelector(
-        "#quantity"
-      ).value = 1;
-
-
-    } catch (error) {
-
-      console.error(
-        "ORDER ERROR:",
-        error
-      );
-
-
-      orderStatus.textContent =
-        `❌ ఆర్డర్ పంపలేకపోయాం: ${
-          error.code || error.message
-        }`;
-
-    }
-
+    orderStatus.textContent =
+      "❌ ఆర్డర్ పంపలేకపోయాం: " +
+      (error.code || error.message);
   }
-);
-
-
-/* =========================
-   START WEBSITE
-========================= */
+});
 
 loadMenu();
 
-
-console.log(
-  "పల్లెటూరు భోజనం website started successfully."
-);
-```
+console.log("పల్లెటూరు భోజనం website started successfully.");
