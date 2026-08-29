@@ -336,6 +336,9 @@ const orderForm = document.querySelector("#orderForm");
 
 const orderStatus = document.querySelector("#orderStatus");
 
+const monthlyCustomerCurry =
+  document.querySelector("#monthlyCustomerCurry");
+
 
 /* =========================
    SECURITY
