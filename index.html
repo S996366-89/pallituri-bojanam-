@@ -93,129 +93,94 @@
   <p class="monthly-text">
     మీకు కావాల్సిన భోజన పథకాన్ని ఎంచుకోండి.
   </p>
+<!-- =========================
+     PLAN OPTIONS
+========================= -->
 
+<div class="plan-options">
 
-  <!-- =========================
-       PLAN OPTIONS
-  ========================= -->
+  <!-- =====================
+       ₹49 PLAN
+  ====================== -->
 
-  <div class="plan-options">
+  <div class="plan-card" id="plan49Card">
 
-    <!-- ₹49 PLAN -->
+    <div class="plan-row">
 
-    <div
-      class="plan-card"
-      id="plan49Card"
-      data-plan="49"
-    >
-
-      <div class="plan-card-top">
-        <span class="plan-badge">సాధారణ పథకం</span>
-
-        <h3>🍱 ₹49 పథకం</h3>
-
-        <p class="plan-price">
-          ₹49 <span>/ రోజు</span>
-        </p>
+      <div class="price-circle green-circle">
+        <span>₹49</span>
+        <small>/day</small>
       </div>
 
-      <button
-        type="button"
-        class="plan-select-btn"
-        id="select49Btn"
-      >
-        ₹49 పథకం ఎంచుకోండి
-      </button>
+      <strong class="plan-name">
+        పథకం
+      </strong>
 
     </div>
 
 
-    <!-- ₹69 PLAN -->
+    <details class="plan-dropdown">
 
-    <div
-      class="plan-card"
-      id="plan69Card"
-      data-plan="69"
-    >
-
-      <div class="plan-card-top">
-        <span class="plan-badge">ప్రత్యేక పథకం</span>
-
-        <h3>🍱 ₹69 పథకం</h3>
-
-        <p class="plan-price">
-          ₹69 <span>/ రోజు</span>
-        </p>
-      </div>
-
-      <button
-        type="button"
-        class="plan-select-btn"
-        id="select69Btn"
-      >
-        ₹69 పథకం ఎంచుకోండి
-      </button>
-
-    </div>
-
-  </div>
+      <summary>
+        ▼ పథకం వివరాలు
+      </summary>
 
 
-  <!-- =========================
-       SELECTED PLAN POSTER
-  ========================= -->
+      <div class="plan-info">
 
-  <div
-    id="selectedPlanDetails"
-    class="selected-plan-details"
-    style="display:none;"
-  >
-
-    <div class="plan-poster">
-
-      <p class="poster-title">
-        🍱 పల్లెటూరు భోజనం
-      </p>
-
-      <h3 id="selectedPlanTitle">
-        ₹49 పథకం
-      </h3>
-
-      <p
-        id="selectedPlanPrice"
-        class="poster-price"
-      >
-        ₹49 / రోజు
-      </p>
-
-
-      <!-- ₹49 DETAILS -->
-
-      <div
-        id="plan49Details"
-        class="plan-details"
-        style="display:none;"
-      >
-
-        <h4>₹49 పథకంలో:</h4>
+        <h3>📅 పథకం వివరాలు</h3>
 
         <p>🍚 అన్నం</p>
         <p>🍛 1 కూర</p>
         <p>🥣 పెరుగు</p>
         <p>🥒 1 పచ్చడి</p>
 
+
+        <button
+          type="button"
+          class="plan-select-btn"
+          id="select49Btn"
+        >
+          ₹49 పథకం ఎంచుకోండి
+        </button>
+
       </div>
 
+    </details>
 
-      <!-- ₹69 DETAILS -->
+  </div>
 
-      <div
-        id="plan69Details"
-        class="plan-details"
-        style="display:none;"
-      >
 
-        <h4>₹69 పథకంలో:</h4>
+  <!-- =====================
+       ₹69 PLAN
+  ====================== -->
+
+  <div class="plan-card" id="plan69Card">
+
+    <div class="plan-row">
+
+      <div class="price-circle orange-circle">
+        <span>₹69</span>
+        <small>/day</small>
+      </div>
+
+      <strong class="plan-name">
+        పథకం
+      </strong>
+
+    </div>
+
+
+    <details class="plan-dropdown">
+
+      <summary>
+        ▼ పథకం వివరాలు
+      </summary>
+
+
+      <div class="plan-info">
+
+        <h3>📅 పథకం వివరాలు</h3>
 
         <p>🍚 అన్నం</p>
         <p>🍛 2 కూరలు</p>
@@ -223,12 +188,54 @@
         <p>🥒 పచ్చడి</p>
         <p>🫓 పప్పడం</p>
 
+
+        <button
+          type="button"
+          class="plan-select-btn"
+          id="select69Btn"
+        >
+          ₹69 పథకం ఎంచుకోండి
+        </button>
+
       </div>
 
-    </div>
+    </details>
 
   </div>
 
+</div>
+
+
+<!-- =========================
+     SELECTED PLAN DETAILS
+========================= -->
+
+<div
+  id="selectedPlanDetails"
+  class="selected-plan-details"
+  style="display:none;"
+>
+
+  <div class="plan-poster">
+
+    <p class="poster-title">
+      🍱 పల్లెటూరు భోజనం
+    </p>
+
+    <h3 id="selectedPlanTitle">
+      ₹49 పథకం
+    </h3>
+
+    <p
+      id="selectedPlanPrice"
+      class="poster-price"
+    >
+      ₹49 / రోజు
+    </p>
+
+  </div>
+
+</div>
 
   <!-- =========================
        MONTHLY PLAN FORM
