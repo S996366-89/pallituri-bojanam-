@@ -1019,3 +1019,297 @@ footer {
 .daily-order-row:last-child {
   border-bottom: none;
 }
+/* =========================
+   NEW MONTHLY PLAN DESIGN
+   Background is NOT changed
+========================= */
+
+.plan-options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+
+/* =========================
+   PLAN CARD
+========================= */
+
+.plan-card {
+  background: #ffffff;
+  border: 1px solid #e3dccd;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(80, 55, 30, 0.07);
+}
+
+
+/* =========================
+   PRICE + PLAN NAME
+========================= */
+
+.plan-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+/* =========================
+   PRICE CIRCLE
+========================= */
+
+.price-circle {
+  width: 78px;
+  height: 78px;
+  min-width: 78px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.08);
+}
+
+.price-circle span {
+  white-space: nowrap;
+}
+
+
+/* ₹49 */
+
+.green-circle {
+  background: #e8f2df;
+  border: 3px solid #7da66a;
+  color: #315b2a;
+}
+
+
+/* ₹69 */
+
+.orange-circle {
+  background: #f8e4d1;
+  border: 3px solid #c9824b;
+  color: #7a3f20;
+}
+
+
+/* =========================
+   పథకం
+========================= */
+
+.plan-name {
+  font-size: 19px;
+  font-weight: 800;
+  color: #5a3a25;
+}
+
+
+/* =========================
+   DROPDOWN
+========================= */
+
+.plan-dropdown {
+  margin-top: 10px;
+}
+
+
+/* Remove default arrow */
+
+.plan-dropdown summary {
+  list-style: none;
+}
+
+.plan-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+
+/* Details button */
+
+.plan-dropdown summary {
+  cursor: pointer;
+
+  padding: 10px 13px;
+
+  background: #f7f1e7;
+
+  border: 1px solid #eadfce;
+  border-radius: 11px;
+
+  color: #65452d;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.plan-dropdown summary:hover {
+  background: #f1e8da;
+}
+
+
+/* =========================
+   PLAN DETAILS
+========================= */
+
+.plan-info {
+  margin-top: 10px;
+
+  padding: 13px;
+
+  background: #fffdf9;
+
+  border: 1px solid #eee3d2;
+  border-radius: 12px;
+}
+
+.plan-info h3 {
+  margin: 0 0 10px;
+
+  color: #65452d;
+
+  font-size: 17px;
+}
+
+.plan-info p {
+  margin: 7px 0;
+
+  color: #4e443a;
+
+  font-size: 15px;
+}
+
+
+/* =========================
+   SELECT BUTTON
+========================= */
+
+.plan-select-btn {
+  width: 100%;
+
+  margin-top: 11px;
+
+  padding: 11px 12px;
+
+  border: none;
+  border-radius: 11px;
+
+  background: #668b52;
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.plan-select-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.93;
+}
+
+
+/* =========================
+   SELECTED PLAN
+========================= */
+
+.selected-plan-details {
+  max-width: 520px;
+  margin: 12px auto 0;
+}
+
+.plan-poster {
+  background: #ffffff;
+
+  border: 1px solid #e3dccd;
+  border-radius: 14px;
+
+  padding: 12px;
+
+  text-align: center;
+
+  box-shadow: 0 3px 10px rgba(80, 55, 30, 0.06);
+}
+
+.poster-title {
+  margin: 0 0 5px;
+
+  color: #668b52;
+
+  font-weight: 800;
+}
+
+.plan-poster h3 {
+  margin: 4px 0;
+
+  color: #65452d;
+}
+
+.poster-price {
+  margin: 0;
+
+  color: #8a5a36;
+  font-weight: 700;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+  .plan-options {
+    gap: 10px;
+  }
+
+  .plan-card {
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .price-circle {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+
+    font-size: 15px;
+  }
+
+  .plan-name {
+    font-size: 17px;
+  }
+
+  .plan-dropdown summary {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .plan-info {
+    padding: 11px;
+  }
+
+  .plan-info p {
+    font-size: 14px;
+  }
+
+  .plan-select-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+}
