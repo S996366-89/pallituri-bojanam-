@@ -35,9 +35,6 @@ const auth = getAuth(app);
 const monthlyCustomerLogin =
   document.querySelector("#monthlyCustomerLogin");
 
-const customerLoginPhone =
-  document.querySelector("#customerLoginPhone");
-
 const customerOtp =
   document.querySelector("#customerOtp");
 
@@ -75,7 +72,6 @@ function showMonthlyCustomerLogin() {
 
 }
 
-
 /* =========================
    SEND OTP
 ========================= */
@@ -87,7 +83,7 @@ if (sendOtpBtn) {
     async () => {
 
       const phone =
-        customerLoginPhone.value.trim();
+        monthlyPhone.value.trim();
 
       if (!/^[6-9]\d{9}$/.test(phone)) {
 
@@ -144,7 +140,6 @@ if (sendOtpBtn) {
 
 }
 
-
 /* =========================
    VERIFY OTP
 ========================= */
@@ -167,14 +162,58 @@ if (verifyOtpBtn) {
 
       }
 
+      if (!confirmationResult) {
+
+        customerLoginStatus.textContent =
+          "❌ ముందుగా OTP పంపండి.";
+
+        return;
+
+      }
+
       try {
 
         await confirmationResult.confirm(
           otp
         );
 
+
+        /* =========================
+           OTP VERIFIED
+        ========================= */
+
         customerLoginStatus.textContent =
           "✅ మొబైల్ నంబర్ విజయవంతంగా verify అయింది.";
+
+
+        /* =========================
+           SHOW PASSWORD
+        ========================= */
+
+        if (customerPasswordStep) {
+
+          customerPasswordStep.style.display =
+            "block";
+
+          customerPasswordStep.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+        }
+
+
+        /* =========================
+           HIDE OTP
+        ========================= */
+
+        if (customerOtpStep) {
+
+          customerOtpStep.style.display =
+            "none";
+
+        }
+
 
       } catch (error) {
 
@@ -192,7 +231,6 @@ if (verifyOtpBtn) {
   );
 
 }
-
 /* =========================
    ELEMENTS
 ========================= */
