@@ -605,7 +605,15 @@ function selectMonthlyPlan(planPrice) {
 
   updatePlanTotal();
 
+  /* =========================
+   CLOSE PLAN DROPDOWNS
+========================= */
 
+document
+  .querySelectorAll(".plan-dropdown")
+  .forEach((dropdown) => {
+    dropdown.open = false;
+  });
   /* =========================
      SCROLL TO DETAILS
   ========================= */
