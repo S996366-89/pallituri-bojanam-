@@ -29,6 +29,171 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 /* =========================
+   MONTHLY CUSTOMER LOGIN
+========================= */
+
+const monthlyCustomerLogin =
+  document.querySelector("#monthlyCustomerLogin");
+
+const customerLoginPhone =
+  document.querySelector("#customerLoginPhone");
+
+const customerOtp =
+  document.querySelector("#customerOtp");
+
+const sendOtpBtn =
+  document.querySelector("#sendOtpBtn");
+
+const verifyOtpBtn =
+  document.querySelector("#verifyOtpBtn");
+
+const customerOtpStep =
+  document.querySelector("#customerOtpStep");
+
+const customerLoginStatus =
+  document.querySelector("#customerLoginStatus");
+
+
+let confirmationResult = null;
+
+
+/* =========================
+   SHOW LOGIN
+========================= */
+
+function showMonthlyCustomerLogin() {
+
+  if (!monthlyCustomerLogin) return;
+
+  monthlyCustomerLogin.style.display =
+    "block";
+
+  monthlyCustomerLogin.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+
+/* =========================
+   SEND OTP
+========================= */
+
+if (sendOtpBtn) {
+
+  sendOtpBtn.addEventListener(
+    "click",
+    async () => {
+
+      const phone =
+        customerLoginPhone.value.trim();
+
+      if (!/^[6-9]\d{9}$/.test(phone)) {
+
+        customerLoginStatus.textContent =
+          "దయచేసి సరైన 10 అంకెల మొబైల్ నంబర్ ఇవ్వండి.";
+
+        return;
+
+      }
+
+      try {
+
+        if (!window.recaptchaVerifier) {
+
+          window.recaptchaVerifier =
+            new RecaptchaVerifier(
+              auth,
+              "recaptcha-container",
+              {
+                size: "normal"
+              }
+            );
+
+        }
+
+        confirmationResult =
+          await signInWithPhoneNumber(
+            auth,
+            "+91" + phone,
+            window.recaptchaVerifier
+          );
+
+        customerOtpStep.style.display =
+          "block";
+
+        customerLoginStatus.textContent =
+          "✅ OTP మీ మొబైల్‌కు పంపబడింది.";
+
+      } catch (error) {
+
+        console.error(
+          "OTP ERROR:",
+          error
+        );
+
+        customerLoginStatus.textContent =
+          "❌ OTP పంపలేకపోయాము: " +
+          (error.code || error.message);
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   VERIFY OTP
+========================= */
+
+if (verifyOtpBtn) {
+
+  verifyOtpBtn.addEventListener(
+    "click",
+    async () => {
+
+      const otp =
+        customerOtp.value.trim();
+
+      if (!otp) {
+
+        customerLoginStatus.textContent =
+          "దయచేసి OTP నమోదు చేయండి.";
+
+        return;
+
+      }
+
+      try {
+
+        await confirmationResult.confirm(
+          otp
+        );
+
+        customerLoginStatus.textContent =
+          "✅ మొబైల్ నంబర్ విజయవంతంగా verify అయింది.";
+
+      } catch (error) {
+
+        console.error(
+          "OTP VERIFY ERROR:",
+          error
+        );
+
+        customerLoginStatus.textContent =
+          "❌ OTP సరైనది కాదు.";
+
+      }
+
+    }
+  );
+
+}
+
+/* =========================
    ELEMENTS
 ========================= */
 
