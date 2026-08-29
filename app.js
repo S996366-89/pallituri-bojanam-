@@ -598,33 +598,34 @@ function selectMonthlyPlan(planPrice) {
 
   }
 
-
   /* =========================
-     UPDATE TOTAL
-  ========================= */
-
-  updatePlanTotal();
-
-  /* =========================
-   CLOSE PLAN DROPDOWNS
+   UPDATE TOTAL
 ========================= */
 
-document
-  .querySelectorAll(".plan-dropdown")
-  .forEach((dropdown) => {
-    dropdown.open = false;
-  });
-  /* =========================
-     SCROLL TO DETAILS
-  ========================= */
+updatePlanTotal();
 
-  selectedPlanDetails.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
 
+/* =========================
+   CLOSE PLAN DROPDOWN
+========================= */
+
+const openDropdown =
+  document.querySelector(".plan-dropdown[open]");
+
+if (openDropdown) {
+  openDropdown.removeAttribute("open");
 }
 
+
+/* =========================
+   SCROLL TO DETAILS
+========================= */
+
+selectedPlanDetails.scrollIntoView({
+  behavior: "smooth",
+  block: "center"
+});
+} 
 
 /* =========================
    ₹49 BUTTON
@@ -644,7 +645,6 @@ if (select49Btn) {
   );
 
 }
-
 
 /* =========================
    ₹69 BUTTON
