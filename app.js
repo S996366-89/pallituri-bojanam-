@@ -68,6 +68,12 @@ function showMonthlyCustomerLogin() {
   monthlyCustomerLogin.style.display =
     "block";
 
+  customerOtpStep.style.display =
+    "block";
+
+  customerLoginStatus.textContent =
+    "📱 మీ మొబైల్ నంబర్‌కు OTP పంపబడుతోంది...";
+
   monthlyCustomerLogin.scrollIntoView({
     behavior: "smooth",
     block: "center"
@@ -79,67 +85,60 @@ function showMonthlyCustomerLogin() {
    SEND OTP
 ========================= */
 
-if (sendOtpBtn) {
+async function sendMonthlyCustomerOtp() {
 
-  sendOtpBtn.addEventListener(
-    "click",
-    async () => {
+  const phone =
+    monthlyCustomerPhone;
 
-      const phone =
-        monthlyPhone.value.trim();
+  if (!/^[6-9]\d{9}$/.test(phone)) {
 
-      if (!/^[6-9]\d{9}$/.test(phone)) {
+    customerLoginStatus.textContent =
+      "దయచేసి సరైన మొబైల్ నంబర్ ఇవ్వండి.";
 
-        customerLoginStatus.textContent =
-          "దయచేసి సరైన 10 అంకెల మొబైల్ నంబర్ ఇవ్వండి.";
+    return;
 
-        return;
+  }
 
-      }
+  try {
 
-      try {
+    if (!window.recaptchaVerifier) {
 
-        if (!window.recaptchaVerifier) {
-
-          window.recaptchaVerifier =
-            new RecaptchaVerifier(
-              auth,
-              "recaptcha-container",
-              {
-                size: "normal"
-              }
-            );
-
-        }
-
-        confirmationResult =
-          await signInWithPhoneNumber(
-            auth,
-            "+91" + phone,
-            window.recaptchaVerifier
-          );
-
-        customerOtpStep.style.display =
-          "block";
-
-        customerLoginStatus.textContent =
-          "✅ OTP మీ మొబైల్‌కు పంపబడింది.";
-
-      } catch (error) {
-
-        console.error(
-          "OTP ERROR:",
-          error
+      window.recaptchaVerifier =
+        new RecaptchaVerifier(
+          auth,
+          "recaptcha-container",
+          {
+            size: "normal"
+          }
         );
 
-        customerLoginStatus.textContent =
-          "❌ OTP పంపలేకపోయాము: " +
-          (error.code || error.message);
-
-      }
-
     }
-  );
+
+    confirmationResult =
+      await signInWithPhoneNumber(
+        auth,
+        "+91" + phone,
+        window.recaptchaVerifier
+      );
+
+    customerOtpStep.style.display =
+      "block";
+
+    customerLoginStatus.textContent =
+      "✅ OTP మీ మొబైల్‌కు పంపబడింది.";
+
+  } catch (error) {
+
+    console.error(
+      "OTP ERROR:",
+      error
+    );
+
+    customerLoginStatus.textContent =
+      "❌ OTP పంపలేకపోయాము: " +
+      (error.code || error.message);
+
+  }
 
 }
 
@@ -699,6 +698,8 @@ const monthlyAddress =
 const monthlyQuantity =
   document.querySelector("#monthlyQuantity");
 
+let monthlyCustomerPhone = "";
+
 
 /* =========================
    PLAN PRICES
@@ -1116,11 +1117,15 @@ if (monthlyPlanBtn) {
           }
         );
 
-
         monthlyPlanStatus.textContent =
-          "✅ నెలవారీ పథకం విజయవంతంగా నమోదు అయింది. ధన్యవాదాలు!";
+  "✅ నెలవారీ పథకం విజయవంతంగా నమోదు అయింది. ధన్యవాదాలు!";
 
-        showMonthlyCustomerLogin();
+monthlyCustomerPhone =
+  phone;
+
+showMonthlyCustomerLogin();
+
+sendMonthlyCustomerOtp();
 
 
         /* =========================
