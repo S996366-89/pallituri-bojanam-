@@ -105,6 +105,11 @@ if (saveCustomerPasswordBtn) {
       const confirmPassword =
         customerPasswordConfirm.value.trim();
 
+
+      /* =========================
+         PASSWORD VALIDATION
+      ========================= */
+
       if (!password || !confirmPassword) {
 
         customerLoginStatus.textContent =
@@ -113,6 +118,7 @@ if (saveCustomerPasswordBtn) {
         return;
 
       }
+
 
       if (password.length < 6) {
 
@@ -123,6 +129,7 @@ if (saveCustomerPasswordBtn) {
 
       }
 
+
       if (password !== confirmPassword) {
 
         customerLoginStatus.textContent =
@@ -132,9 +139,16 @@ if (saveCustomerPasswordBtn) {
 
       }
 
+
+      /* =========================
+         CREATE PASSWORD
+      ========================= */
+
       try {
 
-        const user = auth.currentUser;
+        const user =
+          auth.currentUser;
+
 
         if (!user) {
 
@@ -145,16 +159,45 @@ if (saveCustomerPasswordBtn) {
 
         }
 
+
         await updatePassword(
           user,
           password
         );
 
+
+        /* =========================
+           ACCOUNT SUCCESS
+        ========================= */
+
         customerLoginStatus.textContent =
           "✅ మీ Customer Account విజయవంతంగా సిద్ధమైంది.";
 
+
+        /* =========================
+           HIDE PASSWORD
+        ========================= */
+
         customerPasswordStep.style.display =
           "none";
+
+
+        /* =========================
+           SHOW DAILY CURRY
+        ========================= */
+
+        if (monthlyCustomerCurry) {
+
+          monthlyCustomerCurry.style.display =
+            "block";
+
+          monthlyCustomerCurry.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+        }
+
 
       } catch (error) {
 
@@ -162,6 +205,7 @@ if (saveCustomerPasswordBtn) {
           "PASSWORD ERROR:",
           error
         );
+
 
         customerLoginStatus.textContent =
           "❌ Account create కాలేదు: " +
@@ -194,18 +238,47 @@ async function sendMonthlyCustomerOtp() {
 
   try {
 
-    if (!window.recaptchaVerifier) {
+    /* =========================
+       RESET OLD RECAPTCHA
+    ========================= */
 
-      window.recaptchaVerifier =
-        new RecaptchaVerifier(
-          auth,
-          "recaptcha-container",
-          {
-            size: "normal"
-          }
+    if (window.recaptchaVerifier) {
+
+      try {
+
+        window.recaptchaVerifier.clear();
+
+      } catch (e) {
+
+        console.log(
+          "Old reCAPTCHA clear skipped"
         );
 
+      }
+
+      window.recaptchaVerifier =
+        null;
+
     }
+
+
+    /* =========================
+       CREATE NEW RECAPTCHA
+    ========================= */
+
+    window.recaptchaVerifier =
+      new RecaptchaVerifier(
+        auth,
+        "recaptcha-container",
+        {
+          size: "normal"
+        }
+      );
+
+
+    /* =========================
+       SEND OTP
+    ========================= */
 
     confirmationResult =
       await signInWithPhoneNumber(
@@ -214,11 +287,17 @@ async function sendMonthlyCustomerOtp() {
         window.recaptchaVerifier
       );
 
+
+    /* =========================
+       SHOW OTP BOX
+    ========================= */
+
     customerOtpStep.style.display =
       "block";
 
     customerLoginStatus.textContent =
       "✅ OTP మీ మొబైల్‌కు పంపబడింది.";
+
 
   } catch (error) {
 
@@ -234,7 +313,6 @@ async function sendMonthlyCustomerOtp() {
   }
 
 }
-
 /* =========================
    VERIFY OTP
 ========================= */
