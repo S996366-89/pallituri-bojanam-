@@ -376,7 +376,217 @@
   </div>
 
 </section>
+<!-- =========================
+     MONTHLY CUSTOMER
+     DAILY CURRY SELECTION
+========================= -->
 
+<div
+  id="monthlyCustomerCurry"
+  class="monthly-customer-curry"
+  style="display:none;"
+>
+
+  <h3>🍛 ఈరోజు మీ కూరను ఎంచుకోండి</h3>
+
+  <p class="curry-help">
+    మీ నెలవారీ పథకంలో ఈరోజు కావాల్సిన కూరను ఎంచుకోండి.
+  </p>
+
+
+  <!-- =========================
+       INCLUDED VEG CURRY
+  ========================= -->
+
+  <details class="curry-dropdown">
+
+    <summary>
+      🥬 ఈరోజు కూర
+      <span>▼</span>
+    </summary>
+
+    <div class="curry-list">
+
+      <button
+        type="button"
+        class="curry-option"
+        data-curry="క్యారెట్ కూర"
+        data-price="0"
+      >
+        <span>🥕 క్యారెట్ కూర</span>
+        <strong>ఉచితం</strong>
+      </button>
+
+      <button
+        type="button"
+        class="curry-option"
+        data-curry="వంకాయ కూర"
+        data-price="0"
+      >
+        <span>🍆 వంకాయ కూర</span>
+        <strong>ఉచితం</strong>
+      </button>
+
+      <button
+        type="button"
+        class="curry-option"
+        data-curry="బెండకాయ కూర"
+        data-price="0"
+      >
+        <span>🌶️ బెండకాయ కూర</span>
+        <strong>ఉచితం</strong>
+      </button>
+
+      <button
+        type="button"
+        class="curry-option"
+        data-curry="పప్పు"
+        data-price="0"
+      >
+        <span>🥣 పప్పు</span>
+        <strong>ఉచితం</strong>
+      </button>
+
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       EXTRA CURRY
+  ========================= -->
+
+  <details class="curry-dropdown extra-curry-dropdown">
+
+    <summary>
+      ➕ Extra Curry
+      <span>▼</span>
+    </summary>
+
+
+    <div class="extra-curry-content">
+
+      <!-- VEG -->
+
+      <h4>🥬 Veg Curries</h4>
+
+      <div class="curry-list">
+
+        <button
+          type="button"
+          class="extra-curry-option"
+          data-curry="క్యారెట్ కూర"
+          data-price="35"
+        >
+          <span>🥕 క్యారెట్</span>
+          <strong>₹35</strong>
+        </button>
+
+        <button
+          type="button"
+          class="extra-curry-option"
+          data-curry="వంకాయ కూర"
+          data-price="35"
+        >
+          <span>🍆 వంకాయ</span>
+          <strong>₹35</strong>
+        </button>
+
+        <button
+          type="button"
+          class="extra-curry-option"
+          data-curry="బెండకాయ కూర"
+          data-price="35"
+        >
+          <span>🌶️ బెండకాయ</span>
+          <strong>₹35</strong>
+        </button>
+
+        <button
+          type="button"
+          class="extra-curry-option"
+          data-curry="పనీర్"
+          data-price="90"
+        >
+          <span>🧀 పనీర్</span>
+          <strong>₹90</strong>
+        </button>
+
+      </div>
+
+
+      <!-- NON VEG -->
+
+      <h4>🍗 Non-Veg Curries</h4>
+
+      <div class="curry-list">
+
+        <button
+          type="button"
+          class="extra-curry-option"
+          data-curry="చికెన్"
+          data-price="100"
+        >
+          <span>🍗 చికెన్</span>
+          <strong>₹100</strong>
+        </button>
+
+        <button
+          type="button"
+          class="extra-curry-option"
+          data-curry="చేప"
+          data-price="99"
+        >
+          <span>🐟 చేప</span>
+          <strong>₹99</strong>
+        </button>
+
+        <button
+          type="button"
+          class="extra-curry-option"
+          data-curry="మటన్"
+          data-price="150"
+        >
+          <span>🥩 మటన్</span>
+          <strong>₹150</strong>
+        </button>
+
+      </div>
+
+    </div>
+
+  </details>
+
+
+  <!-- =========================
+       SELECTED CURRY
+  ========================= -->
+
+  <div
+    id="selectedCurryStatus"
+    class="selected-curry-status"
+  >
+    🍛 ఈరోజు కూర ఇంకా ఎంచుకోలేదు
+  </div>
+
+
+  <div
+    id="extraCurryTotal"
+    class="extra-curry-total"
+  >
+    Extra Curry: ₹0
+  </div>
+
+
+  <button
+    type="button"
+    id="saveDailyCurryBtn"
+    class="save-daily-curry-btn"
+  >
+    ✅ ఈరోజు కూరను సేవ్ చేయండి
+  </button>
+
+</div>
     <!-- =========================
          ORDER
     ========================= -->
