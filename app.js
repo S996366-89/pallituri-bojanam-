@@ -47,6 +47,9 @@ const verifyOtpBtn =
 const customerOtpStep =
   document.querySelector("#customerOtpStep");
 
+const customerPasswordStep =
+  document.querySelector("#customerPasswordStep");
+
 const customerLoginStatus =
   document.querySelector("#customerLoginStatus");
 
