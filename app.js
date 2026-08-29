@@ -1079,6 +1079,8 @@ if (monthlyPlanBtn) {
         monthlyPlanStatus.textContent =
           "✅ నెలవారీ పథకం విజయవంతంగా నమోదు అయింది. ధన్యవాదాలు!";
 
+        showMonthlyCustomerLogin();
+
 
         /* =========================
            CLEAR MONTHLY FIELDS
