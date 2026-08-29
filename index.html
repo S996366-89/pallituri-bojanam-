@@ -376,7 +376,7 @@
   </div>
 
 </section>
-    <!-- =========================
+  <!-- =========================
      MONTHLY CUSTOMER LOGIN
 ========================= -->
 
@@ -386,44 +386,35 @@
   style="display:none;"
 >
 
-  <h3>📱 నెలవారీ కస్టమర్ లాగిన్</h3>
+  <h3>📱 నెలవారీ కస్టమర్ ధృవీకరణ</h3>
 
   <p>
-    మీ మొబైల్ నంబర్‌తో లాగిన్ అవ్వండి.
+    నెలవారీ పథకంలో ఇచ్చిన మొబైల్ నంబర్‌కు OTP పంపబడుతుంది.
   </p>
 
 
-  <!-- MOBILE NUMBER -->
+  <!-- =========================
+       RECAPTCHA
+  ========================= -->
 
-  <div id="customerPhoneStep">
-
-    <label for="customerLoginPhone">
-      మొబైల్ నంబర్
-    </label>
-
-    <input
-      type="tel"
-      id="customerLoginPhone"
-      inputmode="tel"
-      maxlength="10"
-      placeholder="10 అంకెల మొబైల్ నంబర్"
-    >
-
-    <div
-      id="recaptcha-container"
-    ></div>
-
-    <button
-      type="button"
-      id="sendOtpBtn"
-    >
-      OTP పంపండి
-    </button>
-
-  </div>
+  <div id="recaptcha-container"></div>
 
 
-  <!-- OTP -->
+  <!-- =========================
+       SEND OTP
+  ========================= -->
+
+  <button
+    type="button"
+    id="sendOtpBtn"
+  >
+    OTP పంపండి
+  </button>
+
+
+  <!-- =========================
+       OTP
+  ========================= -->
 
   <div
     id="customerOtpStep"
@@ -452,7 +443,9 @@
   </div>
 
 
-  <!-- PASSWORD -->
+  <!-- =========================
+       PASSWORD
+  ========================= -->
 
   <div
     id="customerPasswordStep"
@@ -469,6 +462,7 @@
       placeholder="కొత్త Password"
     >
 
+
     <label for="customerPasswordConfirm">
       Password మళ్లీ నమోదు చేయండి
     </label>
@@ -478,6 +472,7 @@
       id="customerPasswordConfirm"
       placeholder="Password మళ్లీ నమోదు చేయండి"
     >
+
 
     <button
       type="button"
