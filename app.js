@@ -417,6 +417,7 @@ loadMenu();
 console.log(
   "పల్లెటూరు భోజనం website started successfully."
 );
+
 /* =========================
    MONTHLY LUNCH PLANS
 ========================= */
@@ -495,6 +496,56 @@ const PLAN_69_PRICE = 69;
 
 
 /* =========================
+   UPDATE PLAN TOTAL
+========================= */
+
+function updatePlanTotal() {
+
+  const days =
+    Number(planDays?.value || 0);
+
+  const price =
+    Number(selectedPlanPriceValue?.value || 0);
+
+  const quantity =
+    Number(monthlyQuantity?.value || 1);
+
+
+  /* =========================
+     NO PLAN SELECTED
+  ========================= */
+
+  if (!price) {
+
+    if (planTotal) {
+
+      planTotal.textContent =
+        "పథకాన్ని ఎంచుకోండి";
+
+    }
+
+    return;
+
+  }
+
+
+  const total =
+    days *
+    price *
+    quantity;
+
+
+  if (planTotal) {
+
+    planTotal.textContent =
+      `₹${total.toLocaleString("en-IN")}`;
+
+  }
+
+}
+
+
+/* =========================
    SELECT PLAN
 ========================= */
 
@@ -540,12 +591,24 @@ function selectMonthlyPlan(planPrice) {
      SHOW PLAN DETAILS
   ========================= */
 
-  selectedPlanDetails.style.display =
-    "block";
+  if (selectedPlanDetails) {
 
-  monthlyPlanForm.style.display =
-    "block";
+    selectedPlanDetails.style.display =
+      "block";
 
+  }
+
+  if (monthlyPlanForm) {
+
+    monthlyPlanForm.style.display =
+      "block";
+
+  }
+
+
+  /* =========================
+     ₹49 PLAN
+  ========================= */
 
   if (price === PLAN_49_PRICE) {
 
@@ -555,12 +618,19 @@ function selectMonthlyPlan(planPrice) {
     selectedPlanPrice.textContent =
       "₹49 / రోజు";
 
-    plan49Details.style.display =
-      "block";
+    if (plan49Details) {
 
-    plan69Details.style.display =
-      "none";
+      plan49Details.style.display =
+        "block";
 
+    }
+
+    if (plan69Details) {
+
+      plan69Details.style.display =
+        "none";
+
+    }
 
     if (plan49Card) {
 
@@ -573,6 +643,10 @@ function selectMonthlyPlan(planPrice) {
   }
 
 
+  /* =========================
+     ₹69 PLAN
+  ========================= */
+
   if (price === PLAN_69_PRICE) {
 
     selectedPlanTitle.textContent =
@@ -581,12 +655,19 @@ function selectMonthlyPlan(planPrice) {
     selectedPlanPrice.textContent =
       "₹69 / రోజు";
 
-    plan49Details.style.display =
-      "none";
+    if (plan49Details) {
 
-    plan69Details.style.display =
-      "block";
+      plan49Details.style.display =
+        "none";
 
+    }
+
+    if (plan69Details) {
+
+      plan69Details.style.display =
+        "block";
+
+    }
 
     if (plan69Card) {
 
@@ -598,34 +679,47 @@ function selectMonthlyPlan(planPrice) {
 
   }
 
+
   /* =========================
-   UPDATE TOTAL
-========================= */
+     UPDATE TOTAL
+  ========================= */
 
-updatePlanTotal();
+  updatePlanTotal();
 
 
-/* =========================
-   CLOSE PLAN DROPDOWN
-========================= */
+  /* =========================
+     CLOSE PLAN DROPDOWN
+  ========================= */
 
-const openDropdown =
-  document.querySelector(".plan-dropdown[open]");
+  const openDropdown =
+    document.querySelector(
+      ".plan-dropdown[open]"
+    );
 
-if (openDropdown) {
-  openDropdown.removeAttribute("open");
+  if (openDropdown) {
+
+    openDropdown.removeAttribute(
+      "open"
+    );
+
+  }
+
+
+  /* =========================
+     SCROLL TO DETAILS
+  ========================= */
+
+  if (selectedPlanDetails) {
+
+    selectedPlanDetails.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+  }
+
 }
 
-
-/* =========================
-   SCROLL TO DETAILS
-========================= */
-
-selectedPlanDetails.scrollIntoView({
-  behavior: "smooth",
-  block: "center"
-});
-} 
 
 /* =========================
    ₹49 BUTTON
@@ -640,17 +734,6 @@ if (select49Btn) {
       selectMonthlyPlan(
         PLAN_49_PRICE
       );
-
-      setTimeout(() => {
-
-        const details =
-          select49Btn.closest(".plan-dropdown");
-
-        if (details) {
-          details.open = false;
-        }
-
-      }, 100);
 
     }
   );
@@ -672,44 +755,8 @@ if (select69Btn) {
         PLAN_69_PRICE
       );
 
-      setTimeout(() => {
-
-        const details =
-          select69Btn.closest(".plan-dropdown");
-
-        if (details) {
-          details.open = false;
-        }
-
-      }, 100);
-
     }
   );
-
-}
-
-  /* =========================
-     NO PLAN SELECTED
-  ========================= */
-
-  if (!price) {
-
-    planTotal.textContent =
-      "పథకాన్ని ఎంచుకోండి";
-
-    return;
-
-  }
-
-
-  const total =
-    days *
-    price *
-    quantity;
-
-
-  planTotal.textContent =
-    `₹${total.toLocaleString("en-IN")}`;
 
 }
 
@@ -755,36 +802,29 @@ if (monthlyPlanBtn) {
       const name =
         monthlyName.value.trim();
 
-
       const phone =
         monthlyPhone.value.trim();
 
-
       const address =
         monthlyAddress.value.trim();
-
 
       const quantity =
         Number(
           monthlyQuantity.value
         );
 
-
       const days =
         Number(
           planDays.value
         );
-
 
       const price =
         Number(
           selectedPlanPriceValue.value
         );
 
-
       const planType =
         selectedPlanType.value;
-
 
       const total =
         days *
