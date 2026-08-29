@@ -50,9 +50,17 @@ const customerOtpStep =
 const customerPasswordStep =
   document.querySelector("#customerPasswordStep");
 
+const customerPassword =
+  document.querySelector("#customerPassword");
+
+const customerPasswordConfirm =
+  document.querySelector("#customerPasswordConfirm");
+
+const saveCustomerPasswordBtn =
+  document.querySelector("#saveCustomerPasswordBtn");
+
 const customerLoginStatus =
   document.querySelector("#customerLoginStatus");
-
 
 let confirmationResult = null;
 
@@ -78,6 +86,91 @@ function showMonthlyCustomerLogin() {
     behavior: "smooth",
     block: "center"
   });
+
+}
+
+/* =========================
+   CREATE CUSTOMER ACCOUNT
+========================= */
+
+if (saveCustomerPasswordBtn) {
+
+  saveCustomerPasswordBtn.addEventListener(
+    "click",
+    async () => {
+
+      const password =
+        customerPassword.value.trim();
+
+      const confirmPassword =
+        customerPasswordConfirm.value.trim();
+
+      if (!password || !confirmPassword) {
+
+        customerLoginStatus.textContent =
+          "దయచేసి Password రెండు సార్లు నమోదు చేయండి.";
+
+        return;
+
+      }
+
+      if (password.length < 6) {
+
+        customerLoginStatus.textContent =
+          "Password కనీసం 6 అక్షరాలు ఉండాలి.";
+
+        return;
+
+      }
+
+      if (password !== confirmPassword) {
+
+        customerLoginStatus.textContent =
+          "❌ రెండు Passwordలు ఒకేలా లేవు.";
+
+        return;
+
+      }
+
+      try {
+
+        const user = auth.currentUser;
+
+        if (!user) {
+
+          customerLoginStatus.textContent =
+            "❌ ముందుగా మొబైల్ OTP verify చేయాలి.";
+
+          return;
+
+        }
+
+        await updatePassword(
+          user,
+          password
+        );
+
+        customerLoginStatus.textContent =
+          "✅ మీ Customer Account విజయవంతంగా సిద్ధమైంది.";
+
+        customerPasswordStep.style.display =
+          "none";
+
+      } catch (error) {
+
+        console.error(
+          "PASSWORD ERROR:",
+          error
+        );
+
+        customerLoginStatus.textContent =
+          "❌ Account create కాలేదు: " +
+          (error.code || error.message);
+
+      }
+
+    }
+  );
 
 }
 
