@@ -418,8 +418,48 @@ console.log(
   "పల్లెటూరు భోజనం website started successfully."
 );
 /* =========================
-   MONTHLY VEG PLAN
+   MONTHLY LUNCH PLANS
 ========================= */
+
+/* =========================
+   PLAN ELEMENTS
+========================= */
+
+const plan49Card =
+  document.querySelector("#plan49Card");
+
+const plan69Card =
+  document.querySelector("#plan69Card");
+
+const select49Btn =
+  document.querySelector("#select49Btn");
+
+const select69Btn =
+  document.querySelector("#select69Btn");
+
+const selectedPlanDetails =
+  document.querySelector("#selectedPlanDetails");
+
+const selectedPlanTitle =
+  document.querySelector("#selectedPlanTitle");
+
+const selectedPlanPrice =
+  document.querySelector("#selectedPlanPrice");
+
+const plan49Details =
+  document.querySelector("#plan49Details");
+
+const plan69Details =
+  document.querySelector("#plan69Details");
+
+const monthlyPlanForm =
+  document.querySelector("#monthlyPlanForm");
+
+const selectedPlanType =
+  document.querySelector("#selectedPlanType");
+
+const selectedPlanPriceValue =
+  document.querySelector("#selectedPlanPriceValue");
 
 const planDays =
   document.querySelector("#planDays");
@@ -445,42 +485,261 @@ const monthlyAddress =
 const monthlyQuantity =
   document.querySelector("#monthlyQuantity");
 
-const VEG_PRICE_PER_DAY = 69;
 
-if (planDays && monthlyQuantity) {
+/* =========================
+   PLAN PRICES
+========================= */
 
-  planDays.addEventListener(
-    "change",
-    updatePlanTotal
-  );
+const PLAN_49_PRICE = 49;
+const PLAN_69_PRICE = 69;
 
-  monthlyQuantity.addEventListener(
-    "input",
-    updatePlanTotal
-  );
+
+/* =========================
+   SELECT PLAN
+========================= */
+
+function selectMonthlyPlan(planPrice) {
+
+  const price =
+    Number(planPrice);
+
+
+  /* =========================
+     SET SELECTED PLAN
+  ========================= */
+
+  selectedPlanType.value =
+    `₹${price}`;
+
+  selectedPlanPriceValue.value =
+    price;
+
+
+  /* =========================
+     RESET CARD ACTIVE STATE
+  ========================= */
+
+  if (plan49Card) {
+
+    plan49Card.classList.remove(
+      "selected"
+    );
+
+  }
+
+  if (plan69Card) {
+
+    plan69Card.classList.remove(
+      "selected"
+    );
+
+  }
+
+
+  /* =========================
+     SHOW PLAN DETAILS
+  ========================= */
+
+  selectedPlanDetails.style.display =
+    "block";
+
+  monthlyPlanForm.style.display =
+    "block";
+
+
+  if (price === PLAN_49_PRICE) {
+
+    selectedPlanTitle.textContent =
+      "₹49 పథకం";
+
+    selectedPlanPrice.textContent =
+      "₹49 / రోజు";
+
+    plan49Details.style.display =
+      "block";
+
+    plan69Details.style.display =
+      "none";
+
+
+    if (plan49Card) {
+
+      plan49Card.classList.add(
+        "selected"
+      );
+
+    }
+
+  }
+
+
+  if (price === PLAN_69_PRICE) {
+
+    selectedPlanTitle.textContent =
+      "₹69 పథకం";
+
+    selectedPlanPrice.textContent =
+      "₹69 / రోజు";
+
+    plan49Details.style.display =
+      "none";
+
+    plan69Details.style.display =
+      "block";
+
+
+    if (plan69Card) {
+
+      plan69Card.classList.add(
+        "selected"
+      );
+
+    }
+
+  }
+
+
+  /* =========================
+     UPDATE TOTAL
+  ========================= */
 
   updatePlanTotal();
 
+
+  /* =========================
+     SCROLL TO DETAILS
+  ========================= */
+
+  selectedPlanDetails.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
 }
+
+
+/* =========================
+   ₹49 BUTTON
+========================= */
+
+if (select49Btn) {
+
+  select49Btn.addEventListener(
+    "click",
+    () => {
+
+      selectMonthlyPlan(
+        PLAN_49_PRICE
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   ₹69 BUTTON
+========================= */
+
+if (select69Btn) {
+
+  select69Btn.addEventListener(
+    "click",
+    () => {
+
+      selectMonthlyPlan(
+        PLAN_69_PRICE
+      );
+
+    }
+  );
+
+}
+
+
 /* =========================
    UPDATE MONTHLY TOTAL
 ========================= */
 
 function updatePlanTotal() {
 
+  if (
+    !planDays ||
+    !monthlyQuantity ||
+    !planTotal
+  ) {
+
+    return;
+
+  }
+
+
   const days =
     Number(planDays.value);
+
 
   const quantity =
     Number(monthlyQuantity.value);
 
+
+  const price =
+    Number(
+      selectedPlanPriceValue.value
+    );
+
+
+  /* =========================
+     NO PLAN SELECTED
+  ========================= */
+
+  if (!price) {
+
+    planTotal.textContent =
+      "పథకాన్ని ఎంచుకోండి";
+
+    return;
+
+  }
+
+
   const total =
     days *
-    VEG_PRICE_PER_DAY *
+    price *
     quantity;
+
 
   planTotal.textContent =
     `₹${total.toLocaleString("en-IN")}`;
+
+}
+
+
+/* =========================
+   DAYS CHANGE
+========================= */
+
+if (planDays) {
+
+  planDays.addEventListener(
+    "change",
+    updatePlanTotal
+  );
+
+}
+
+
+/* =========================
+   QUANTITY CHANGE
+========================= */
+
+if (monthlyQuantity) {
+
+  monthlyQuantity.addEventListener(
+    "input",
+    updatePlanTotal
+  );
+
 }
 
 
@@ -497,27 +756,56 @@ if (monthlyPlanBtn) {
       const name =
         monthlyName.value.trim();
 
+
       const phone =
         monthlyPhone.value.trim();
+
 
       const address =
         monthlyAddress.value.trim();
 
+
       const quantity =
-        Number(monthlyQuantity.value);
+        Number(
+          monthlyQuantity.value
+        );
+
 
       const days =
-        Number(planDays.value);
+        Number(
+          planDays.value
+        );
+
+
+      const price =
+        Number(
+          selectedPlanPriceValue.value
+        );
+
+
+      const planType =
+        selectedPlanType.value;
+
 
       const total =
         days *
-        VEG_PRICE_PER_DAY *
+        price *
         quantity;
 
 
       /* =========================
          VALIDATION
       ========================= */
+
+      if (!planType || !price) {
+
+        monthlyPlanStatus.textContent =
+          "దయచేసి ముందుగా ₹49 లేదా ₹69 పథకాన్ని ఎంచుకోండి.";
+
+        return;
+
+      }
+
 
       if (
         !name ||
@@ -531,6 +819,7 @@ if (monthlyPlanBtn) {
           "దయచేసి పేరు, ఫోన్ నంబర్, చిరునామా మరియు భోజనాల సంఖ్య ఇవ్వండి.";
 
         return;
+
       }
 
 
@@ -559,15 +848,13 @@ if (monthlyPlanBtn) {
 
             quantity: quantity,
 
-            planType: "Veg",
+            planType: planType,
 
             planDays: days,
 
-            pricePerDay:
-              VEG_PRICE_PER_DAY,
+            pricePerDay: price,
 
-            totalAmount:
-              total,
+            totalAmount: total,
 
             status: "new",
 
@@ -582,7 +869,9 @@ if (monthlyPlanBtn) {
           "✅ నెలవారీ పథకం విజయవంతంగా నమోదు అయింది. ధన్యవాదాలు!";
 
 
-        /* clear ONLY monthly fields */
+        /* =========================
+           CLEAR MONTHLY FIELDS
+        ========================= */
 
         monthlyName.value = "";
 
@@ -594,6 +883,39 @@ if (monthlyPlanBtn) {
 
         planDays.value = 26;
 
+
+        /* =========================
+           RESET PLAN
+        ========================= */
+
+        selectedPlanType.value = "";
+
+        selectedPlanPriceValue.value = "";
+
+        selectedPlanDetails.style.display =
+          "none";
+
+        monthlyPlanForm.style.display =
+          "none";
+
+
+        if (plan49Card) {
+
+          plan49Card.classList.remove(
+            "selected"
+          );
+
+        }
+
+        if (plan69Card) {
+
+          plan69Card.classList.remove(
+            "selected"
+          );
+
+        }
+
+
         updatePlanTotal();
 
 
@@ -604,6 +926,7 @@ if (monthlyPlanBtn) {
           error
         );
 
+
         monthlyPlanStatus.textContent =
           "❌ నెలవారీ పథకం నమోదు కాలేదు: " +
           (error.code || error.message);
@@ -612,5 +935,17 @@ if (monthlyPlanBtn) {
 
     }
   );
+
+}
+
+
+/* =========================
+   INITIAL MONTHLY TOTAL
+========================= */
+
+if (planTotal) {
+
+  planTotal.textContent =
+    "పథకాన్ని ఎంచుకోండి";
 
 }
