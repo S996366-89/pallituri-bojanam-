@@ -8,6 +8,12 @@ import {
   query,
   orderBy
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import {
+  getAuth,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  updatePassword
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import { firebaseConfig } from "./firebase-config.js";
 
@@ -20,6 +26,7 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
+const auth = getAuth(app);
 
 /* =========================
    ELEMENTS
