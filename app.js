@@ -641,10 +641,22 @@ if (select49Btn) {
         PLAN_49_PRICE
       );
 
+      setTimeout(() => {
+
+        const details =
+          select49Btn.closest(".plan-dropdown");
+
+        if (details) {
+          details.open = false;
+        }
+
+      }, 100);
+
     }
   );
 
 }
+
 
 /* =========================
    ₹69 BUTTON
@@ -660,42 +672,21 @@ if (select69Btn) {
         PLAN_69_PRICE
       );
 
+      setTimeout(() => {
+
+        const details =
+          select69Btn.closest(".plan-dropdown");
+
+        if (details) {
+          details.open = false;
+        }
+
+      }, 100);
+
     }
   );
 
 }
-
-
-/* =========================
-   UPDATE MONTHLY TOTAL
-========================= */
-
-function updatePlanTotal() {
-
-  if (
-    !planDays ||
-    !monthlyQuantity ||
-    !planTotal
-  ) {
-
-    return;
-
-  }
-
-
-  const days =
-    Number(planDays.value);
-
-
-  const quantity =
-    Number(monthlyQuantity.value);
-
-
-  const price =
-    Number(
-      selectedPlanPriceValue.value
-    );
-
 
   /* =========================
      NO PLAN SELECTED
