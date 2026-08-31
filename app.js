@@ -407,36 +407,42 @@ menuEl.innerHTML = `
         <span>ధర</span>
       </div>
 
-      ${
-        vegItems.length
-          ? vegItems
-              .map(
-                (item) => `
-                  <div class="today-menu-item">
+      <div class="menu-scroll">
 
-                    <span class="item-name">
-                      ${escapeHtml(
-                        item.name || "కూర"
-                      )}
-                    </span>
+        ${
+          vegItems.length
+            ? vegItems
+                .map(
+                  (item) => `
 
-                    <span class="item-price">
-                      ₹${Number(
-                        item.price || 0
-                      )}
-                    </span>
+                    <div class="today-menu-item">
 
-                  </div>
-                `
-              )
-              .join("")
+                      <span class="item-name">
+                        ${escapeHtml(
+                          item.name || "కూర"
+                        )}
+                      </span>
 
-          : `
-              <p class="muted menu-empty">
-                Veg మెనూ ఇంకా లేదు.
-              </p>
-            `
-      }
+                      <span class="item-price">
+                        ₹${Number(
+                          item.price || 0
+                        )}
+                      </span>
+
+                    </div>
+
+                  `
+                )
+                .join("")
+
+            : `
+                <p class="muted menu-empty">
+                  Veg మెనూ ఇంకా లేదు.
+                </p>
+              `
+        }
+
+      </div>
 
     </div>
 
@@ -466,36 +472,42 @@ menuEl.innerHTML = `
         <span>ధర</span>
       </div>
 
-      ${
-        nonVegItems.length
-          ? nonVegItems
-              .map(
-                (item) => `
-                  <div class="today-menu-item">
+      <div class="menu-scroll">
 
-                    <span class="item-name">
-                      ${escapeHtml(
-                        item.name || "కూర"
-                      )}
-                    </span>
+        ${
+          nonVegItems.length
+            ? nonVegItems
+                .map(
+                  (item) => `
 
-                    <span class="item-price">
-                      ₹${Number(
-                        item.price || 0
-                      )}
-                    </span>
+                    <div class="today-menu-item">
 
-                  </div>
-                `
-              )
-              .join("")
+                      <span class="item-name">
+                        ${escapeHtml(
+                          item.name || "కూర"
+                        )}
+                      </span>
 
-          : `
-              <p class="muted menu-empty">
-                Non-Veg మెనూ ఇంకా లేదు.
-              </p>
-            `
-      }
+                      <span class="item-price">
+                        ₹${Number(
+                          item.price || 0
+                        )}
+                      </span>
+
+                    </div>
+
+                  `
+                )
+                .join("")
+
+            : `
+                <p class="muted menu-empty">
+                  Non-Veg మెనూ ఇంకా లేదు.
+                </p>
+              `
+        }
+
+      </div>
 
     </div>
 
@@ -505,8 +517,51 @@ menuEl.innerHTML = `
 
 
 /* =========================
-   CLOSE LOAD MENU
+   END LOAD MENU
 ========================= */
+
+  } catch (error) {
+
+    console.error(
+      "MENU ERROR:",
+      error
+    );
+
+    menuEl.innerHTML = `
+      <div class="empty-menu">
+
+        <p class="muted">
+          మెనూ లోడ్ కాలేదు.
+        </p>
+
+      </div>
+    `;
+
+  }
+
+}
+/* =========================
+   MENU ERROR
+========================= */
+
+  } catch (error) {
+
+    console.error(
+      "MENU ERROR:",
+      error
+    );
+
+    menuEl.innerHTML = `
+      <div class="empty-menu">
+
+        <p class="muted">
+          మెనూ లోడ్ కాలేదు.
+        </p>
+
+      </div>
+    `;
+
+  }
 
 }
 
