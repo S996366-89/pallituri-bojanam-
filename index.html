@@ -12,53 +12,120 @@
 
 <body>
 
+ <!-- =========================
+     HEADER
+========================= -->
+
+<header class="top">
+
+  <img
+    src="logo.png"
+    alt="పల్లెటూరు భోజనం"
+    class="logo"
+  >
+
+  <div class="brand-text">
+    <h1>పల్లెటూరు భోజనం</h1>
+    <p>ఇంటి రుచితో మీ మధ్యాహ్న భోజనం</p>
+  </div>
+
+
+  <!-- CUSTOMER LOGIN -->
+
+  <button
+    type="button"
+    class="customer-login-btn"
+    id="customerLoginBtn"
+  >
+    🔐 కస్టమర్ లాగిన్
+  </button>
+
+
+  <!-- ADMIN -->
+
+  <a
+    class="admin-link"
+    href="admin.html"
+  >
+    అడ్మిన్
+  </a>
+
+</header>
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
   <!-- =========================
-       HEADER
+       CUSTOMER LOGIN
   ========================= -->
 
-  <header class="top">
+  <section
+    id="customerLoginSection"
+    class="customer-login-section"
+    style="display:none;"
+  >
 
-    <img
-      src="logo.png"
-      alt="పల్లెటూరు భోజనం"
-      class="logo"
+    <h3>🔐 కస్టమర్ లాగిన్</h3>
+
+    <p>
+      మీ ఫోన్ నంబర్ మరియు Passwordతో Login అవ్వండి.
+    </p>
+
+    <label for="loginPhone">
+      📱 ఫోన్ నంబర్
+    </label>
+
+    <input
+      type="tel"
+      id="loginPhone"
+      inputmode="tel"
+      maxlength="10"
+      placeholder="10 అంకెల ఫోన్ నంబర్"
     >
 
-    <div class="brand-text">
-      <h1>పల్లెటూరు భోజనం</h1>
-      <p>ఇంటి రుచితో మీ మధ్యాహ్న భోజనం</p>
-    </div>
+    <label for="loginPassword">
+      🔑 Password
+    </label>
 
-    <a
-      class="admin-link"
-      href="admin.html"
+    <input
+      type="password"
+      id="loginPassword"
+      placeholder="మీ Password"
     >
-      అడ్మిన్
-    </a>
 
-  </header>
+    <button
+      type="button"
+      id="customerLoginSubmitBtn"
+    >
+      🔐 లాగిన్ చేయండి
+    </button>
+
+    <p
+      id="customerLoginMessage"
+      class="status"
+    ></p>
+
+  </section>
 
 
   <!-- =========================
-       MAIN
+       WELCOME
   ========================= -->
 
-  <main>
+  <section class="hero">
 
-    <!-- Welcome -->
+    <h2>పల్లెటూరు భోజనానికి స్వాగతం</h2>
 
-    <section class="hero">
+    <p>
+      ప్రతిరోజూ ఇంటి రుచితో తయారుచేసిన
+      రుచికరమైన మధ్యాహ్న భోజనం
+      మీకు అందిస్తున్నాము.
+    </p>
 
-      <h2>పల్లెటూరు భోజనానికి స్వాగతం</h2>
-
-      <p>
-        ప్రతిరోజూ ఇంటి రుచితో తయారుచేసిన
-        రుచికరమైన మధ్యాహ్న భోజనం
-        మీకు అందిస్తున్నాము.
-      </p>
-
-    </section>
-
+  </section>
 
     <!-- =========================
          TODAY MENU
