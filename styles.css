@@ -1550,3 +1550,30 @@ footer {
   font-size: 13px;
   margin: 7px 0;
 }
+/* =========================
+   MOBILE CUSTOMER LOGIN
+========================= */
+
+@media (max-width: 600px) {
+
+  #customerLoginSection label {
+    display: inline-block;
+    width: 30%;
+    vertical-align: middle;
+    margin: 5px 0;
+  }
+
+  #customerLoginSection input {
+    display: inline-block;
+    width: 68%;
+    box-sizing: border-box;
+    margin: 5px 0;
+    vertical-align: middle;
+  }
+
+  #customerLoginSection button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+}
