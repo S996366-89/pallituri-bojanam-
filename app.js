@@ -11,8 +11,7 @@ import {
 
 import {
   getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import { firebaseConfig } from "./firebase-config.js";
@@ -28,27 +27,30 @@ const db = getFirestore(app);
 
 const auth = getAuth(app);
 
+
 /* =========================
-   MONTHLY CUSTOMER LOGIN
+   ELEMENTS
+========================= */
+
+const menuEl =
+  document.querySelector("#menuGrid");
+
+const orderForm =
+  document.querySelector("#orderForm");
+
+const orderStatus =
+  document.querySelector("#orderStatus");
+
+
+/* =========================
+   MONTHLY CUSTOMER
 ========================= */
 
 const monthlyCustomerLogin =
   document.querySelector("#monthlyCustomerLogin");
 
-const customerOtpStep =
-  document.querySelector("#customerOtpStep");
-
 const customerPasswordStep =
   document.querySelector("#customerPasswordStep");
-
-const customerOtp =
-  document.querySelector("#customerOtp");
-
-const sendOtpBtn =
-  document.querySelector("#sendOtpBtn");
-
-const verifyOtpBtn =
-  document.querySelector("#verifyOtpBtn");
 
 const customerPassword =
   document.querySelector("#customerPassword");
@@ -65,541 +67,10 @@ const customerLoginStatus =
 const monthlyCustomerCurry =
   document.querySelector("#monthlyCustomerCurry");
 
-let confirmationResult = null;
 
 let monthlyCustomerPhone = "";
 
 let monthlyCustomerOtpVerified = false;
-
-
-/* =========================
-   SHOW CUSTOMER LOGIN
-========================= */
-
-function showMonthlyCustomerLogin() {
-
-  if (!monthlyCustomerLogin) return;
-
-  monthlyCustomerLogin.style.display =
-    "block";
-
-
-  /* =========================
-     RESET OTP STEP
-  ========================= */
-
-  if (customerOtpStep) {
-
-    customerOtpStep.style.display =
-      "block";
-
-  }
-
-
-  /* =========================
-     HIDE PASSWORD STEP
-  ========================= */
-
-  if (customerPasswordStep) {
-
-    customerPasswordStep.style.display =
-      "none";
-
-  }
-
-
-  /* =========================
-     HIDE DAILY CURRY
-  ========================= */
-
-  if (monthlyCustomerCurry) {
-
-    monthlyCustomerCurry.style.display =
-      "none";
-
-  }
-
-
-  /* =========================
-     STATUS
-  ========================= */
-
-  if (customerLoginStatus) {
-
-    customerLoginStatus.textContent =
-      "📱 మీ మొబైల్ నంబర్‌ను ధృవీకరించండి.";
-
-  }
-
-
-  monthlyCustomerLogin.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-
-}
-
-
-/* =========================
-   SEND OTP
-========================= */
-
-async function sendMonthlyCustomerOtp() {
-
-  const monthlyPhoneInput =
-    document.querySelector("#monthlyPhone");
-
-
-  if (!monthlyPhoneInput) {
-
-    console.error(
-      "#monthlyPhone element not found"
-    );
-
-    return;
-
-  }
-
-
-  const phone =
-    monthlyPhoneInput.value.trim();
-
-
-  /* =========================
-     PHONE VALIDATION
-  ========================= */
-
-  if (!/^[6-9]\d{9}$/.test(phone)) {
-
-    customerLoginStatus.textContent =
-      "❌ దయచేసి సరైన 10 అంకెల మొబైల్ నంబర్ ఇవ్వండి.";
-
-    return;
-
-  }
-
-
-  monthlyCustomerPhone =
-    phone;
-
-  monthlyCustomerOtpVerified =
-    false;
-
-
-  try {
-
-    customerLoginStatus.textContent =
-      "⏳ OTP పంపడానికి సిద్ధమవుతోంది...";
-
-
-    /* =========================
-       CLEAR OLD RECAPTCHA
-    ========================= */
-
-    if (window.recaptchaVerifier) {
-
-      try {
-
-        window.recaptchaVerifier.clear();
-
-      } catch (error) {
-
-        console.log(
-          "Old reCAPTCHA clear skipped"
-        );
-
-      }
-
-      window.recaptchaVerifier =
-        null;
-
-    }
-
-
-    /* =========================
-       CREATE RECAPTCHA
-    ========================= */
-
-    window.recaptchaVerifier =
-      new RecaptchaVerifier(
-        auth,
-        "recaptcha-container",
-        {
-          size: "normal"
-        }
-      );
-
-
-    /* =========================
-       SEND OTP
-    ========================= */
-
-    confirmationResult =
-      await signInWithPhoneNumber(
-        auth,
-        "+91" + phone,
-        window.recaptchaVerifier
-      );
-
-
-    /* =========================
-       OTP SENT
-    ========================= */
-
-    if (customerOtpStep) {
-
-      customerOtpStep.style.display =
-        "block";
-
-    }
-
-
-    customerLoginStatus.textContent =
-      "✅ OTP మీ మొబైల్‌కు పంపబడింది.";
-
-  } catch (error) {
-
-    console.error(
-      "OTP ERROR:",
-      error
-    );
-
-
-    customerLoginStatus.textContent =
-      "❌ OTP పంపలేకపోయాము: " +
-      (error.code || error.message);
-
-  }
-
-}
-
-
-/* =========================
-   SEND OTP BUTTON
-========================= */
-
-if (sendOtpBtn) {
-
-  sendOtpBtn.addEventListener(
-    "click",
-    sendMonthlyCustomerOtp
-  );
-
-}
-
-
-/* =========================
-   VERIFY OTP
-========================= */
-
-if (verifyOtpBtn) {
-
-  verifyOtpBtn.addEventListener(
-    "click",
-    async () => {
-
-      const otp =
-        customerOtp.value.trim();
-
-
-      /* =========================
-         OTP VALIDATION
-      ========================= */
-
-      if (!otp) {
-
-        customerLoginStatus.textContent =
-          "❌ దయచేసి 6 అంకెల OTP నమోదు చేయండి.";
-
-        return;
-
-      }
-
-
-      if (!confirmationResult) {
-
-        customerLoginStatus.textContent =
-          "❌ ముందుగా OTP పంపండి.";
-
-        return;
-
-      }
-
-
-      try {
-
-        customerLoginStatus.textContent =
-          "⏳ OTP verify చేస్తోంది...";
-
-
-        await confirmationResult.confirm(
-          otp
-        );
-
-
-        /* =========================
-           OTP VERIFIED
-        ========================= */
-
-        monthlyCustomerOtpVerified =
-          true;
-
-
-        customerLoginStatus.textContent =
-          "✅ మొబైల్ నంబర్ విజయవంతంగా verify అయింది.";
-
-
-        /* =========================
-           HIDE OTP
-        ========================= */
-
-        if (customerOtpStep) {
-
-          customerOtpStep.style.display =
-            "none";
-
-        }
-
-
-        /* =========================
-           SHOW PASSWORD
-        ========================= */
-
-        if (customerPasswordStep) {
-
-          customerPasswordStep.style.display =
-            "block";
-
-          customerPasswordStep.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-
-        }
-
-      } catch (error) {
-
-        console.error(
-          "OTP VERIFY ERROR:",
-          error
-        );
-
-
-        monthlyCustomerOtpVerified =
-          false;
-
-
-        customerLoginStatus.textContent =
-          "❌ OTP సరైనది కాదు. మళ్లీ ప్రయత్నించండి.";
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================
-   CREATE CUSTOMER ACCOUNT
-========================= */
-
-if (saveCustomerPasswordBtn) {
-
-  saveCustomerPasswordBtn.addEventListener(
-    "click",
-    async () => {
-
-      const password =
-        customerPassword.value.trim();
-
-      const confirmPassword =
-        customerPasswordConfirm.value.trim();
-
-
-      /* =========================
-         PASSWORD VALIDATION
-      ========================= */
-
-      if (!password || !confirmPassword) {
-
-        customerLoginStatus.textContent =
-          "❌ దయచేసి Password రెండు సార్లు నమోదు చేయండి.";
-
-        return;
-
-      }
-
-
-      if (password.length < 6) {
-
-        customerLoginStatus.textContent =
-          "❌ Password కనీసం 6 అక్షరాలు ఉండాలి.";
-
-        return;
-
-      }
-
-
-      if (password !== confirmPassword) {
-
-        customerLoginStatus.textContent =
-          "❌ రెండు Passwordలు ఒకేలా లేవు.";
-
-        return;
-
-      }
-
-
-      /* =========================
-         OTP VERIFICATION CHECK
-      ========================= */
-
-      if (
-        !monthlyCustomerPhone ||
-        !monthlyCustomerOtpVerified
-      ) {
-
-        customerLoginStatus.textContent =
-          "❌ ముందుగా మొబైల్ OTP verify చేయాలి.";
-
-        return;
-
-      }
-
-
-      try {
-
-        customerLoginStatus.textContent =
-          "⏳ Customer Account తయారవుతోంది...";
-
-
-        /* =========================
-           INTERNAL EMAIL
-        ========================= */
-
-        const customerEmail =
-          monthlyCustomerPhone +
-          "@pallituri-bojanam.com";
-
-
-        /* =========================
-           CREATE EMAIL/PASSWORD ACCOUNT
-        ========================= */
-
-        await createUserWithEmailAndPassword(
-          auth,
-          customerEmail,
-          password
-        );
-
-
-        /* =========================
-           ACCOUNT SUCCESS
-        ========================= */
-
-        customerLoginStatus.textContent =
-          "✅ మీ Customer Account విజయవంతంగా సిద్ధమైంది.";
-
-
-        /* =========================
-           HIDE PASSWORD
-        ========================= */
-
-        if (customerPasswordStep) {
-
-          customerPasswordStep.style.display =
-            "none";
-
-        }
-
-
-        /* =========================
-           SHOW DAILY CURRY
-        ========================= */
-
-        if (monthlyCustomerCurry) {
-
-          monthlyCustomerCurry.style.display =
-            "block";
-
-          monthlyCustomerCurry.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-
-        }
-
-
-      } catch (error) {
-
-        console.error(
-          "CUSTOMER ACCOUNT ERROR:",
-          error
-        );
-
-
-        /* =========================
-           EXISTING ACCOUNT
-        ========================= */
-
-        if (
-          error.code ===
-          "auth/email-already-in-use"
-        ) {
-
-          customerLoginStatus.textContent =
-            "ℹ️ ఈ మొబైల్ నంబర్‌తో Customer Account ఇప్పటికే ఉంది.";
-
-          return;
-
-        }
-
-
-        /* =========================
-           WEAK PASSWORD
-        ========================= */
-
-        if (
-          error.code ===
-          "auth/weak-password"
-        ) {
-
-          customerLoginStatus.textContent =
-            "❌ Password బలంగా ఉండాలి.";
-
-          return;
-
-        }
-
-
-        /* =========================
-           OTHER ERROR
-        ========================= */
-
-        customerLoginStatus.textContent =
-          "❌ Account create కాలేదు: " +
-          (error.code || error.message);
-
-      }
-
-    }
-  );
-
-}
-
-/* =========================
-   ELEMENTS
-========================= */
-
-const menuEl = document.querySelector("#menuGrid");
-
-const orderForm = document.querySelector("#orderForm");
-
-const orderStatus = document.querySelector("#orderStatus");
-
-const monthlyCustomerCurry =
-  document.querySelector("#monthlyCustomerCurry");
 
 
 /* =========================
@@ -634,12 +105,16 @@ async function loadMenu() {
 
   try {
 
-    const snap = await getDocs(
-      query(
-        collection(db, "menu"),
-        orderBy("createdAt", "desc")
-      )
-    );
+    const snap =
+      await getDocs(
+        query(
+          collection(db, "menu"),
+          orderBy(
+            "createdAt",
+            "desc"
+          )
+        )
+      );
 
 
     /* =========================
@@ -659,6 +134,7 @@ async function loadMenu() {
       `;
 
       return;
+
     }
 
 
@@ -671,25 +147,30 @@ async function loadMenu() {
     const nonVegItems = [];
 
 
-    snap.docs.forEach((docSnap) => {
+    snap.docs.forEach(
+      (docSnap) => {
 
-      const item = docSnap.data();
+        const item =
+          docSnap.data();
 
 
-      if (
-        String(item.category || "").toLowerCase() ===
-        "nonveg"
-      ) {
+        if (
+          String(
+            item.category || ""
+          ).toLowerCase() ===
+          "nonveg"
+        ) {
 
-        nonVegItems.push(item);
+          nonVegItems.push(item);
 
-      } else {
+        } else {
 
-        vegItems.push(item);
+          vegItems.push(item);
+
+        }
 
       }
-
-    });
+    );
 
 
     /* =========================
@@ -707,7 +188,9 @@ async function loadMenu() {
         data-category="veg"
       >
 
-        <h3 class="customer-menu-title veg-title">
+        <h3
+          class="customer-menu-title veg-title"
+        >
           🥬 Veg
         </h3>
 
@@ -730,33 +213,46 @@ async function loadMenu() {
           ${
             vegItems.length
 
-              ? vegItems.map((item) => `
+              ? vegItems
+                  .map(
+                    (item) => `
 
-                  <div class="today-menu-item">
+                    <div
+                      class="today-menu-item"
+                    >
 
-                    <span class="item-name">
-                      ${escapeHtml(
-                        item.name || "కూర"
-                      )}
-                    </span>
+                      <span
+                        class="item-name"
+                      >
+                        ${escapeHtml(
+                          item.name ||
+                          "కూర"
+                        )}
+                      </span>
 
-                    <span class="item-price">
-                      ₹${Number(
-                        item.price || 0
-                      )}
-                    </span>
+                      <span
+                        class="item-price"
+                      >
+                        ₹${Number(
+                          item.price || 0
+                        )}
+                      </span>
 
-                  </div>
+                    </div>
 
-                `).join("")
+                  `
+                  )
+                  .join("")
 
               : `
 
-                  <p class="muted menu-empty">
-                    Veg మెనూ ఇంకా లేదు.
-                  </p>
+                <p
+                  class="muted menu-empty"
+                >
+                  Veg మెనూ ఇంకా లేదు.
+                </p>
 
-                `
+              `
           }
 
         </div>
@@ -773,7 +269,9 @@ async function loadMenu() {
         data-category="nonveg"
       >
 
-        <h3 class="customer-menu-title nonveg-title">
+        <h3
+          class="customer-menu-title nonveg-title"
+        >
           🍗 Non-Veg
         </h3>
 
@@ -796,33 +294,46 @@ async function loadMenu() {
           ${
             nonVegItems.length
 
-              ? nonVegItems.map((item) => `
+              ? nonVegItems
+                  .map(
+                    (item) => `
 
-                  <div class="today-menu-item">
+                    <div
+                      class="today-menu-item"
+                    >
 
-                    <span class="item-name">
-                      ${escapeHtml(
-                        item.name || "కూర"
-                      )}
-                    </span>
+                      <span
+                        class="item-name"
+                      >
+                        ${escapeHtml(
+                          item.name ||
+                          "కూర"
+                        )}
+                      </span>
 
-                    <span class="item-price">
-                      ₹${Number(
-                        item.price || 0
-                      )}
-                    </span>
+                      <span
+                        class="item-price"
+                      >
+                        ₹${Number(
+                          item.price || 0
+                        )}
+                      </span>
 
-                  </div>
+                    </div>
 
-                `).join("")
+                  `
+                  )
+                  .join("")
 
               : `
 
-                  <p class="muted menu-empty">
-                    Non-Veg మెనూ ఇంకా లేదు.
-                  </p>
+                <p
+                  class="muted menu-empty"
+                >
+                  Non-Veg మెనూ ఇంకా లేదు.
+                </p>
 
-                `
+              `
           }
 
         </div>
@@ -830,7 +341,6 @@ async function loadMenu() {
       </section>
 
     `;
-
 
   } catch (error) {
 
@@ -858,205 +368,243 @@ async function loadMenu() {
 
 
 /* =========================
-   ORDER
+   NORMAL ORDER
 ========================= */
 
-orderForm.addEventListener(
-  "submit",
-  async (event) => {
+if (orderForm) {
 
-    event.preventDefault();
+  orderForm.addEventListener(
+    "submit",
+    async (event) => {
 
-
-    orderStatus.textContent =
-      "ఆర్డర్ పంపుతోంది...";
+      event.preventDefault();
 
 
-    const name =
-      document
-        .querySelector("#name")
-        .value
-        .trim();
+      orderStatus.textContent =
+        "ఆర్డర్ పంపుతోంది...";
 
 
-    const phone =
-      document
-        .querySelector("#phone")
-        .value
-        .trim();
-
-
-    const address =
-      document
-        .querySelector("#address")
-        .value
-        .trim();
-
-
-    const quantity =
-      Number(
+      const name =
         document
-          .querySelector("#quantity")
+          .querySelector("#name")
           .value
-      );
+          .trim();
 
 
-    /* =========================
-       VALIDATION
-    ========================= */
+      const phone =
+        document
+          .querySelector("#phone")
+          .value
+          .trim();
 
-    if (
-      !name ||
-      !phone ||
-      !address ||
-      quantity < 1
-    ) {
 
-      orderStatus.textContent =
-        "దయచేసి అన్ని వివరాలు సరిగ్గా ఇవ్వండి.";
+      const address =
+        document
+          .querySelector("#address")
+          .value
+          .trim();
 
-      return;
+
+      const quantity =
+        Number(
+          document
+            .querySelector("#quantity")
+            .value
+        );
+
+
+      /* =========================
+         VALIDATION
+      ========================= */
+
+      if (
+        !name ||
+        !phone ||
+        !address ||
+        quantity < 1
+      ) {
+
+        orderStatus.textContent =
+          "దయచేసి అన్ని వివరాలు సరిగ్గా ఇవ్వండి.";
+
+        return;
+
+      }
+
+
+      /* =========================
+         SAVE ORDER
+      ========================= */
+
+      try {
+
+        await addDoc(
+          collection(
+            db,
+            "orders"
+          ),
+          {
+
+            name: name,
+
+            phone: phone,
+
+            address: address,
+
+            quantity: quantity,
+
+            status: "new",
+
+            createdAt:
+              new Date().toISOString()
+
+          }
+        );
+
+
+        orderStatus.textContent =
+          "✅ ఆర్డర్ విజయవంతంగా పంపబడింది. ధన్యవాదాలు!";
+
+
+        orderForm.reset();
+
+
+        document.querySelector(
+          "#quantity"
+        ).value = 1;
+
+
+      } catch (error) {
+
+        console.error(
+          "ORDER ERROR:",
+          error
+        );
+
+
+        orderStatus.textContent =
+          "❌ ఆర్డర్ పంపలేకపోయాం: " +
+          (
+            error.code ||
+            error.message
+          );
+
+      }
 
     }
+  );
 
+}
 
-    /* =========================
-       SAVE ORDER
-    ========================= */
-
-    try {
-
-      await addDoc(
-        collection(db, "orders"),
-        {
-
-          name: name,
-
-          phone: phone,
-
-          address: address,
-
-          quantity: quantity,
-
-          status: "new",
-
-          createdAt:
-            new Date().toISOString()
-
-        }
-      );
-
-
-      orderStatus.textContent =
-        "✅ ఆర్డర్ విజయవంతంగా పంపబడింది. ధన్యవాదాలు!";
-
-
-      orderForm.reset();
-
-
-      document.querySelector(
-        "#quantity"
-      ).value = 1;
-
-
-    } catch (error) {
-
-      console.error(
-        "ORDER ERROR:",
-        error
-      );
-
-
-      orderStatus.textContent =
-        "❌ ఆర్డర్ పంపలేకపోయాం: " +
-        (error.code || error.message);
-
-    }
-
-  }
-);
-
-
-/* =========================
-   START
-========================= */
-
-loadMenu();
-
-
-console.log(
-  "పల్లెటూరు భోజనం website started successfully."
-);
 
 /* =========================
    MONTHLY LUNCH PLANS
 ========================= */
+
 
 /* =========================
    PLAN ELEMENTS
 ========================= */
 
 const plan49Card =
-  document.querySelector("#plan49Card");
+  document.querySelector(
+    "#plan49Card"
+  );
 
 const plan69Card =
-  document.querySelector("#plan69Card");
+  document.querySelector(
+    "#plan69Card"
+  );
 
 const select49Btn =
-  document.querySelector("#select49Btn");
+  document.querySelector(
+    "#select49Btn"
+  );
 
 const select69Btn =
-  document.querySelector("#select69Btn");
+  document.querySelector(
+    "#select69Btn"
+  );
 
 const selectedPlanDetails =
-  document.querySelector("#selectedPlanDetails");
+  document.querySelector(
+    "#selectedPlanDetails"
+  );
 
 const selectedPlanTitle =
-  document.querySelector("#selectedPlanTitle");
+  document.querySelector(
+    "#selectedPlanTitle"
+  );
 
 const selectedPlanPrice =
-  document.querySelector("#selectedPlanPrice");
+  document.querySelector(
+    "#selectedPlanPrice"
+  );
 
 const plan49Details =
-  document.querySelector("#plan49Details");
+  document.querySelector(
+    "#plan49Details"
+  );
 
 const plan69Details =
-  document.querySelector("#plan69Details");
+  document.querySelector(
+    "#plan69Details"
+  );
 
 const monthlyPlanForm =
-  document.querySelector("#monthlyPlanForm");
+  document.querySelector(
+    "#monthlyPlanForm"
+  );
 
 const selectedPlanType =
-  document.querySelector("#selectedPlanType");
+  document.querySelector(
+    "#selectedPlanType"
+  );
 
 const selectedPlanPriceValue =
-  document.querySelector("#selectedPlanPriceValue");
+  document.querySelector(
+    "#selectedPlanPriceValue"
+  );
 
 const planDays =
-  document.querySelector("#planDays");
+  document.querySelector(
+    "#planDays"
+  );
 
 const planTotal =
-  document.querySelector("#planTotal");
+  document.querySelector(
+    "#planTotal"
+  );
 
 const monthlyPlanBtn =
-  document.querySelector("#monthlyPlanBtn");
+  document.querySelector(
+    "#monthlyPlanBtn"
+  );
 
 const monthlyPlanStatus =
-  document.querySelector("#monthlyPlanStatus");
+  document.querySelector(
+    "#monthlyPlanStatus"
+  );
 
 const monthlyName =
-  document.querySelector("#monthlyName");
+  document.querySelector(
+    "#monthlyName"
+  );
 
 const monthlyPhone =
-  document.querySelector("#monthlyPhone");
+  document.querySelector(
+    "#monthlyPhone"
+  );
 
 const monthlyAddress =
-  document.querySelector("#monthlyAddress");
+  document.querySelector(
+    "#monthlyAddress"
+  );
 
 const monthlyQuantity =
-  document.querySelector("#monthlyQuantity");
-
-let monthlyCustomerPhone = "";
+  document.querySelector(
+    "#monthlyQuantity"
+  );
 
 
 /* =========================
@@ -1064,6 +612,7 @@ let monthlyCustomerPhone = "";
 ========================= */
 
 const PLAN_49_PRICE = 49;
+
 const PLAN_69_PRICE = 69;
 
 
@@ -1074,17 +623,23 @@ const PLAN_69_PRICE = 69;
 function updatePlanTotal() {
 
   const days =
-    Number(planDays?.value || 0);
+    Number(
+      planDays?.value || 0
+    );
 
   const price =
-    Number(selectedPlanPriceValue?.value || 0);
+    Number(
+      selectedPlanPriceValue?.value || 0
+    );
 
   const quantity =
-    Number(monthlyQuantity?.value || 1);
+    Number(
+      monthlyQuantity?.value || 1
+    );
 
 
   /* =========================
-     NO PLAN SELECTED
+     NO PLAN
   ========================= */
 
   if (!price) {
@@ -1110,7 +665,9 @@ function updatePlanTotal() {
   if (planTotal) {
 
     planTotal.textContent =
-      `₹${total.toLocaleString("en-IN")}`;
+      `₹${total.toLocaleString(
+        "en-IN"
+      )}`;
 
   }
 
@@ -1118,28 +675,39 @@ function updatePlanTotal() {
 
 
 /* =========================
-   SELECT PLAN
+   SELECT MONTHLY PLAN
 ========================= */
 
-function selectMonthlyPlan(planPrice) {
+function selectMonthlyPlan(
+  planPrice
+) {
 
   const price =
     Number(planPrice);
 
 
   /* =========================
-     SET SELECTED PLAN
+     SET PLAN
   ========================= */
 
-  selectedPlanType.value =
-    `₹${price}`;
+  if (selectedPlanType) {
 
-  selectedPlanPriceValue.value =
-    price;
+    selectedPlanType.value =
+      `₹${price}`;
+
+  }
+
+
+  if (selectedPlanPriceValue) {
+
+    selectedPlanPriceValue.value =
+      price;
+
+  }
 
 
   /* =========================
-     RESET CARD ACTIVE STATE
+     RESET ACTIVE
   ========================= */
 
   if (plan49Card) {
@@ -1160,7 +728,7 @@ function selectMonthlyPlan(planPrice) {
 
 
   /* =========================
-     SHOW PLAN DETAILS
+     SHOW DETAILS
   ========================= */
 
   if (selectedPlanDetails) {
@@ -1182,13 +750,26 @@ function selectMonthlyPlan(planPrice) {
      ₹49 PLAN
   ========================= */
 
-  if (price === PLAN_49_PRICE) {
+  if (
+    price ===
+    PLAN_49_PRICE
+  ) {
 
-    selectedPlanTitle.textContent =
-      "₹49 పథకం";
+    if (selectedPlanTitle) {
 
-    selectedPlanPrice.textContent =
-      "₹49 / రోజు";
+      selectedPlanTitle.textContent =
+        "₹49 పథకం";
+
+    }
+
+
+    if (selectedPlanPrice) {
+
+      selectedPlanPrice.textContent =
+        "₹49 / రోజు";
+
+    }
+
 
     if (plan49Details) {
 
@@ -1197,12 +778,14 @@ function selectMonthlyPlan(planPrice) {
 
     }
 
+
     if (plan69Details) {
 
       plan69Details.style.display =
         "none";
 
     }
+
 
     if (plan49Card) {
 
@@ -1219,13 +802,26 @@ function selectMonthlyPlan(planPrice) {
      ₹69 PLAN
   ========================= */
 
-  if (price === PLAN_69_PRICE) {
+  if (
+    price ===
+    PLAN_69_PRICE
+  ) {
 
-    selectedPlanTitle.textContent =
-      "₹69 పథకం";
+    if (selectedPlanTitle) {
 
-    selectedPlanPrice.textContent =
-      "₹69 / రోజు";
+      selectedPlanTitle.textContent =
+        "₹69 పథకం";
+
+    }
+
+
+    if (selectedPlanPrice) {
+
+      selectedPlanPrice.textContent =
+        "₹69 / రోజు";
+
+    }
+
 
     if (plan49Details) {
 
@@ -1234,12 +830,14 @@ function selectMonthlyPlan(planPrice) {
 
     }
 
+
     if (plan69Details) {
 
       plan69Details.style.display =
         "block";
 
     }
+
 
     if (plan69Card) {
 
@@ -1253,14 +851,14 @@ function selectMonthlyPlan(planPrice) {
 
 
   /* =========================
-     UPDATE TOTAL
+     TOTAL
   ========================= */
 
   updatePlanTotal();
 
 
   /* =========================
-     CLOSE PLAN DROPDOWN
+     CLOSE DROPDOWN
   ========================= */
 
   const openDropdown =
@@ -1278,7 +876,7 @@ function selectMonthlyPlan(planPrice) {
 
 
   /* =========================
-     SCROLL TO DETAILS
+     SCROLL
   ========================= */
 
   if (selectedPlanDetails) {
@@ -1362,6 +960,267 @@ if (monthlyQuantity) {
 
 
 /* =========================
+   SHOW CUSTOMER LOGIN
+========================= */
+
+function showMonthlyCustomerLogin() {
+
+  if (!monthlyCustomerLogin) {
+    return;
+  }
+
+
+  monthlyCustomerLogin.style.display =
+    "block";
+
+
+  /* =========================
+     PASSWORD STEP
+  ========================= */
+
+  if (customerPasswordStep) {
+
+    customerPasswordStep.style.display =
+      "block";
+
+  }
+
+
+  /* =========================
+     STATUS
+  ========================= */
+
+  if (customerLoginStatus) {
+
+    customerLoginStatus.textContent =
+      "🔐 మీ Customer Account కోసం Password సెట్ చేసుకోండి.";
+
+  }
+
+
+  /* =========================
+     HIDE DAILY CURRY
+  ========================= */
+
+  if (monthlyCustomerCurry) {
+
+    monthlyCustomerCurry.style.display =
+      "none";
+
+  }
+
+
+  monthlyCustomerLogin.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+
+/* =========================
+   CREATE CUSTOMER ACCOUNT
+========================= */
+
+if (saveCustomerPasswordBtn) {
+
+  saveCustomerPasswordBtn.addEventListener(
+    "click",
+    async () => {
+
+      const password =
+        customerPassword
+          ?.value
+          .trim() || "";
+
+
+      const confirmPassword =
+        customerPasswordConfirm
+          ?.value
+          .trim() || "";
+
+
+      /* =========================
+         VALIDATION
+      ========================= */
+
+      if (
+        !password ||
+        !confirmPassword
+      ) {
+
+        customerLoginStatus.textContent =
+          "❌ దయచేసి Password రెండు సార్లు నమోదు చేయండి.";
+
+        return;
+
+      }
+
+
+      if (
+        password.length < 6
+      ) {
+
+        customerLoginStatus.textContent =
+          "❌ Password కనీసం 6 అక్షరాలు ఉండాలి.";
+
+        return;
+
+      }
+
+
+      if (
+        password !==
+        confirmPassword
+      ) {
+
+        customerLoginStatus.textContent =
+          "❌ రెండు Passwordలు ఒకేలా లేవు.";
+
+        return;
+
+      }
+
+
+      if (!monthlyCustomerPhone) {
+
+        customerLoginStatus.textContent =
+          "❌ Customer phone number కనిపించలేదు.";
+
+        return;
+
+      }
+
+
+      try {
+
+        customerLoginStatus.textContent =
+          "⏳ Customer Account తయారవుతోంది...";
+
+
+        /* =========================
+           INTERNAL EMAIL
+        ========================= */
+
+        const customerEmail =
+          monthlyCustomerPhone +
+          "@pallituri-bojanam.com";
+
+
+        /* =========================
+           CREATE ACCOUNT
+        ========================= */
+
+        await createUserWithEmailAndPassword(
+          auth,
+          customerEmail,
+          password
+        );
+
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
+        monthlyCustomerOtpVerified =
+          true;
+
+
+        customerLoginStatus.textContent =
+          "✅ మీ Customer Account విజయవంతంగా సిద్ధమైంది.";
+
+
+        /* =========================
+           HIDE PASSWORD
+        ========================= */
+
+        if (customerPasswordStep) {
+
+          customerPasswordStep.style.display =
+            "none";
+
+        }
+
+
+        /* =========================
+           SHOW DAILY CURRY
+        ========================= */
+
+        if (monthlyCustomerCurry) {
+
+          monthlyCustomerCurry.style.display =
+            "block";
+
+          monthlyCustomerCurry.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          "CUSTOMER ACCOUNT ERROR:",
+          error
+        );
+
+
+        /* =========================
+           EXISTING ACCOUNT
+        ========================= */
+
+        if (
+          error.code ===
+          "auth/email-already-in-use"
+        ) {
+
+          customerLoginStatus.textContent =
+            "ℹ️ ఈ మొబైల్ నంబర్‌తో Customer Account ఇప్పటికే ఉంది.";
+
+          return;
+
+        }
+
+
+        /* =========================
+           WEAK PASSWORD
+        ========================= */
+
+        if (
+          error.code ===
+          "auth/weak-password"
+        ) {
+
+          customerLoginStatus.textContent =
+            "❌ Password బలంగా ఉండాలి.";
+
+          return;
+
+        }
+
+
+        /* =========================
+           OTHER ERROR
+        ========================= */
+
+        customerLoginStatus.textContent =
+          "❌ Account create కాలేదు: " +
+          (
+            error.code ||
+            error.message
+          );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
    MONTHLY PLAN ORDER
 ========================= */
 
@@ -1372,31 +1231,46 @@ if (monthlyPlanBtn) {
     async () => {
 
       const name =
-        monthlyName.value.trim();
+        monthlyName
+          ?.value
+          .trim() || "";
+
 
       const phone =
-        monthlyPhone.value.trim();
+        monthlyPhone
+          ?.value
+          .trim() || "";
+
 
       const address =
-        monthlyAddress.value.trim();
+        monthlyAddress
+          ?.value
+          .trim() || "";
+
 
       const quantity =
         Number(
-          monthlyQuantity.value
+          monthlyQuantity?.value || 0
         );
+
 
       const days =
         Number(
-          planDays.value
+          planDays?.value || 0
         );
+
 
       const price =
         Number(
-          selectedPlanPriceValue.value
+          selectedPlanPriceValue
+            ?.value || 0
         );
 
+
       const planType =
-        selectedPlanType.value;
+        selectedPlanType
+          ?.value || "";
+
 
       const total =
         days *
@@ -1405,18 +1279,25 @@ if (monthlyPlanBtn) {
 
 
       /* =========================
-         VALIDATION
+         PLAN VALIDATION
       ========================= */
 
-      if (!planType || !price) {
+      if (
+        !planType ||
+        !price
+      ) {
 
         monthlyPlanStatus.textContent =
-          "దయచేసి ముందుగా ₹49 లేదా ₹69 పథకాన్ని ఎంచుకోండి.";
+          "❌ దయచేసి ముందుగా ₹49 లేదా ₹69 పథకాన్ని ఎంచుకోండి.";
 
         return;
 
       }
 
+
+      /* =========================
+         CUSTOMER VALIDATION
+      ========================= */
 
       if (
         !name ||
@@ -1427,7 +1308,25 @@ if (monthlyPlanBtn) {
       ) {
 
         monthlyPlanStatus.textContent =
-          "దయచేసి పేరు, ఫోన్ నంబర్, చిరునామా మరియు భోజనాల సంఖ్య ఇవ్వండి.";
+          "❌ దయచేసి పేరు, ఫోన్ నంబర్, చిరునామా మరియు భోజనాల సంఖ్య ఇవ్వండి.";
+
+        return;
+
+      }
+
+
+      /* =========================
+         PHONE VALIDATION
+      ========================= */
+
+      if (
+        !/^[6-9]\d{9}$/.test(
+          phone
+        )
+      ) {
+
+        monthlyPlanStatus.textContent =
+          "❌ దయచేసి సరైన 10 అంకెల మొబైల్ నంబర్ ఇవ్వండి.";
 
         return;
 
@@ -1435,7 +1334,7 @@ if (monthlyPlanBtn) {
 
 
       monthlyPlanStatus.textContent =
-        "నెలవారీ పథకం పంపుతోంది...";
+        "⏳ నెలవారీ పథకం పంపుతోంది...";
 
 
       /* =========================
@@ -1475,19 +1374,36 @@ if (monthlyPlanBtn) {
           }
         );
 
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
         monthlyPlanStatus.textContent =
-  "✅ నెలవారీ పథకం విజయవంతంగా నమోదు అయింది. ధన్యవాదాలు!";
-
-monthlyCustomerPhone =
-  phone;
-
-showMonthlyCustomerLogin();
-
-sendMonthlyCustomerOtp();
+          "✅ నెలవారీ పథకం విజయవంతంగా నమోదు అయింది. ధన్యవాదాలు!";
 
 
         /* =========================
-           CLEAR MONTHLY FIELDS
+           SAVE CUSTOMER PHONE
+        ========================= */
+
+        monthlyCustomerPhone =
+          phone;
+
+
+        monthlyCustomerOtpVerified =
+          false;
+
+
+        /* =========================
+           SHOW CUSTOMER ACCOUNT
+        ========================= */
+
+        showMonthlyCustomerLogin();
+
+
+        /* =========================
+           CLEAR MONTHLY FORM
         ========================= */
 
         monthlyName.value = "";
@@ -1509,8 +1425,24 @@ sendMonthlyCustomerOtp();
 
         selectedPlanPriceValue.value = "";
 
-        selectedPlanDetails.style.display =
-          "none";
+
+        if (
+          selectedPlanDetails
+        ) {
+
+          selectedPlanDetails.style.display =
+            "none";
+
+        }
+
+
+        if (monthlyPlanForm) {
+
+          monthlyPlanForm.style.display =
+            "none";
+
+        }
+
 
         if (plan49Card) {
 
@@ -1519,6 +1451,7 @@ sendMonthlyCustomerOtp();
           );
 
         }
+
 
         if (plan69Card) {
 
@@ -1542,7 +1475,10 @@ sendMonthlyCustomerOtp();
 
         monthlyPlanStatus.textContent =
           "❌ నెలవారీ పథకం నమోదు కాలేదు: " +
-          (error.code || error.message);
+          (
+            error.code ||
+            error.message
+          );
 
       }
 
@@ -1562,3 +1498,15 @@ if (planTotal) {
     "పథకాన్ని ఎంచుకోండి";
 
 }
+
+
+/* =========================
+   START WEBSITE
+========================= */
+
+loadMenu();
+
+
+console.log(
+  "పల్లెటూరు భోజనం website started successfully."
+);
