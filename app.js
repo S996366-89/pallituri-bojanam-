@@ -68,9 +68,11 @@ const monthlyCustomerCurry =
   document.querySelector("#monthlyCustomerCurry");
 
 
-let monthlyCustomerPhone = "";
+/* =========================
+   CUSTOMER PHONE
+========================= */
 
-let monthlyCustomerOtpVerified = false;
+let monthlyCustomerPhone = "";
 
 
 /* =========================
@@ -103,6 +105,8 @@ function escapeHtml(value) {
 
 async function loadMenu() {
 
+  if (!menuEl) return;
+
   try {
 
     const snap =
@@ -134,7 +138,6 @@ async function loadMenu() {
       `;
 
       return;
-
     }
 
 
@@ -180,7 +183,7 @@ async function loadMenu() {
     menuEl.innerHTML = `
 
       <!-- =====================
-           VEG BOX
+           VEG
       ====================== -->
 
       <section
@@ -261,7 +264,7 @@ async function loadMenu() {
 
 
       <!-- =====================
-           NON-VEG BOX
+           NON-VEG
       ====================== -->
 
       <section
@@ -342,6 +345,7 @@ async function loadMenu() {
 
     `;
 
+
   } catch (error) {
 
     console.error(
@@ -380,36 +384,40 @@ if (orderForm) {
       event.preventDefault();
 
 
-      orderStatus.textContent =
-        "ఆర్డర్ పంపుతోంది...";
+      if (orderStatus) {
+
+        orderStatus.textContent =
+          "ఆర్డర్ పంపుతోంది...";
+
+      }
 
 
       const name =
         document
           .querySelector("#name")
-          .value
-          .trim();
+          ?.value
+          .trim() || "";
 
 
       const phone =
         document
           .querySelector("#phone")
-          .value
-          .trim();
+          ?.value
+          .trim() || "";
 
 
       const address =
         document
           .querySelector("#address")
-          .value
-          .trim();
+          ?.value
+          .trim() || "";
 
 
       const quantity =
         Number(
           document
             .querySelector("#quantity")
-            .value
+            ?.value || 0
         );
 
 
@@ -424,8 +432,12 @@ if (orderForm) {
         quantity < 1
       ) {
 
-        orderStatus.textContent =
-          "దయచేసి అన్ని వివరాలు సరిగ్గా ఇవ్వండి.";
+        if (orderStatus) {
+
+          orderStatus.textContent =
+            "దయచేసి అన్ని వివరాలు సరిగ్గా ఇవ్వండి.";
+
+        }
 
         return;
 
@@ -462,16 +474,28 @@ if (orderForm) {
         );
 
 
-        orderStatus.textContent =
-          "✅ ఆర్డర్ విజయవంతంగా పంపబడింది. ధన్యవాదాలు!";
+        if (orderStatus) {
+
+          orderStatus.textContent =
+            "✅ ఆర్డర్ విజయవంతంగా పంపబడింది. ధన్యవాదాలు!";
+
+        }
 
 
         orderForm.reset();
 
 
-        document.querySelector(
-          "#quantity"
-        ).value = 1;
+        const quantityInput =
+          document.querySelector(
+            "#quantity"
+          );
+
+
+        if (quantityInput) {
+
+          quantityInput.value = 1;
+
+        }
 
 
       } catch (error) {
@@ -482,12 +506,16 @@ if (orderForm) {
         );
 
 
-        orderStatus.textContent =
-          "❌ ఆర్డర్ పంపలేకపోయాం: " +
-          (
-            error.code ||
-            error.message
-          );
+        if (orderStatus) {
+
+          orderStatus.textContent =
+            "❌ ఆర్డర్ పంపలేకపోయాం: " +
+            (
+              error.code ||
+              error.message
+            );
+
+        }
 
       }
 
@@ -638,10 +666,6 @@ function updatePlanTotal() {
     );
 
 
-  /* =========================
-     NO PLAN
-  ========================= */
-
   if (!price) {
 
     if (planTotal) {
@@ -738,6 +762,7 @@ function selectMonthlyPlan(
 
   }
 
+
   if (monthlyPlanForm) {
 
     monthlyPlanForm.style.display =
@@ -747,7 +772,7 @@ function selectMonthlyPlan(
 
 
   /* =========================
-     ₹49 PLAN
+     ₹49
   ========================= */
 
   if (
@@ -799,7 +824,7 @@ function selectMonthlyPlan(
 
 
   /* =========================
-     ₹69 PLAN
+     ₹69
   ========================= */
 
   if (
@@ -865,6 +890,7 @@ function selectMonthlyPlan(
     document.querySelector(
       ".plan-dropdown[open]"
     );
+
 
   if (openDropdown) {
 
@@ -966,7 +992,9 @@ if (monthlyQuantity) {
 function showMonthlyCustomerLogin() {
 
   if (!monthlyCustomerLogin) {
+
     return;
+
   }
 
 
@@ -975,13 +1003,31 @@ function showMonthlyCustomerLogin() {
 
 
   /* =========================
-     PASSWORD STEP
+     SHOW PASSWORD
   ========================= */
 
   if (customerPasswordStep) {
 
     customerPasswordStep.style.display =
       "block";
+
+  }
+
+
+  /* =========================
+     CLEAR PASSWORD
+  ========================= */
+
+  if (customerPassword) {
+
+    customerPassword.value = "";
+
+  }
+
+
+  if (customerPasswordConfirm) {
+
+    customerPasswordConfirm.value = "";
 
   }
 
@@ -1041,7 +1087,7 @@ if (saveCustomerPasswordBtn) {
 
 
       /* =========================
-         VALIDATION
+         PASSWORD VALIDATION
       ========================= */
 
       if (
@@ -1081,6 +1127,10 @@ if (saveCustomerPasswordBtn) {
 
       }
 
+
+      /* =========================
+         PHONE CHECK
+      ========================= */
 
       if (!monthlyCustomerPhone) {
 
@@ -1122,10 +1172,6 @@ if (saveCustomerPasswordBtn) {
            SUCCESS
         ========================= */
 
-        monthlyCustomerOtpVerified =
-          true;
-
-
         customerLoginStatus.textContent =
           "✅ మీ Customer Account విజయవంతంగా సిద్ధమైంది.";
 
@@ -1150,6 +1196,7 @@ if (saveCustomerPasswordBtn) {
 
           monthlyCustomerCurry.style.display =
             "block";
+
 
           monthlyCustomerCurry.scrollIntoView({
             behavior: "smooth",
@@ -1250,13 +1297,15 @@ if (monthlyPlanBtn) {
 
       const quantity =
         Number(
-          monthlyQuantity?.value || 0
+          monthlyQuantity
+            ?.value || 0
         );
 
 
       const days =
         Number(
-          planDays?.value || 0
+          planDays
+            ?.value || 0
         );
 
 
@@ -1391,12 +1440,8 @@ if (monthlyPlanBtn) {
           phone;
 
 
-        monthlyCustomerOtpVerified =
-          false;
-
-
         /* =========================
-           SHOW CUSTOMER ACCOUNT
+           SHOW PASSWORD ACCOUNT
         ========================= */
 
         showMonthlyCustomerLogin();
@@ -1406,29 +1451,60 @@ if (monthlyPlanBtn) {
            CLEAR MONTHLY FORM
         ========================= */
 
-        monthlyName.value = "";
+        if (monthlyName) {
 
-        monthlyPhone.value = "";
+          monthlyName.value = "";
 
-        monthlyAddress.value = "";
+        }
 
-        monthlyQuantity.value = 1;
 
-        planDays.value = 26;
+        if (monthlyPhone) {
+
+          monthlyPhone.value = "";
+
+        }
+
+
+        if (monthlyAddress) {
+
+          monthlyAddress.value = "";
+
+        }
+
+
+        if (monthlyQuantity) {
+
+          monthlyQuantity.value = 1;
+
+        }
+
+
+        if (planDays) {
+
+          planDays.value = 26;
+
+        }
 
 
         /* =========================
            RESET PLAN
         ========================= */
 
-        selectedPlanType.value = "";
+        if (selectedPlanType) {
 
-        selectedPlanPriceValue.value = "";
+          selectedPlanType.value = "";
+
+        }
 
 
-        if (
-          selectedPlanDetails
-        ) {
+        if (selectedPlanPriceValue) {
+
+          selectedPlanPriceValue.value = "";
+
+        }
+
+
+        if (selectedPlanDetails) {
 
           selectedPlanDetails.style.display =
             "none";
@@ -1510,3 +1586,299 @@ loadMenu();
 console.log(
   "పల్లెటూరు భోజనం website started successfully."
 );
+
+/* =========================
+   DAILY CURRY SELECTION
+========================= */
+
+const curryOptions =
+  document.querySelectorAll(".curry-option");
+
+const extraCurryOptions =
+  document.querySelectorAll(".extra-curry-option");
+
+const selectedCurryStatus =
+  document.querySelector("#selectedCurryStatus");
+
+const extraCurryTotal =
+  document.querySelector("#extraCurryTotal");
+
+const saveDailyCurryBtn =
+  document.querySelector("#saveDailyCurryBtn");
+
+
+let selectedDailyCurry = "";
+
+let selectedExtraCurries = [];
+
+let selectedExtraTotal = 0;
+
+
+/* =========================
+   INCLUDED CURRY
+========================= */
+
+curryOptions.forEach((button) => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      selectedDailyCurry =
+        button.dataset.curry || "";
+
+
+      /* =========================
+         ACTIVE BUTTON
+      ========================= */
+
+      curryOptions.forEach((item) => {
+
+        item.classList.remove(
+          "selected"
+        );
+
+      });
+
+
+      button.classList.add(
+        "selected"
+      );
+
+
+      /* =========================
+         STATUS
+      ========================= */
+
+      if (selectedCurryStatus) {
+
+        selectedCurryStatus.textContent =
+          `🍛 ఈరోజు కూర: ${selectedDailyCurry}`;
+
+      }
+
+    }
+  );
+
+});
+
+
+/* =========================
+   EXTRA CURRY
+========================= */
+
+extraCurryOptions.forEach((button) => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      const curry =
+        button.dataset.curry || "";
+
+      const price =
+        Number(
+          button.dataset.price || 0
+        );
+
+
+      const existingIndex =
+        selectedExtraCurries.findIndex(
+          (item) =>
+            item.curry === curry
+        );
+
+
+      /* =========================
+         REMOVE IF ALREADY SELECTED
+      ========================= */
+
+      if (existingIndex !== -1) {
+
+        selectedExtraCurries.splice(
+          existingIndex,
+          1
+        );
+
+        selectedExtraTotal -= price;
+
+        button.classList.remove(
+          "selected"
+        );
+
+      }
+
+      /* =========================
+         ADD EXTRA CURRY
+      ========================= */
+
+      else {
+
+        selectedExtraCurries.push({
+          curry: curry,
+          price: price
+        });
+
+        selectedExtraTotal += price;
+
+        button.classList.add(
+          "selected"
+        );
+
+      }
+
+
+      /* =========================
+         UPDATE TOTAL
+      ========================= */
+
+      if (extraCurryTotal) {
+
+        extraCurryTotal.textContent =
+          `Extra Curry: ₹${selectedExtraTotal}`;
+
+      }
+
+    }
+  );
+
+});
+
+
+/* =========================
+   SAVE DAILY CURRY
+========================= */
+
+if (saveDailyCurryBtn) {
+
+  saveDailyCurryBtn.addEventListener(
+    "click",
+    async () => {
+
+      /* =========================
+         CHECK CUSTOMER
+      ========================= */
+
+      if (!monthlyCustomerPhone) {
+
+        if (selectedCurryStatus) {
+
+          selectedCurryStatus.textContent =
+            "❌ ముందుగా Customer Account పూర్తి చేయండి.";
+
+        }
+
+        return;
+
+      }
+
+
+      /* =========================
+         CHECK CURRY
+      ========================= */
+
+      if (!selectedDailyCurry) {
+
+        if (selectedCurryStatus) {
+
+          selectedCurryStatus.textContent =
+            "❌ ముందుగా ఈరోజు కూరను ఎంచుకోండి.";
+
+        }
+
+        return;
+
+      }
+
+
+      try {
+
+        saveDailyCurryBtn.disabled =
+          true;
+
+
+        saveDailyCurryBtn.textContent =
+          "⏳ సేవ్ అవుతోంది...";
+
+
+        /* =========================
+           SAVE TO FIRESTORE
+        ========================= */
+
+        await addDoc(
+          collection(
+            db,
+            "dailyCurrySelections"
+          ),
+          {
+
+            phone:
+              monthlyCustomerPhone,
+
+            curry:
+              selectedDailyCurry,
+
+            extraCurries:
+              selectedExtraCurries,
+
+            extraCurryTotal:
+              selectedExtraTotal,
+
+            createdAt:
+              new Date().toISOString(),
+
+            status:
+              "selected"
+
+          }
+        );
+
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
+        if (selectedCurryStatus) {
+
+          selectedCurryStatus.textContent =
+            `✅ ఈరోజు ${selectedDailyCurry} సేవ్ అయింది.`;
+
+        }
+
+
+        saveDailyCurryBtn.textContent =
+          "✅ ఈరోజు కూర సేవ్ అయింది";
+
+
+      } catch (error) {
+
+        console.error(
+          "DAILY CURRY ERROR:",
+          error
+        );
+
+
+        if (selectedCurryStatus) {
+
+          selectedCurryStatus.textContent =
+            "❌ కూర సేవ్ కాలేదు: " +
+            (
+              error.code ||
+              error.message
+            );
+
+        }
+
+
+        saveDailyCurryBtn.disabled =
+          false;
+
+        saveDailyCurryBtn.textContent =
+          "✅ ఈరోజు కూరను సేవ్ చేయండి";
+
+      }
+
+    }
+  );
+
+}
