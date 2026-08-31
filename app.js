@@ -11,7 +11,8 @@ import {
 
 import {
   getAuth,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import { firebaseConfig } from "./firebase-config.js";
@@ -67,12 +68,214 @@ const customerLoginStatus =
 const monthlyCustomerCurry =
   document.querySelector("#monthlyCustomerCurry");
 
+/* =========================
+   CUSTOMER LOGIN
+========================= */
+
+const customerLoginBtn =
+  document.querySelector(
+    "#customerLoginBtn"
+  );
+
+const customerLoginSection =
+  document.querySelector(
+    "#customerLoginSection"
+  );
+
+const loginPhone =
+  document.querySelector(
+    "#loginPhone"
+  );
+
+const loginPassword =
+  document.querySelector(
+    "#loginPassword"
+  );
+
+const customerLoginSubmitBtn =
+  document.querySelector(
+    "#customerLoginSubmitBtn"
+  );
+
+const customerLoginMessage =
+  document.querySelector(
+    "#customerLoginMessage"
+  );
+
+/* =========================
+   OPEN CUSTOMER LOGIN
+========================= */
+
+if (customerLoginBtn) {
+
+  customerLoginBtn.addEventListener(
+    "click",
+    () => {
+
+      if (customerLoginSection) {
+
+        customerLoginSection.style.display =
+          "block";
+
+        customerLoginSection.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+      }
+
+    }
+  );
+
+}
+
 
 /* =========================
    CUSTOMER PHONE
 ========================= */
 
 let monthlyCustomerPhone = "";
+
+/* =========================
+   CUSTOMER LOGIN
+========================= */
+
+if (customerLoginSubmitBtn) {
+
+  customerLoginSubmitBtn.addEventListener(
+    "click",
+    async () => {
+
+      const phone =
+        loginPhone?.value.trim() || "";
+
+      const password =
+        loginPassword?.value.trim() || "";
+
+
+      /* =========================
+         VALIDATION
+      ========================= */
+
+      if (!/^[6-9]\d{9}$/.test(phone)) {
+
+        if (customerLoginMessage) {
+          customerLoginMessage.textContent =
+            "❌ సరైన 10 అంకెల ఫోన్ నంబర్ ఇవ్వండి.";
+        }
+
+        return;
+      }
+
+
+      if (!password) {
+
+        if (customerLoginMessage) {
+          customerLoginMessage.textContent =
+            "❌ Password నమోదు చేయండి.";
+        }
+
+        return;
+      }
+
+
+      /* =========================
+         FIREBASE EMAIL
+      ========================= */
+
+      const customerEmail =
+        phone + "@pallituri-bojanam.com";
+
+
+      try {
+
+        if (customerLoginMessage) {
+          customerLoginMessage.textContent =
+            "⏳ Login అవుతోంది...";
+        }
+
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        await signInWithEmailAndPassword(
+          auth,
+          customerEmail,
+          password
+        );
+
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
+        if (customerLoginMessage) {
+          customerLoginMessage.textContent =
+            "✅ Login విజయవంతమైంది.";
+        }
+
+
+        /* =========================
+           HIDE LOGIN
+        ========================= */
+
+        if (customerLoginSection) {
+          customerLoginSection.style.display =
+            "none";
+        }
+
+
+        /* =========================
+           SHOW DAILY CURRY
+        ========================= */
+
+        if (monthlyCustomerCurry) {
+
+          monthlyCustomerCurry.style.display =
+            "block";
+
+          monthlyCustomerCurry.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          "CUSTOMER LOGIN ERROR:",
+          error
+        );
+
+
+        if (
+          error.code ===
+          "auth/invalid-credential"
+        ) {
+
+          customerLoginMessage.textContent =
+            "❌ ఫోన్ నంబర్ లేదా Password తప్పుగా ఉంది.";
+
+          return;
+        }
+
+
+        customerLoginMessage.textContent =
+          "❌ Login కాలేదు: " +
+          (
+            error.code ||
+            error.message
+          );
+
+      }
+
+    }
+  );
+
+}
 
 
 /* =========================
