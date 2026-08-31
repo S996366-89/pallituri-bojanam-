@@ -1396,3 +1396,90 @@ footer {
   }
 
 }
+/* =========================
+   TODAY MENU DROPDOWN
+========================= */
+
+.menu-dropdown {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Remove default details marker */
+
+.menu-dropdown > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.menu-dropdown > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Arrow */
+
+.menu-arrow {
+  float: right;
+  transition: transform 0.2s ease;
+}
+
+/* Rotate arrow when open */
+
+.menu-dropdown[open] .menu-arrow {
+  transform: rotate(180deg);
+}
+
+/* =========================
+   MENU ITEMS SCROLL
+========================= */
+
+.menu-dropdown .today-menu {
+  max-height: 220px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar */
+
+.menu-dropdown .today-menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.menu-dropdown .today-menu::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  #menuGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menu-dropdown {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .menu-dropdown > summary {
+    padding: 12px 14px;
+    font-size: 17px;
+  }
+
+  .menu-dropdown .today-menu {
+    max-height: 190px;
+  }
+
+  .menu-dropdown .today-menu-item {
+    min-height: 40px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+  }
+
+}
