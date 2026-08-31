@@ -1483,3 +1483,70 @@ footer {
   }
 
 }
+  /* =========================
+   COMPACT CUSTOMER LOGIN
+========================= */
+
+#customerLoginSection {
+  max-width: 360px;
+  margin: 20px auto;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+#customerLoginSection h2,
+#customerLoginSection h3 {
+  font-size: 20px;
+  margin: 6px 0 12px;
+}
+
+#customerLoginSection input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  margin: 5px 0;
+  font-size: 15px;
+  border-radius: 9px;
+}
+
+#customerLoginSection button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  font-size: 15px;
+  border-radius: 9px;
+}
+
+#customerLoginMessage {
+  margin: 8px 0 0;
+  font-size: 13px;
+}
+
+#monthlyCustomerLogin {
+  max-width: 360px;
+  margin: 16px auto;
+  padding: 15px;
+  border-radius: 16px;
+}
+
+#monthlyCustomerLogin input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  margin: 5px 0;
+  font-size: 15px;
+  border-radius: 9px;
+}
+
+#monthlyCustomerLogin button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  font-size: 15px;
+  border-radius: 9px;
+}
+
+#customerLoginStatus {
+  font-size: 13px;
+  margin: 7px 0;
+}
