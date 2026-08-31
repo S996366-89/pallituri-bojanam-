@@ -378,8 +378,7 @@ async function loadMenu() {
       }
     );
 
-
-  /* =========================
+/* =========================
    MENU UI
 ========================= */
 
@@ -401,65 +400,42 @@ menuEl.innerHTML = `
       <span class="menu-arrow">▼</span>
     </summary>
 
-
     <div class="today-menu">
 
       <div class="menu-heading">
-
-        <span>
-          కూర పేరు
-        </span>
-
-        <span>
-          ధర
-        </span>
-
+        <span>కూర పేరు</span>
+        <span>ధర</span>
       </div>
-
 
       ${
         vegItems.length
-
           ? vegItems
               .map(
                 (item) => `
+                  <div class="today-menu-item">
 
-                <div
-                  class="today-menu-item"
-                >
+                    <span class="item-name">
+                      ${escapeHtml(
+                        item.name || "కూర"
+                      )}
+                    </span>
 
-                  <span
-                    class="item-name"
-                  >
-                    ${escapeHtml(
-                      item.name ||
-                      "కూర"
-                    )}
-                  </span>
+                    <span class="item-price">
+                      ₹${Number(
+                        item.price || 0
+                      )}
+                    </span>
 
-                  <span
-                    class="item-price"
-                  >
-                    ₹${Number(
-                      item.price || 0
-                    )}
-                  </span>
-
-                </div>
-
-              `
+                  </div>
+                `
               )
               .join("")
 
           : `
-
-            <p
-              class="muted menu-empty"
-            >
-              Veg మెనూ ఇంకా లేదు.
-            </p>
-
-          `
+              <p class="muted menu-empty">
+                Veg మెనూ ఇంకా లేదు.
+              </p>
+            `
       }
 
     </div>
@@ -483,65 +459,42 @@ menuEl.innerHTML = `
       <span class="menu-arrow">▼</span>
     </summary>
 
-
     <div class="today-menu">
 
       <div class="menu-heading">
-
-        <span>
-          కూర పేరు
-        </span>
-
-        <span>
-          ధర
-        </span>
-
+        <span>కూర పేరు</span>
+        <span>ధర</span>
       </div>
-
 
       ${
         nonVegItems.length
-
           ? nonVegItems
               .map(
                 (item) => `
+                  <div class="today-menu-item">
 
-                <div
-                  class="today-menu-item"
-                >
+                    <span class="item-name">
+                      ${escapeHtml(
+                        item.name || "కూర"
+                      )}
+                    </span>
 
-                  <span
-                    class="item-name"
-                  >
-                    ${escapeHtml(
-                      item.name ||
-                      "కూర"
-                    )}
-                  </span>
+                    <span class="item-price">
+                      ₹${Number(
+                        item.price || 0
+                      )}
+                    </span>
 
-                  <span
-                    class="item-price"
-                  >
-                    ₹${Number(
-                      item.price || 0
-                    )}
-                  </span>
-
-                </div>
-
-              `
+                  </div>
+                `
               )
               .join("")
 
           : `
-
-            <p
-              class="muted menu-empty"
-            >
-              Non-Veg మెనూ ఇంకా లేదు.
-            </p>
-
-          `
+              <p class="muted menu-empty">
+                Non-Veg మెనూ ఇంకా లేదు.
+              </p>
+            `
       }
 
     </div>
@@ -549,6 +502,13 @@ menuEl.innerHTML = `
   </details>
 
 `;
+
+
+/* =========================
+   CLOSE LOAD MENU
+========================= */
+
+}
 
 
 /* =========================
