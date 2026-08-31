@@ -1577,3 +1577,157 @@ footer {
   }
 
 }
+/* =========================
+   DAILY CURRY - NEW STYLE
+========================= */
+
+#monthlyCustomerCurry {
+  max-width: 420px;
+  margin: 20px auto;
+  padding: 18px;
+  border-radius: 18px;
+  box-sizing: border-box;
+}
+
+#monthlyCustomerCurry h2,
+#monthlyCustomerCurry h3 {
+  margin: 6px 0 8px;
+  text-align: center;
+  font-size: 21px;
+}
+
+#monthlyCustomerCurry p {
+  text-align: center;
+  font-size: 14px;
+  margin: 5px 0 14px;
+}
+
+
+/* =========================
+   CURRY DROPDOWNS
+========================= */
+
+#monthlyCustomerCurry details {
+  margin: 10px 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#monthlyCustomerCurry summary {
+  padding: 12px 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* =========================
+   CURRY OPTIONS
+========================= */
+
+#monthlyCustomerCurry .curry-option,
+#monthlyCustomerCurry .extra-curry-option {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 13px;
+  margin: 6px 0;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+
+/* =========================
+   SELECTED CURRY
+========================= */
+
+#monthlyCustomerCurry .curry-option.selected,
+#monthlyCustomerCurry .extra-curry-option.selected {
+  transform: scale(1.01);
+  font-weight: 700;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+#selectedCurryStatus {
+  margin: 12px 0;
+  padding: 9px 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+/* =========================
+   EXTRA TOTAL
+========================= */
+
+#extraCurryTotal {
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+
+/* =========================
+   SAVE BUTTON
+========================= */
+
+#saveDailyCurryBtn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 11px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  #monthlyCustomerCurry {
+    width: 92%;
+    max-width: 360px;
+    margin: 15px auto;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  #monthlyCustomerCurry h2,
+  #monthlyCustomerCurry h3 {
+    font-size: 19px;
+  }
+
+  #monthlyCustomerCurry p {
+    font-size: 13px;
+  }
+
+  #monthlyCustomerCurry summary {
+    padding: 11px 12px;
+    font-size: 15px;
+  }
+
+  #monthlyCustomerCurry .curry-option,
+  #monthlyCustomerCurry .extra-curry-option {
+    padding: 10px 11px;
+    font-size: 14px;
+  }
+
+  #saveDailyCurryBtn {
+    padding: 11px;
+    font-size: 14px;
+  }
+
+}
