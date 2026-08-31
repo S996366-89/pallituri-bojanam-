@@ -204,8 +204,8 @@ if (customerLoginSubmitBtn) {
           customerEmail,
           password
         );
-
-
+         monthlyCustomerPhone = phone;
+       
         /* =========================
            SUCCESS
         ========================= */
