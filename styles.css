@@ -1313,3 +1313,38 @@ footer {
   }
 
 }
+/* =========================
+   MOBILE MENU DROPDOWN
+========================= */
+
+@media (max-width: 600px) {
+
+  .customer-menu-section {
+    margin-bottom: 10px;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .customer-menu-title {
+    margin: 0;
+    padding: 12px 14px;
+    font-size: 17px;
+  }
+
+  .customer-menu-section .today-menu {
+    max-height: 180px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .customer-menu-section .menu-heading {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .customer-menu-section .today-menu-item {
+    min-height: 42px;
+  }
+
+}
