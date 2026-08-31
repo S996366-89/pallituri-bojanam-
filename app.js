@@ -8,11 +8,11 @@ import {
   query,
   orderBy
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
 import {
   getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  updatePassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import { firebaseConfig } from "./firebase-config.js";
@@ -35,6 +35,12 @@ const auth = getAuth(app);
 const monthlyCustomerLogin =
   document.querySelector("#monthlyCustomerLogin");
 
+const customerOtpStep =
+  document.querySelector("#customerOtpStep");
+
+const customerPasswordStep =
+  document.querySelector("#customerPasswordStep");
+
 const customerOtp =
   document.querySelector("#customerOtp");
 
@@ -43,12 +49,6 @@ const sendOtpBtn =
 
 const verifyOtpBtn =
   document.querySelector("#verifyOtpBtn");
-
-const customerOtpStep =
-  document.querySelector("#customerOtpStep");
-
-const customerPasswordStep =
-  document.querySelector("#customerPasswordStep");
 
 const customerPassword =
   document.querySelector("#customerPassword");
@@ -62,11 +62,18 @@ const saveCustomerPasswordBtn =
 const customerLoginStatus =
   document.querySelector("#customerLoginStatus");
 
+const monthlyCustomerCurry =
+  document.querySelector("#monthlyCustomerCurry");
+
 let confirmationResult = null;
+
+let monthlyCustomerPhone = "";
+
+let monthlyCustomerOtpVerified = false;
 
 
 /* =========================
-   SHOW LOGIN
+   SHOW CUSTOMER LOGIN
 ========================= */
 
 function showMonthlyCustomerLogin() {
@@ -76,11 +83,54 @@ function showMonthlyCustomerLogin() {
   monthlyCustomerLogin.style.display =
     "block";
 
-  customerOtpStep.style.display =
-    "block";
 
-  customerLoginStatus.textContent =
-    "📱 మీ మొబైల్ నంబర్‌కు OTP పంపబడుతోంది...";
+  /* =========================
+     RESET OTP STEP
+  ========================= */
+
+  if (customerOtpStep) {
+
+    customerOtpStep.style.display =
+      "block";
+
+  }
+
+
+  /* =========================
+     HIDE PASSWORD STEP
+  ========================= */
+
+  if (customerPasswordStep) {
+
+    customerPasswordStep.style.display =
+      "none";
+
+  }
+
+
+  /* =========================
+     HIDE DAILY CURRY
+  ========================= */
+
+  if (monthlyCustomerCurry) {
+
+    monthlyCustomerCurry.style.display =
+      "none";
+
+  }
+
+
+  /* =========================
+     STATUS
+  ========================= */
+
+  if (customerLoginStatus) {
+
+    customerLoginStatus.textContent =
+      "📱 మీ మొబైల్ నంబర్‌ను ధృవీకరించండి.";
+
+  }
+
 
   monthlyCustomerLogin.scrollIntoView({
     behavior: "smooth",
@@ -89,134 +139,6 @@ function showMonthlyCustomerLogin() {
 
 }
 
-/* =========================
-   CREATE CUSTOMER ACCOUNT
-========================= */
-
-if (saveCustomerPasswordBtn) {
-
-  saveCustomerPasswordBtn.addEventListener(
-    "click",
-    async () => {
-
-      const password =
-        customerPassword.value.trim();
-
-      const confirmPassword =
-        customerPasswordConfirm.value.trim();
-
-
-      /* =========================
-         PASSWORD VALIDATION
-      ========================= */
-
-      if (!password || !confirmPassword) {
-
-        customerLoginStatus.textContent =
-          "దయచేసి Password రెండు సార్లు నమోదు చేయండి.";
-
-        return;
-
-      }
-
-
-      if (password.length < 6) {
-
-        customerLoginStatus.textContent =
-          "Password కనీసం 6 అక్షరాలు ఉండాలి.";
-
-        return;
-
-      }
-
-
-      if (password !== confirmPassword) {
-
-        customerLoginStatus.textContent =
-          "❌ రెండు Passwordలు ఒకేలా లేవు.";
-
-        return;
-
-      }
-
-
-      /* =========================
-         CREATE PASSWORD
-      ========================= */
-
-      try {
-
-        const user =
-          auth.currentUser;
-
-
-        if (!user) {
-
-          customerLoginStatus.textContent =
-            "❌ ముందుగా మొబైల్ OTP verify చేయాలి.";
-
-          return;
-
-        }
-
-
-        await updatePassword(
-          user,
-          password
-        );
-
-
-        /* =========================
-           ACCOUNT SUCCESS
-        ========================= */
-
-        customerLoginStatus.textContent =
-          "✅ మీ Customer Account విజయవంతంగా సిద్ధమైంది.";
-
-
-        /* =========================
-           HIDE PASSWORD
-        ========================= */
-
-        customerPasswordStep.style.display =
-          "none";
-
-
-        /* =========================
-           SHOW DAILY CURRY
-        ========================= */
-
-        if (monthlyCustomerCurry) {
-
-          monthlyCustomerCurry.style.display =
-            "block";
-
-          monthlyCustomerCurry.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-
-        }
-
-
-      } catch (error) {
-
-        console.error(
-          "PASSWORD ERROR:",
-          error
-        );
-
-
-        customerLoginStatus.textContent =
-          "❌ Account create కాలేదు: " +
-          (error.code || error.message);
-
-      }
-
-    }
-  );
-
-}
 
 /* =========================
    SEND OTP
@@ -224,22 +146,54 @@ if (saveCustomerPasswordBtn) {
 
 async function sendMonthlyCustomerOtp() {
 
-  const phone =
-     monthlyPhone.value.trim();
+  const monthlyPhoneInput =
+    document.querySelector("#monthlyPhone");
 
-  if (!/^[6-9]\d{9}$/.test(phone)) {
 
-    customerLoginStatus.textContent =
-      "దయచేసి సరైన మొబైల్ నంబర్ ఇవ్వండి.";
+  if (!monthlyPhoneInput) {
+
+    console.error(
+      "#monthlyPhone element not found"
+    );
 
     return;
 
   }
 
+
+  const phone =
+    monthlyPhoneInput.value.trim();
+
+
+  /* =========================
+     PHONE VALIDATION
+  ========================= */
+
+  if (!/^[6-9]\d{9}$/.test(phone)) {
+
+    customerLoginStatus.textContent =
+      "❌ దయచేసి సరైన 10 అంకెల మొబైల్ నంబర్ ఇవ్వండి.";
+
+    return;
+
+  }
+
+
+  monthlyCustomerPhone =
+    phone;
+
+  monthlyCustomerOtpVerified =
+    false;
+
+
   try {
 
+    customerLoginStatus.textContent =
+      "⏳ OTP పంపడానికి సిద్ధమవుతోంది...";
+
+
     /* =========================
-       RESET OLD RECAPTCHA
+       CLEAR OLD RECAPTCHA
     ========================= */
 
     if (window.recaptchaVerifier) {
@@ -248,7 +202,7 @@ async function sendMonthlyCustomerOtp() {
 
         window.recaptchaVerifier.clear();
 
-      } catch (e) {
+      } catch (error) {
 
         console.log(
           "Old reCAPTCHA clear skipped"
@@ -263,7 +217,7 @@ async function sendMonthlyCustomerOtp() {
 
 
     /* =========================
-       CREATE NEW RECAPTCHA
+       CREATE RECAPTCHA
     ========================= */
 
     window.recaptchaVerifier =
@@ -289,15 +243,19 @@ async function sendMonthlyCustomerOtp() {
 
 
     /* =========================
-       SHOW OTP BOX
+       OTP SENT
     ========================= */
 
-    customerOtpStep.style.display =
-      "block";
+    if (customerOtpStep) {
+
+      customerOtpStep.style.display =
+        "block";
+
+    }
+
 
     customerLoginStatus.textContent =
       "✅ OTP మీ మొబైల్‌కు పంపబడింది.";
-
 
   } catch (error) {
 
@@ -306,6 +264,7 @@ async function sendMonthlyCustomerOtp() {
       error
     );
 
+
     customerLoginStatus.textContent =
       "❌ OTP పంపలేకపోయాము: " +
       (error.code || error.message);
@@ -313,6 +272,12 @@ async function sendMonthlyCustomerOtp() {
   }
 
 }
+
+
+/* =========================
+   SEND OTP BUTTON
+========================= */
+
 if (sendOtpBtn) {
 
   sendOtpBtn.addEventListener(
@@ -321,6 +286,8 @@ if (sendOtpBtn) {
   );
 
 }
+
+
 /* =========================
    VERIFY OTP
 ========================= */
@@ -334,14 +301,20 @@ if (verifyOtpBtn) {
       const otp =
         customerOtp.value.trim();
 
+
+      /* =========================
+         OTP VALIDATION
+      ========================= */
+
       if (!otp) {
 
         customerLoginStatus.textContent =
-          "దయచేసి OTP నమోదు చేయండి.";
+          "❌ దయచేసి 6 అంకెల OTP నమోదు చేయండి.";
 
         return;
 
       }
+
 
       if (!confirmationResult) {
 
@@ -352,7 +325,12 @@ if (verifyOtpBtn) {
 
       }
 
+
       try {
+
+        customerLoginStatus.textContent =
+          "⏳ OTP verify చేస్తోంది...";
+
 
         await confirmationResult.confirm(
           otp
@@ -363,8 +341,24 @@ if (verifyOtpBtn) {
            OTP VERIFIED
         ========================= */
 
+        monthlyCustomerOtpVerified =
+          true;
+
+
         customerLoginStatus.textContent =
           "✅ మొబైల్ నంబర్ విజయవంతంగా verify అయింది.";
+
+
+        /* =========================
+           HIDE OTP
+        ========================= */
+
+        if (customerOtpStep) {
+
+          customerOtpStep.style.display =
+            "none";
+
+        }
 
 
         /* =========================
@@ -383,19 +377,6 @@ if (verifyOtpBtn) {
 
         }
 
-
-        /* =========================
-           HIDE OTP
-        ========================= */
-
-        if (customerOtpStep) {
-
-          customerOtpStep.style.display =
-            "none";
-
-        }
-
-
       } catch (error) {
 
         console.error(
@@ -403,8 +384,13 @@ if (verifyOtpBtn) {
           error
         );
 
+
+        monthlyCustomerOtpVerified =
+          false;
+
+
         customerLoginStatus.textContent =
-          "❌ OTP సరైనది కాదు.";
+          "❌ OTP సరైనది కాదు. మళ్లీ ప్రయత్నించండి.";
 
       }
 
@@ -412,6 +398,196 @@ if (verifyOtpBtn) {
   );
 
 }
+
+
+/* =========================
+   CREATE CUSTOMER ACCOUNT
+========================= */
+
+if (saveCustomerPasswordBtn) {
+
+  saveCustomerPasswordBtn.addEventListener(
+    "click",
+    async () => {
+
+      const password =
+        customerPassword.value.trim();
+
+      const confirmPassword =
+        customerPasswordConfirm.value.trim();
+
+
+      /* =========================
+         PASSWORD VALIDATION
+      ========================= */
+
+      if (!password || !confirmPassword) {
+
+        customerLoginStatus.textContent =
+          "❌ దయచేసి Password రెండు సార్లు నమోదు చేయండి.";
+
+        return;
+
+      }
+
+
+      if (password.length < 6) {
+
+        customerLoginStatus.textContent =
+          "❌ Password కనీసం 6 అక్షరాలు ఉండాలి.";
+
+        return;
+
+      }
+
+
+      if (password !== confirmPassword) {
+
+        customerLoginStatus.textContent =
+          "❌ రెండు Passwordలు ఒకేలా లేవు.";
+
+        return;
+
+      }
+
+
+      /* =========================
+         OTP VERIFICATION CHECK
+      ========================= */
+
+      if (
+        !monthlyCustomerPhone ||
+        !monthlyCustomerOtpVerified
+      ) {
+
+        customerLoginStatus.textContent =
+          "❌ ముందుగా మొబైల్ OTP verify చేయాలి.";
+
+        return;
+
+      }
+
+
+      try {
+
+        customerLoginStatus.textContent =
+          "⏳ Customer Account తయారవుతోంది...";
+
+
+        /* =========================
+           INTERNAL EMAIL
+        ========================= */
+
+        const customerEmail =
+          monthlyCustomerPhone +
+          "@pallituri-bojanam.com";
+
+
+        /* =========================
+           CREATE EMAIL/PASSWORD ACCOUNT
+        ========================= */
+
+        await createUserWithEmailAndPassword(
+          auth,
+          customerEmail,
+          password
+        );
+
+
+        /* =========================
+           ACCOUNT SUCCESS
+        ========================= */
+
+        customerLoginStatus.textContent =
+          "✅ మీ Customer Account విజయవంతంగా సిద్ధమైంది.";
+
+
+        /* =========================
+           HIDE PASSWORD
+        ========================= */
+
+        if (customerPasswordStep) {
+
+          customerPasswordStep.style.display =
+            "none";
+
+        }
+
+
+        /* =========================
+           SHOW DAILY CURRY
+        ========================= */
+
+        if (monthlyCustomerCurry) {
+
+          monthlyCustomerCurry.style.display =
+            "block";
+
+          monthlyCustomerCurry.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          "CUSTOMER ACCOUNT ERROR:",
+          error
+        );
+
+
+        /* =========================
+           EXISTING ACCOUNT
+        ========================= */
+
+        if (
+          error.code ===
+          "auth/email-already-in-use"
+        ) {
+
+          customerLoginStatus.textContent =
+            "ℹ️ ఈ మొబైల్ నంబర్‌తో Customer Account ఇప్పటికే ఉంది.";
+
+          return;
+
+        }
+
+
+        /* =========================
+           WEAK PASSWORD
+        ========================= */
+
+        if (
+          error.code ===
+          "auth/weak-password"
+        ) {
+
+          customerLoginStatus.textContent =
+            "❌ Password బలంగా ఉండాలి.";
+
+          return;
+
+        }
+
+
+        /* =========================
+           OTHER ERROR
+        ========================= */
+
+        customerLoginStatus.textContent =
+          "❌ Account create కాలేదు: " +
+          (error.code || error.message);
+
+      }
+
+    }
+  );
+
+}
+
 /* =========================
    ELEMENTS
 ========================= */
