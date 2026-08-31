@@ -225,7 +225,7 @@ if (saveCustomerPasswordBtn) {
 async function sendMonthlyCustomerOtp() {
 
   const phone =
-    monthlyCustomerPhone;
+     monthlyPhone.value.trim();
 
   if (!/^[6-9]\d{9}$/.test(phone)) {
 
@@ -311,6 +311,14 @@ async function sendMonthlyCustomerOtp() {
       (error.code || error.message);
 
   }
+
+}
+if (sendOtpBtn) {
+
+  sendOtpBtn.addEventListener(
+    "click",
+    sendMonthlyCustomerOtp
+  );
 
 }
 /* =========================
@@ -1327,10 +1335,6 @@ sendMonthlyCustomerOtp();
 
         selectedPlanDetails.style.display =
           "none";
-
-        monthlyPlanForm.style.display =
-          "none";
-
 
         if (plan49Card) {
 
