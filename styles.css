@@ -1348,3 +1348,51 @@ footer {
   }
 
 }
+
+/* =========================
+   MOBILE TODAY MENU
+========================= */
+
+@media (max-width: 600px) {
+
+  #menuGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Veg / Non-Veg box */
+
+  .customer-menu-section {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Menu items scrolling */
+
+  .customer-menu-section .today-menu {
+    max-height: 220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Smooth mobile scroll */
+
+  .customer-menu-section .today-menu::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .customer-menu-section .today-menu::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+  }
+
+  /* Compact menu rows */
+
+  .customer-menu-section .today-menu-item {
+    min-height: 42px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+  }
+
+}
