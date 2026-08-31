@@ -301,7 +301,6 @@ function escapeHtml(value) {
 
 }
 
-
 /* =========================
    LOAD MENU
 ========================= */
@@ -332,11 +331,9 @@ async function loadMenu() {
 
       menuEl.innerHTML = `
         <div class="empty-menu">
-
           <p class="muted">
             ఇవాళ మెనూ ఇంకా పెట్టలేదు.
           </p>
-
         </div>
       `;
 
@@ -349,176 +346,169 @@ async function loadMenu() {
     ========================= */
 
     const vegItems = [];
-
     const nonVegItems = [];
 
 
-    snap.docs.forEach(
-      (docSnap) => {
+    snap.docs.forEach((docSnap) => {
 
-        const item =
-          docSnap.data();
+      const item = docSnap.data();
 
+      if (
+        String(item.category || "").toLowerCase() ===
+        "nonveg"
+      ) {
 
-        if (
-          String(
-            item.category || ""
-          ).toLowerCase() ===
-          "nonveg"
-        ) {
+        nonVegItems.push(item);
 
-          nonVegItems.push(item);
+      } else {
 
-        } else {
-
-          vegItems.push(item);
-
-        }
+        vegItems.push(item);
 
       }
-    );
 
-/* =========================
-   MENU UI
-========================= */
+    });
 
-menuEl.innerHTML = `
 
-  <!-- =====================
-       VEG DROPDOWN
-  ====================== -->
+    /* =========================
+       MENU UI
+    ========================= */
 
-  <details
-    class="customer-menu-section menu-dropdown"
-    data-category="veg"
-  >
+    menuEl.innerHTML = `
 
-    <summary
-      class="customer-menu-title veg-title"
-    >
-      🥬 Veg
-      <span class="menu-arrow">▼</span>
-    </summary>
+      <!-- =====================
+           VEG DROPDOWN
+      ====================== -->
 
-    <div class="today-menu">
+      <details
+        class="customer-menu-section menu-dropdown"
+        data-category="veg"
+      >
 
-      <div class="menu-heading">
-        <span>కూర పేరు</span>
-        <span>ధర</span>
-      </div>
+        <summary
+          class="customer-menu-title veg-title"
+        >
+          🥬 Veg
+          <span class="menu-arrow">▼</span>
+        </summary>
 
-      <div class="menu-scroll">
 
-        ${
-          vegItems.length
-            ? vegItems
-                .map(
-                  (item) => `
+        <div class="today-menu">
 
-                    <div class="today-menu-item">
+          <div class="menu-heading">
+            <span>కూర పేరు</span>
+            <span>ధర</span>
+          </div>
 
-                      <span class="item-name">
-                        ${escapeHtml(
-                          item.name || "కూర"
-                        )}
-                      </span>
 
-                      <span class="item-price">
-                        ₹${Number(
-                          item.price || 0
-                        )}
-                      </span>
+          <div class="menu-scroll">
 
-                    </div>
+            ${
+              vegItems.length
+                ? vegItems
+                    .map(
+                      (item) => `
 
+                        <div class="today-menu-item">
+
+                          <span class="item-name">
+                            ${escapeHtml(
+                              item.name || "కూర"
+                            )}
+                          </span>
+
+                          <span class="item-price">
+                            ₹${Number(
+                              item.price || 0
+                            )}
+                          </span>
+
+                        </div>
+
+                      `
+                    )
+                    .join("")
+
+                : `
+                    <p class="muted menu-empty">
+                      Veg మెనూ ఇంకా లేదు.
+                    </p>
                   `
-                )
-                .join("")
+            }
 
-            : `
-                <p class="muted menu-empty">
-                  Veg మెనూ ఇంకా లేదు.
-                </p>
-              `
-        }
+          </div>
 
-      </div>
+        </div>
 
-    </div>
-
-  </details>
+      </details>
 
 
-  <!-- =====================
-       NON-VEG DROPDOWN
-  ====================== -->
+      <!-- =====================
+           NON-VEG DROPDOWN
+      ====================== -->
 
-  <details
-    class="customer-menu-section menu-dropdown"
-    data-category="nonveg"
-  >
+      <details
+        class="customer-menu-section menu-dropdown"
+        data-category="nonveg"
+      >
 
-    <summary
-      class="customer-menu-title nonveg-title"
-    >
-      🍗 Non-Veg
-      <span class="menu-arrow">▼</span>
-    </summary>
+        <summary
+          class="customer-menu-title nonveg-title"
+        >
+          🍗 Non-Veg
+          <span class="menu-arrow">▼</span>
+        </summary>
 
-    <div class="today-menu">
 
-      <div class="menu-heading">
-        <span>కూర పేరు</span>
-        <span>ధర</span>
-      </div>
+        <div class="today-menu">
 
-      <div class="menu-scroll">
+          <div class="menu-heading">
+            <span>కూర పేరు</span>
+            <span>ధర</span>
+          </div>
 
-        ${
-          nonVegItems.length
-            ? nonVegItems
-                .map(
-                  (item) => `
 
-                    <div class="today-menu-item">
+          <div class="menu-scroll">
 
-                      <span class="item-name">
-                        ${escapeHtml(
-                          item.name || "కూర"
-                        )}
-                      </span>
+            ${
+              nonVegItems.length
+                ? nonVegItems
+                    .map(
+                      (item) => `
 
-                      <span class="item-price">
-                        ₹${Number(
-                          item.price || 0
-                        )}
-                      </span>
+                        <div class="today-menu-item">
 
-                    </div>
+                          <span class="item-name">
+                            ${escapeHtml(
+                              item.name || "కూర"
+                            )}
+                          </span>
 
+                          <span class="item-price">
+                            ₹${Number(
+                              item.price || 0
+                            )}
+                          </span>
+
+                        </div>
+
+                      `
+                    )
+                    .join("")
+
+                : `
+                    <p class="muted menu-empty">
+                      Non-Veg మెనూ ఇంకా లేదు.
+                    </p>
                   `
-                )
-                .join("")
+            }
 
-            : `
-                <p class="muted menu-empty">
-                  Non-Veg మెనూ ఇంకా లేదు.
-                </p>
-              `
-        }
+          </div>
 
-      </div>
+        </div>
 
-    </div>
+      </details>
 
-  </details>
-
-`;
-
-
-/* =========================
-   END LOAD MENU
-========================= */
+    `;
 
   } catch (error) {
 
@@ -540,32 +530,6 @@ menuEl.innerHTML = `
   }
 
 }
-/* =========================
-   MENU ERROR
-========================= */
-
-  } catch (error) {
-
-    console.error(
-      "MENU ERROR:",
-      error
-    );
-
-    menuEl.innerHTML = `
-      <div class="empty-menu">
-
-        <p class="muted">
-          మెనూ లోడ్ కాలేదు.
-        </p>
-
-      </div>
-    `;
-
-  }
-
-}
-
-
 /* =========================
    NORMAL ORDER
 ========================= */
