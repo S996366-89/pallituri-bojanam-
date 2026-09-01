@@ -211,78 +211,98 @@ if (customerLoginSubmitBtn) {
         );
          monthlyCustomerPhone = phone;
        
-        /* =========================
-           SUCCESS
-        ========================= */
-
-        if (customerLoginMessage) {
-          customerLoginMessage.textContent =
-            "✅ Login విజయవంతమైంది.";
-        }
-
-
-      /* =========================
-           SHOW LOGOUT
-       ========================= */
-
-       if (customerLogoutBtn) {
-
-       customerLogoutBtn.style.display =
-        "block";
-
-     }
-
        /* =========================
-           SHOW DAILY CURRY
-        ========================= */
+   SUCCESS
+========================= */
 
-        if (monthlyCustomerCurry) {
+if (customerLoginMessage) {
 
-          monthlyCustomerCurry.style.display =
-            "block";
-
-          monthlyCustomerCurry.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-
-        }
-
-
-      } catch (error) {
-
-        console.error(
-          "CUSTOMER LOGIN ERROR:",
-          error
-        );
-
-
-        if (
-          error.code ===
-          "auth/invalid-credential"
-        ) {
-
-          customerLoginMessage.textContent =
-            "❌ ఫోన్ నంబర్ లేదా Password తప్పుగా ఉంది.";
-
-          return;
-        }
-
-
-        customerLoginMessage.textContent =
-          "❌ Login కాలేదు: " +
-          (
-            error.code ||
-            error.message
-          );
-
-      }
-
-    }
-  );
+  customerLoginMessage.textContent =
+    "✅ Login విజయవంతమైంది.";
 
 }
 
+
+/* =========================
+   CHANGE LOGIN TO LOGOUT
+========================= */
+
+if (customerLoginTitle) {
+
+  customerLoginTitle.textContent =
+    "🚪 కస్టమర్ లాగ్ అవుట్";
+
+}
+
+
+if (loginPhone) {
+
+  loginPhone.style.display =
+    "none";
+
+}
+
+
+if (loginPassword) {
+
+  loginPassword.style.display =
+    "none";
+
+}
+
+
+if (customerLoginSubmitBtn) {
+
+  customerLoginSubmitBtn.style.display =
+    "none";
+
+}
+
+
+/* =========================
+   HIDE LOGIN TEXT
+========================= */
+
+const loginDescription =
+  customerLoginSection?.querySelector(
+    "p"
+  );
+
+if (loginDescription) {
+
+  loginDescription.style.display =
+    "none";
+
+}
+
+
+/* =========================
+   SHOW LOGOUT BUTTON
+========================= */
+
+if (customerLogoutBtn) {
+
+  customerLogoutBtn.style.display =
+    "block";
+
+}
+
+
+/* =========================
+   SHOW DAILY CURRY
+========================= */
+
+if (monthlyCustomerCurry) {
+
+  monthlyCustomerCurry.style.display =
+    "block";
+
+  monthlyCustomerCurry.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
 
 /* =========================
    SECURITY
@@ -1949,7 +1969,9 @@ if (customerLogoutBtn) {
         await signOut(auth);
 
 
-        /* HIDE CURRY */
+        /* =========================
+           HIDE CURRY
+        ========================= */
 
         if (monthlyCustomerCurry) {
 
@@ -1959,7 +1981,9 @@ if (customerLogoutBtn) {
         }
 
 
-        /* SHOW LOGIN */
+        /* =========================
+           SHOW LOGIN SECTION
+        ========================= */
 
         if (customerLoginSection) {
 
@@ -1969,20 +1993,69 @@ if (customerLogoutBtn) {
         }
 
 
-        /* CLEAR LOGIN FIELDS */
+        /* =========================
+           RESET LOGIN TITLE
+        ========================= */
+
+        if (customerLoginTitle) {
+
+          customerLoginTitle.textContent =
+            "🔐 కస్టమర్ లాగిన్";
+
+        }
+
+
+        /* =========================
+           SHOW LOGIN FIELDS
+        ========================= */
 
         if (loginPhone) {
+
+          loginPhone.style.display =
+            "block";
 
           loginPhone.value = "";
 
         }
 
+
         if (loginPassword) {
+
+          loginPassword.style.display =
+            "block";
 
           loginPassword.value = "";
 
         }
 
+
+        /* =========================
+           SHOW LOGIN BUTTON
+        ========================= */
+
+        if (customerLoginSubmitBtn) {
+
+          customerLoginSubmitBtn.style.display =
+            "block";
+
+        }
+
+
+        /* =========================
+           HIDE LOGOUT BUTTON
+        ========================= */
+
+        if (customerLogoutBtn) {
+
+          customerLogoutBtn.style.display =
+            "none";
+
+        }
+
+
+        /* =========================
+           SHOW LOGIN MESSAGE
+        ========================= */
 
         if (customerLoginMessage) {
 
@@ -1992,7 +2065,9 @@ if (customerLogoutBtn) {
         }
 
 
-        /* SCROLL TO LOGIN */
+        /* =========================
+           SCROLL TO LOGIN
+        ========================= */
 
         if (customerLoginSection) {
 
