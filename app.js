@@ -768,6 +768,11 @@ const monthlyPlanBtn =
     "#monthlyPlanBtn"
   );
 
+const backToMonthlyDetailsBtn =
+  document.querySelector(
+    "#backToMonthlyDetailsBtn"
+  );
+
 const monthlyPlanStatus =
   document.querySelector(
     "#monthlyPlanStatus"
@@ -1866,6 +1871,75 @@ if (saveDailyCurryBtn) {
 
         saveDailyCurryBtn.textContent =
           "✅ ఈరోజు కూరను సేవ్ చేయండి";
+
+      }
+
+    }
+  );
+
+}
+ /* =========================
+   BACK TO CUSTOMER DETAILS
+========================= */
+
+if (backToMonthlyDetailsBtn) {
+
+  backToMonthlyDetailsBtn.addEventListener(
+    "click",
+    () => {
+
+      if (monthlyCustomerLogin) {
+
+        monthlyCustomerLogin.style.display =
+          "none";
+
+      }
+
+
+      if (monthlyPlanForm) {
+
+        monthlyPlanForm.style.display =
+          "block";
+
+      }
+
+
+      if (selectedPlanDetails) {
+
+        selectedPlanDetails.style.display =
+          "block";
+
+      }
+
+
+      if (customerPassword) {
+
+        customerPassword.value = "";
+
+      }
+
+
+      if (customerPasswordConfirm) {
+
+        customerPasswordConfirm.value = "";
+
+      }
+
+
+      if (customerLoginStatus) {
+
+        customerLoginStatus.textContent =
+          "";
+
+      }
+
+
+      if (monthlyPlanForm) {
+
+        monthlyPlanForm.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
 
       }
 
