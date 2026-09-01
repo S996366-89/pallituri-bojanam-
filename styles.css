@@ -2086,3 +2086,61 @@ footer {
   }
 
 }
+/* =========================
+   MOBILE HEADER LAYOUT
+========================= */
+
+@media (max-width: 600px) {
+
+  .top {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 10px;
+  }
+
+
+  /* LOGO */
+
+  .top .logo {
+    width: 105px;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+
+  /* BRAND TEXT */
+
+  .top .brand-text {
+    display: none;
+  }
+
+
+  /* CUSTOMER LOGIN */
+
+  .top .customer-login-btn {
+    width: auto;
+    min-width: 120px;
+
+    padding: 9px 11px;
+
+    font-size: 14px;
+    line-height: 1.2;
+
+    border-radius: 10px;
+
+    white-space: nowrap;
+    margin: 0;
+  }
+
+
+  /* ADMIN */
+
+  .top .admin-link {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+}
