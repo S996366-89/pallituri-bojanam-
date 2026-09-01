@@ -221,17 +221,18 @@ if (customerLoginSubmitBtn) {
         }
 
 
-        /* =========================
-           HIDE LOGIN
-        ========================= */
+      /* =========================
+           SHOW LOGOUT
+       ========================= */
 
-        if (customerLoginSection) {
-          customerLoginSection.style.display =
-            "none";
-        }
+       if (customerLogoutBtn) {
 
+       customerLogoutBtn.style.display =
+        "block";
 
-        /* =========================
+     }
+
+       /* =========================
            SHOW DAILY CURRY
         ========================= */
 
