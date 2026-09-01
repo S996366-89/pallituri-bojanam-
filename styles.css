@@ -1959,3 +1959,72 @@ footer {
 
   flex: 0 0 auto !important;
 }
+/* =========================
+   CUSTOMER CURRY HEADER
+========================= */
+
+.curry-header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+}
+
+
+/* =========================
+   CUSTOMER LOGOUT BUTTON
+========================= */
+
+.customer-logout-btn {
+
+  border: none;
+
+  border-radius: 8px;
+
+  padding: 8px 12px;
+
+  cursor: pointer;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .curry-header {
+
+    gap: 8px;
+
+  }
+
+  .curry-header h3 {
+
+    font-size: 17px;
+
+    margin: 0;
+
+  }
+
+  .customer-logout-btn {
+
+    padding: 7px 9px;
+
+    font-size: 12px;
+
+  }
+
+}
