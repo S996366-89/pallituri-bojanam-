@@ -1805,232 +1805,73 @@ footer {
   width: 100%;
 }
 /* =========================
-   ADMIN MENU DROPDOWN
+   SIMPLE ADMIN MENU
 ========================= */
 
 .admin-menu-dropdown {
   width: 100%;
-  margin-top: 20px;
-
-  border: 1px solid #ddd;
-  border-radius: 14px;
-
-  overflow: hidden;
+  margin-top: 15px;
 }
 
-
-/* DROPDOWN HEADER */
 
 .admin-menu-dropdown summary {
   cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 16px 18px;
-
-  font-size: 18px;
+  padding: 12px;
   font-weight: bold;
-
-  list-style: none;
-
-  user-select: none;
 }
 
 
-.admin-menu-dropdown summary::-webkit-details-marker {
-  display: none;
-}
-
-
-/* ARROW */
-
-.admin-menu-arrow {
-  transition: transform 0.3s ease;
-}
-
-
-.admin-menu-dropdown[open]
-.admin-menu-arrow {
-  transform: rotate(180deg);
-}
-
-
-/* =========================
-   MENU SCROLL AREA
-========================= */
+/* MENU INSIDE SCROLL */
 
 #adminMenu {
-
-  max-height: 420px;
-
+  max-height: 350px;
   overflow-y: auto;
-
-  padding: 8px;
-
+  padding: 5px;
 }
 
 
-/* SCROLLBAR */
-
-#adminMenu::-webkit-scrollbar {
-  width: 7px;
-}
-
-
-#adminMenu::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-}
-
-
-/* =========================
-   MENU ROW
-========================= */
+/* EACH CURRY ROW */
 
 .admin-menu-row {
-
-  display: grid;
-
-  grid-template-columns:
-    minmax(120px, 1fr)
-    70px
-    100px
-    90px;
-
+  display: flex;
   align-items: center;
-
   gap: 10px;
 
-  padding: 13px 12px;
+  padding: 10px 5px;
 
-  margin-bottom: 8px;
-
-  border: 1px solid #e5e5e5;
-
-  border-radius: 10px;
-
+  border-bottom: 1px solid #ddd;
 }
 
 
 /* CURRY NAME */
 
 .admin-curry-name {
-  font-size: 16px;
-  font-weight: 600;
+  flex: 1;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 
 /* PRICE */
 
 .admin-curry-price {
-  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 
-/* VEG / NON VEG BADGE */
+/* VEG / NON-VEG SIMPLE TEXT */
 
 .admin-category {
-
-  text-align: center;
-
-  padding: 6px 8px;
-
-  border-radius: 20px;
-
-  font-size: 13px;
-
-  font-weight: bold;
-
-}
-
-
-.admin-category.veg {
-  background: #e6f7ea;
-  color: #198754;
-}
-
-
-.admin-category.nonveg {
-  background: #ffe8e8;
-  color: #d63031;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 
 /* DELETE BUTTON */
 
 .admin-menu-row .delete {
-
-  border: none;
-
-  border-radius: 8px;
-
-  padding: 8px 10px;
-
+  padding: 5px 8px;
+  font-size: 12px;
   cursor: pointer;
-
-  font-size: 13px;
-
-}
-/* =========================
-   MOBILE ADMIN MENU
-========================= */
-
-@media (max-width: 600px) {
-
-  #adminMenu {
-    max-height: 380px;
-    padding: 6px;
-  }
-
-
-  .admin-menu-row {
-
-    grid-template-columns:
-      minmax(90px, 1fr)
-      55px
-      75px
-      70px;
-
-    gap: 5px;
-
-    padding: 10px 7px;
-
-    margin-bottom: 6px;
-
-  }
-
-
-  .admin-curry-name {
-    font-size: 13px;
-    word-break: break-word;
-  }
-
-
-  .admin-curry-price {
-    font-size: 13px;
-  }
-
-
-  .admin-category {
-
-    padding: 5px 4px;
-
-    font-size: 10px;
-
-    white-space: nowrap;
-
-  }
-
-
-  .admin-menu-row .delete {
-
-    padding: 6px 4px;
-
-    font-size: 11px;
-
-    white-space: nowrap;
-
-  }
-
 }
