@@ -377,37 +377,40 @@ async function loadMenu() {
               : "🥬 Veg";
 
 
-          return `
-            <article class="card">
+        return `
+        <article class="card menu-card">
 
-              <div class="card-body">
+    <div class="card-body">
 
-                <h3>
-                  ${item.name || ""}
-                </h3>
+      <div class="menu-info">
 
-                <div class="price">
-                  ₹${item.price || 0}
-                </div>
+        <h3>
+          ${item.name || ""}
+        </h3>
 
-                <p class="muted">
-                  ${categoryText}
-                </p>
+        <div class="price">
+          ₹${item.price || 0}
+        </div>
 
-                <button
-                  type="button"
-                  class="delete"
-                  data-id="${itemDoc.id}"
-                >
-                  తొలగించు
-                </button>
+        <p class="muted">
+          ${categoryText}
+        </p>
 
-              </div>
+      </div>
 
-            </article>
-          `;
+      <button
+        type="button"
+        class="delete"
+        data-id="${itemDoc.id}"
+      >
+        తొలగించు
+      </button>
 
-        })
+    </div>
+
+       </article>
+      `;
+   })
         .join("");
 
 
