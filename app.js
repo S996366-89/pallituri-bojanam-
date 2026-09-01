@@ -308,7 +308,30 @@ if (monthlyCustomerCurry) {
   });
 
 }
+      } catch (error) {
 
+        console.error(
+          "CUSTOMER LOGIN ERROR:",
+          error
+        );
+
+        if (customerLoginMessage) {
+
+          customerLoginMessage.textContent =
+            "❌ Login కాలేదు: " +
+            (
+              error.code ||
+              error.message
+            );
+
+        }
+
+      }
+
+    }
+  );
+
+}
 /* =========================
    SECURITY
 ========================= */
@@ -2037,14 +2060,15 @@ if (customerLogoutBtn) {
         /* =========================
            SHOW LOGIN BUTTON
         ========================= */
+       if (customerLoginSubmitBtn) {
 
-        if (customerLoginSubmitBtn) {
+       customerLoginSubmitBtn.textContent =
+            "🚪 కస్టమర్ లాగ్ అవుట్";
 
-          customerLoginSubmitBtn.style.display =
-            "block";
+        customerLoginSubmitBtn.style.display =
+      "block";
 
-        }
-
+      }
 
         /* =========================
            HIDE LOGOUT BUTTON
