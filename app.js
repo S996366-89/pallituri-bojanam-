@@ -83,6 +83,11 @@ const customerLoginSection =
     "#customerLoginSection"
   );
 
+const customerLoginTitle =
+  document.querySelector(
+    "#customerLoginTitle"
+  );
+
 const loginPhone =
   document.querySelector(
     "#loginPhone"
