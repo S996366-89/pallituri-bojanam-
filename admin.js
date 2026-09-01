@@ -376,40 +376,37 @@ async function loadMenu() {
               ? "🍗 Non-Veg"
               : "🥬 Veg";
 
+       const categoryClass =
+  item.category === "veg"
+    ? "veg"
+    : "nonveg";
 
-        return `
-        <article class="card menu-card">
+return `
+  <div class="admin-menu-row">
 
-    <div class="card-body">
-
-      <div class="menu-info">
-
-        <h3>
-          ${item.name || ""}
-        </h3>
-
-        <div class="price">
-          ₹${item.price || 0}
-        </div>
-
-        <p class="muted">
-          ${categoryText}
-        </p>
-
-      </div>
-
-      <button
-        type="button"
-        class="delete"
-        data-id="${itemDoc.id}"
-      >
-        తొలగించు
-      </button>
-
+    <div class="admin-curry-name">
+      ${item.name || ""}
     </div>
 
-       </article>
-      `;
+    <div class="admin-curry-price">
+      ₹${item.price || 0}
+    </div>
+
+    <div class="admin-category ${categoryClass}">
+      ${categoryText}
+    </div>
+
+    <button
+      type="button"
+      class="delete"
+      data-id="${itemDoc.id}"
+    >
+      తొలగించు
+    </button>
+
+  </div>
+`;
+        
    })
         .join("");
 
