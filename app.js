@@ -1351,25 +1351,6 @@ if (saveCustomerPasswordBtn) {
 
         }
 
-
-        /* =========================
-           SHOW DAILY CURRY
-        ========================= */
-
-        if (monthlyCustomerCurry) {
-
-          monthlyCustomerCurry.style.display =
-            "block";
-
-
-          monthlyCustomerCurry.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-
-        }
-
-
       } catch (error) {
 
         console.error(
