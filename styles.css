@@ -1731,3 +1731,41 @@ footer {
   }
 
 }
+/* =========================
+   ADMIN MENU FIX
+========================= */
+
+#adminMenu {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 16px;
+
+  align-items: start;
+
+  margin-top: 15px;
+}
+
+/* Admin curry card */
+
+#adminMenu .menu-card,
+#adminMenu .menu-item {
+  width: 100%;
+  margin: 0;
+  height: auto;
+}
+
+
+/* =========================
+   ADMIN MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  #adminMenu {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+}
