@@ -2028,3 +2028,61 @@ footer {
   }
 
 }
+/* =========================
+   MOBILE HEADER
+========================= */
+
+@media (max-width: 600px) {
+
+  /* LOGO */
+
+  .top .logo {
+    width: 180px;
+    max-width: 75%;
+    height: auto;
+    display: block;
+    margin: 0 auto 8px;
+  }
+
+
+  /* BRAND TITLE */
+
+  .top .brand-text h1 {
+    font-size: 24px;
+    margin: 5px 0;
+  }
+
+
+  .top .brand-text p {
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+
+
+  /* CUSTOMER LOGIN BUTTON */
+
+  .top .customer-login-btn {
+    width: auto;
+    min-width: 140px;
+
+    padding: 7px 12px;
+
+    font-size: 13px;
+
+    line-height: 1.2;
+
+    border-radius: 9px;
+
+    white-space: nowrap;
+
+    margin: 8px auto;
+  }
+
+
+  /* ADMIN */
+
+  .top .admin-link {
+    font-size: 13px;
+  }
+
+}
