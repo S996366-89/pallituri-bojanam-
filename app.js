@@ -1427,14 +1427,14 @@ if (saveCustomerPasswordBtn) {
 
 
 /* =========================
-   MONTHLY PLAN ORDER
+   MONTHLY PLAN NEXT STEP
 ========================= */
 
 if (monthlyPlanBtn) {
 
   monthlyPlanBtn.addEventListener(
     "click",
-    async () => {
+    () => {
 
       const name =
         monthlyName
@@ -1480,12 +1480,6 @@ if (monthlyPlanBtn) {
           ?.value || "";
 
 
-      const total =
-        days *
-        price *
-        quantity;
-
-
       /* =========================
          PLAN VALIDATION
       ========================= */
@@ -1516,7 +1510,7 @@ if (monthlyPlanBtn) {
       ) {
 
         monthlyPlanStatus.textContent =
-          "❌ దయచేసి పేరు, ఫోన్ నంబర్, చిరునామా మరియు భోజనాల సంఖ్య ఇవ్వండి.";
+          "❌ దయచేసి అన్ని వివరాలు నమోదు చేయండి.";
 
         return;
 
@@ -1541,181 +1535,19 @@ if (monthlyPlanBtn) {
       }
 
 
-      monthlyPlanStatus.textContent =
-        "⏳ నెలవారీ పథకం పంపుతోంది...";
+      /* =========================
+         DON'T SAVE DATABASE YET
+      ========================= */
+
+      monthlyCustomerPhone =
+        phone;
 
 
       /* =========================
-         SAVE MONTHLY ORDER
+         SHOW PASSWORD PAGE
       ========================= */
 
-      try {
-
-        await addDoc(
-          collection(
-            db,
-            "monthlyOrders"
-          ),
-          {
-
-            name: name,
-
-            phone: phone,
-
-            address: address,
-
-            quantity: quantity,
-
-            planType: planType,
-
-            planDays: days,
-
-            pricePerDay: price,
-
-            totalAmount: total,
-
-            status: "new",
-
-            createdAt:
-              new Date().toISOString()
-
-          }
-        );
-
-
-        /* =========================
-           SUCCESS
-        ========================= */
-
-        monthlyPlanStatus.textContent =
-          "✅ నెలవారీ పథకం విజయవంతంగా నమోదు అయింది. ధన్యవాదాలు!";
-
-
-        /* =========================
-           SAVE CUSTOMER PHONE
-        ========================= */
-
-        monthlyCustomerPhone =
-          phone;
-
-
-        /* =========================
-           SHOW PASSWORD ACCOUNT
-        ========================= */
-
-        showMonthlyCustomerLogin();
-
-
-        /* =========================
-           CLEAR MONTHLY FORM
-        ========================= */
-
-        if (monthlyName) {
-
-          monthlyName.value = "";
-
-        }
-
-
-        if (monthlyPhone) {
-
-          monthlyPhone.value = "";
-
-        }
-
-
-        if (monthlyAddress) {
-
-          monthlyAddress.value = "";
-
-        }
-
-
-        if (monthlyQuantity) {
-
-          monthlyQuantity.value = 1;
-
-        }
-
-
-        if (planDays) {
-
-          planDays.value = 26;
-
-        }
-
-
-        /* =========================
-           RESET PLAN
-        ========================= */
-
-        if (selectedPlanType) {
-
-          selectedPlanType.value = "";
-
-        }
-
-
-        if (selectedPlanPriceValue) {
-
-          selectedPlanPriceValue.value = "";
-
-        }
-
-
-        if (selectedPlanDetails) {
-
-          selectedPlanDetails.style.display =
-            "none";
-
-        }
-
-
-        if (monthlyPlanForm) {
-
-          monthlyPlanForm.style.display =
-            "none";
-
-        }
-
-
-        if (plan49Card) {
-
-          plan49Card.classList.remove(
-            "selected"
-          );
-
-        }
-
-
-        if (plan69Card) {
-
-          plan69Card.classList.remove(
-            "selected"
-          );
-
-        }
-
-
-        updatePlanTotal();
-
-
-      } catch (error) {
-
-        console.error(
-          "MONTHLY PLAN ERROR:",
-          error
-        );
-
-
-        monthlyPlanStatus.textContent =
-          "❌ నెలవారీ పథకం నమోదు కాలేదు: " +
-          (
-            error.code ||
-            error.message
-          );
-
-      }
+      showMonthlyCustomerLogin();
 
     }
   );
