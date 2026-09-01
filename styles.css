@@ -2029,86 +2029,24 @@ footer {
 
 }
 /* =========================
-   MOBILE HEADER
-========================= */
-
-@media (max-width: 600px) {
-
-  /* LOGO */
-
-  .top .logo {
-    width: 180px;
-    max-width: 75%;
-    height: auto;
-    display: block;
-    margin: 0 auto 8px;
-  }
-
-
-  /* BRAND TITLE */
-
-  .top .brand-text h1 {
-    font-size: 24px;
-    margin: 5px 0;
-  }
-
-
-  .top .brand-text p {
-    font-size: 14px;
-    margin: 0 0 10px;
-  }
-
-
-  /* CUSTOMER LOGIN BUTTON */
-
-  .top .customer-login-btn {
-    width: auto;
-    min-width: 140px;
-
-    padding: 7px 12px;
-
-    font-size: 13px;
-
-    line-height: 1.2;
-
-    border-radius: 9px;
-
-    white-space: nowrap;
-
-    margin: 8px auto;
-  }
-
-
-  /* ADMIN */
-
-  .top .admin-link {
-    font-size: 13px;
-  }
-
-}
-/* =========================
-   MOBILE HEADER
+   FINAL MOBILE HEADER
 ========================= */
 
 @media (max-width: 600px) {
 
   .top {
     display: grid;
+    grid-template-columns: 68px 1fr auto;
+    grid-template-rows: auto auto;
 
-    grid-template-columns: 72px 1fr;
-    grid-template-rows: auto 1px auto;
-
+    align-items: center;
     column-gap: 10px;
     row-gap: 6px;
 
-    padding: 8px 12px;
+    padding: 8px 10px;
   }
 
-
-  /* =========================
-     LOGO
-  ========================= */
-
+  /* LOGO */
   .top .logo {
     grid-column: 1;
     grid-row: 1;
@@ -2120,21 +2058,13 @@ footer {
     margin: 0;
   }
 
-
-  /* =========================
-     BRAND TEXT
-  ========================= */
-
+  /* BRAND */
   .top .brand-text {
-    display: block;
-
     grid-column: 2;
     grid-row: 1;
 
     min-width: 0;
-    align-self: center;
   }
-
 
   .top h1 {
     margin: 0;
@@ -2143,52 +2073,26 @@ footer {
     line-height: 1.2;
   }
 
-
   .top p {
-    display: block;
-
     margin: 4px 0 0;
-
-    color: var(--muted);
 
     font-size: 12px;
     line-height: 1.3;
-
-    white-space: normal;
   }
 
-
-  /* =========================
-     DIVIDER LINE
-  ========================= */
-
-  .top::after {
-    content: "";
-
-    grid-column: 1 / -1;
+  /* CUSTOMER LOGIN */
+  .top .customer-login-btn {
+    grid-column: 2;
     grid-row: 2;
 
-    width: 100%;
-    height: 1px;
+    justify-self: start;
 
-    background: var(--border);
-  }
-
-
-  /* =========================
-     CUSTOMER LOGIN
-  ========================= */
-
-  .top .customer-login-btn {
-    grid-column: 1;
-    grid-row: 3;
-
-    width: 100%;
-    min-width: 0;
+    width: auto;
+    min-width: 125px;
 
     margin: 0;
 
-    padding: 8px 5px;
+    padding: 8px 12px;
 
     font-size: 14px;
     line-height: 1.2;
@@ -2198,25 +2102,19 @@ footer {
     white-space: nowrap;
   }
 
-
-  /* =========================
-     ADMIN
-  ========================= */
-
+  /* ADMIN */
   .top .admin-link {
-    grid-column: 2;
-    grid-row: 3;
+    grid-column: 3;
+    grid-row: 2;
 
     justify-self: end;
-    align-self: center;
 
     margin: 0;
 
-    padding: 8px 10px;
+    padding: 8px 9px;
 
     font-size: 14px;
 
     white-space: nowrap;
   }
-
 }
