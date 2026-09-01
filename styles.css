@@ -2144,3 +2144,81 @@ footer {
   }
 
 }
+/* =========================
+   MOBILE HEADER
+========================= */
+
+@media (max-width: 600px) {
+
+  .top {
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    grid-template-rows: auto auto;
+
+    gap: 6px 8px;
+
+    padding: 8px 12px;
+  }
+
+  /* LOGO */
+  .logo {
+    width: 58px;
+    height: 58px;
+
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* BRAND */
+  .brand-text {
+    grid-column: 1 / -1;
+    grid-row: 1;
+
+    margin-left: 68px;
+
+    padding-right: 4px;
+  }
+
+  .top h1 {
+    font-size: 21px;
+    line-height: 1.2;
+  }
+
+  .top p {
+    display: block;
+
+    margin: 3px 0 0;
+
+    font-size: 12px;
+    line-height: 1.3;
+
+    white-space: nowrap;
+  }
+
+  /* DIVIDER */
+  .customer-login-btn {
+    grid-column: 1;
+    grid-row: 2;
+
+    margin: 5px 0 0;
+
+    border-top: 1px solid var(--border);
+
+    padding-top: 8px;
+  }
+
+  /* ADMIN */
+  .admin-link {
+    grid-column: 2;
+    grid-row: 2;
+
+    margin: 5px 0 0;
+
+    padding: 8px 10px;
+
+    align-self: center;
+  }
+
+}
