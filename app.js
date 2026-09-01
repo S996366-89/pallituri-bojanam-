@@ -97,6 +97,10 @@ const customerLoginSubmitBtn =
     "#customerLoginSubmitBtn"
   );
 
+const customerLogoutBtn =
+  document.querySelector(
+    "#customerLogoutBtn"
+  );
 const customerLoginMessage =
   document.querySelector(
     "#customerLoginMessage"
@@ -1921,6 +1925,88 @@ if (backToMonthlyDetailsBtn) {
           behavior: "smooth",
           block: "center"
         });
+
+      }
+
+    }
+  );
+
+}
+/* =========================
+   CUSTOMER LOGOUT
+========================= */
+
+if (customerLogoutBtn) {
+
+  customerLogoutBtn.addEventListener(
+    "click",
+    async () => {
+
+      try {
+
+        await signOut(auth);
+
+
+        /* HIDE CURRY */
+
+        if (monthlyCustomerCurry) {
+
+          monthlyCustomerCurry.style.display =
+            "none";
+
+        }
+
+
+        /* SHOW LOGIN */
+
+        if (customerLoginSection) {
+
+          customerLoginSection.style.display =
+            "block";
+
+        }
+
+
+        /* CLEAR LOGIN FIELDS */
+
+        if (loginPhone) {
+
+          loginPhone.value = "";
+
+        }
+
+        if (loginPassword) {
+
+          loginPassword.value = "";
+
+        }
+
+
+        if (customerLoginMessage) {
+
+          customerLoginMessage.textContent =
+            "🚪 మీరు Logout అయ్యారు.";
+
+        }
+
+
+        /* SCROLL TO LOGIN */
+
+        if (customerLoginSection) {
+
+          customerLoginSection.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "CUSTOMER LOGOUT ERROR:",
+          error
+        );
 
       }
 
