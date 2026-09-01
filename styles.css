@@ -1769,3 +1769,38 @@ footer {
   }
 
 }
+/* =========================
+   ADMIN MENU CARD FIX
+========================= */
+
+#adminMenu {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  );
+  gap: 15px;
+  align-items: start;
+}
+
+#adminMenu .menu-card {
+  margin: 0;
+  height: auto;
+}
+
+#adminMenu .card-body {
+  padding: 15px;
+}
+
+#adminMenu .menu-info {
+  margin-bottom: 12px;
+}
+
+#adminMenu .menu-card h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+#adminMenu .delete {
+  width: 100%;
+}
