@@ -1875,3 +1875,87 @@ footer {
   font-size: 12px;
   cursor: pointer;
 }
+/* =========================
+   FINAL ADMIN MENU FIX
+========================= */
+
+#adminMenu {
+  max-height: 350px !important;
+  overflow-y: auto !important;
+  padding: 5px !important;
+}
+
+
+#adminMenu .admin-menu-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  width: 100% !important;
+
+  gap: 8px !important;
+
+  padding: 10px 6px !important;
+
+  box-sizing: border-box !important;
+
+  border-bottom: 1px solid #ddd !important;
+}
+
+
+#adminMenu .admin-curry-name {
+  flex: 1 1 auto !important;
+
+  min-width: 0 !important;
+
+  font-size: 14px !important;
+
+  font-weight: bold !important;
+
+  white-space: nowrap !important;
+
+  overflow: hidden !important;
+
+  text-overflow: ellipsis !important;
+}
+
+
+#adminMenu .admin-curry-price {
+  flex: 0 0 auto !important;
+
+  white-space: nowrap !important;
+
+  font-size: 14px !important;
+}
+
+
+#adminMenu .admin-category {
+  flex: 0 0 auto !important;
+
+  white-space: nowrap !important;
+
+  font-size: 12px !important;
+}
+
+
+/* REMOVE BUTTON */
+
+#adminMenu .admin-menu-row .delete {
+  display: inline-block !important;
+
+  width: auto !important;
+  min-width: 70px !important;
+
+  margin: 0 !important;
+
+  padding: 6px 8px !important;
+
+  font-size: 12px !important;
+
+  line-height: 1.2 !important;
+
+  white-space: nowrap !important;
+
+  flex: 0 0 auto !important;
+}
