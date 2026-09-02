@@ -1875,7 +1875,7 @@ curryOptions.forEach((button) => {
 
 
 /* =========================
-   EXTRA CURRY
+   EXTRA CURRY QUANTITY
 ========================= */
 
 extraCurryOptions.forEach((button) => {
@@ -1893,50 +1893,79 @@ extraCurryOptions.forEach((button) => {
         );
 
 
-      const existingIndex =
-        selectedExtraCurries.findIndex(
-          (item) =>
-            item.curry === curry
+      const existing =
+        selectedExtraCurries.find(
+          (item) => item.curry === curry
         );
 
 
       /* =========================
-         REMOVE IF ALREADY SELECTED
+         ADD / INCREASE QUANTITY
       ========================= */
 
-      if (existingIndex !== -1) {
+      if (existing) {
 
-        selectedExtraCurries.splice(
-          existingIndex,
-          1
-        );
+        existing.quantity += 1;
 
-        selectedExtraTotal -= price;
-
-        button.classList.remove(
-          "selected"
-        );
-
-      }
-
-      /* =========================
-         ADD EXTRA CURRY
-      ========================= */
-
-      else {
+      } else {
 
         selectedExtraCurries.push({
           curry: curry,
-          price: price
+          price: price,
+          quantity: 1
         });
 
-        selectedExtraTotal += price;
+      }
 
-        button.classList.add(
-          "selected"
+
+      /* =========================
+         CALCULATE TOTAL
+      ========================= */
+
+      selectedExtraTotal =
+        selectedExtraCurries.reduce(
+          (total, item) =>
+            total +
+            (item.price * item.quantity),
+          0
+        );
+
+
+      /* =========================
+         ACTIVE BUTTON
+      ========================= */
+
+      button.classList.add(
+        "selected"
+      );
+
+
+      /* =========================
+         SHOW QUANTITY
+      ========================= */
+
+      let quantityText =
+        button.querySelector(
+          ".extra-curry-quantity"
+        );
+
+      if (!quantityText) {
+
+        quantityText =
+          document.createElement("span");
+
+        quantityText.className =
+          "extra-curry-quantity";
+
+        button.appendChild(
+          quantityText
         );
 
       }
+
+
+      quantityText.textContent =
+        ` × ${existing ? existing.quantity : 1}`;
 
 
       /* =========================
