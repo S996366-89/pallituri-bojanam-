@@ -233,70 +233,70 @@ if (customerLoginBtn) {
     "click",
     async () => {
 
-      /* =========================
-         LOGOUT
+    
+
+     /* =========================
+            LOGOUT
       ========================= */
 
-      if (customerLoggedIn) {
+       if (customerLoggedIn) {
 
-        try {
+         try {
 
-          await signOut(auth);
+    await signOut(auth);
 
-          customerLoggedIn = false;
-          monthlyCustomerPhone = "";
+    customerLoggedIn = false;
+    monthlyCustomerPhone = "";
 
-          if (monthlyCustomerCurry) {
-            monthlyCustomerCurry.style.display = "none";
-          }
+    /* SHOW TOP LOGIN */
+    customerLoginBtn.textContent =
+      "🔐 కస్టమర్ లాగిన్";
 
-          showLoggedOutCustomerView();
+    /* HIDE CURRY */
+    if (monthlyCustomerCurry) {
+      monthlyCustomerCurry.style.display = "none";
+    }
 
-          customerLoginBtn.textContent =
-            "🔐 కస్టమర్ లాగిన్";
+    /* NORMAL VIEW */
+    showLoggedOutCustomerView();
 
-          if (customerLoginSection) {
-            customerLoginSection.style.display = "block";
-          }
+    /* RESET LOGIN SECTION */
+    if (customerLoginSection) {
+      customerLoginSection.style.display = "none";
+    }
 
-          if (loginPhone) {
-            loginPhone.style.display = "block";
-            loginPhone.value = "";
-          }
+    /* RESET LOGIN FIELDS */
+    if (loginPhone) {
+      loginPhone.value = "";
+      loginPhone.style.display = "block";
+    }
 
-          if (loginPassword) {
-            loginPassword.style.display = "block";
-            loginPassword.value = "";
-          }
+    if (loginPassword) {
+      loginPassword.value = "";
+      loginPassword.style.display = "block";
+    }
 
-          if (customerLoginSubmitBtn) {
-            customerLoginSubmitBtn.style.display = "block";
-          }
+    if (customerLoginSubmitBtn) {
+      customerLoginSubmitBtn.style.display = "block";
+      customerLoginSubmitBtn.textContent =
+        "🔐 లాగిన్ చేయండి";
+    }
 
-          if (customerLoginMessage) {
-            customerLoginMessage.textContent =
-              "🚪 మీరు Logout అయ్యారు.";
-          }
+    if (customerLoginMessage) {
+      customerLoginMessage.textContent = "";
+    }
 
-          if (customerLoginSection) {
-            customerLoginSection.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-          }
+  } catch (error) {
 
-        } catch (error) {
+    console.error(
+      "CUSTOMER LOGOUT ERROR:",
+      error
+    );
 
-          console.error(
-            "CUSTOMER LOGOUT ERROR:",
-            error
-          );
+  }
 
-        }
-
-        return;
-      }
-
+  return;
+}
 
       /* =========================
          OPEN LOGIN
