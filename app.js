@@ -1880,28 +1880,195 @@ curryOptions.forEach((button) => {
 
 extraCurryOptions.forEach((button) => {
 
+  const curry =
+    button.dataset.curry || "";
+
+  const price =
+    Number(button.dataset.price || 0);
+
+
+  /* =========================
+     QUANTITY AREA
+  ========================= */
+
+  let quantityArea =
+    button.querySelector(".extra-curry-controls");
+
+
+  if (!quantityArea) {
+
+    quantityArea =
+      document.createElement("span");
+
+    quantityArea.className =
+      "extra-curry-controls";
+
+
+    /* MINUS BUTTON */
+
+    const minusBtn =
+      document.createElement("button");
+
+    minusBtn.type = "button";
+    minusBtn.className =
+      "extra-curry-minus";
+
+    minusBtn.textContent = "−";
+
+
+    /* QUANTITY */
+
+    const quantityText =
+      document.createElement("span");
+
+    quantityText.className =
+      "extra-curry-quantity";
+
+    quantityText.textContent = "0";
+
+
+    /* PLUS BUTTON */
+
+    const plusBtn =
+      document.createElement("button");
+
+    plusBtn.type = "button";
+    plusBtn.className =
+      "extra-curry-plus";
+
+    plusBtn.textContent = "+";
+
+
+    quantityArea.appendChild(
+      minusBtn
+    );
+
+    quantityArea.appendChild(
+      quantityText
+    );
+
+    quantityArea.appendChild(
+      plusBtn
+    );
+
+
+    button.appendChild(
+      quantityArea
+    );
+
+
+    /* =========================
+       PLUS
+    ========================= */
+
+    plusBtn.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+
+        let existing =
+          selectedExtraCurries.find(
+            (item) =>
+              item.curry === curry
+          );
+
+
+        if (existing) {
+
+          existing.quantity += 1;
+
+        } else {
+
+          selectedExtraCurries.push({
+            curry: curry,
+            price: price,
+            quantity: 1
+          });
+
+        }
+
+
+        updateExtraCurryTotal();
+
+      }
+    );
+
+
+    /* =========================
+       MINUS
+    ========================= */
+
+    minusBtn.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+
+        const existing =
+          selectedExtraCurries.find(
+            (item) =>
+              item.curry === curry
+          );
+
+
+        if (!existing) {
+          return;
+        }
+
+
+        existing.quantity -= 1;
+
+
+        if (existing.quantity <= 0) {
+
+          const index =
+            selectedExtraCurries.findIndex(
+              (item) =>
+                item.curry === curry
+            );
+
+          if (index !== -1) {
+
+            selectedExtraCurries.splice(
+              index,
+              1
+            );
+
+          }
+
+          button.classList.remove(
+            "selected"
+          );
+
+        }
+
+
+        updateExtraCurryTotal();
+
+      }
+    );
+
+  }
+
+
+  /* =========================
+     MAIN BUTTON CLICK
+     = ADD 1
+  ========================= */
+
   button.addEventListener(
     "click",
     () => {
 
-      const curry =
-        button.dataset.curry || "";
-
-      const price =
-        Number(
-          button.dataset.price || 0
-        );
-
-
       const existing =
         selectedExtraCurries.find(
-          (item) => item.curry === curry
+          (item) =>
+            item.curry === curry
         );
 
-
-      /* =========================
-         ADD / INCREASE QUANTITY
-      ========================= */
 
       if (existing) {
 
@@ -1918,71 +2085,98 @@ extraCurryOptions.forEach((button) => {
       }
 
 
-      /* =========================
-         CALCULATE TOTAL
-      ========================= */
-
-      selectedExtraTotal =
-        selectedExtraCurries.reduce(
-          (total, item) =>
-            total +
-            (item.price * item.quantity),
-          0
-        );
-
-
-      /* =========================
-         ACTIVE BUTTON
-      ========================= */
-
       button.classList.add(
         "selected"
       );
 
 
-      /* =========================
-         SHOW QUANTITY
-      ========================= */
+      updateExtraCurryTotal();
 
-      let quantityText =
+    }
+  );
+
+});
+
+
+/* =========================
+   UPDATE EXTRA CURRY TOTAL
+========================= */
+
+function updateExtraCurryTotal() {
+
+  selectedExtraTotal =
+    selectedExtraCurries.reduce(
+      (total, item) =>
+        total +
+        (item.price * item.quantity),
+      0
+    );
+
+
+  /* =========================
+     UPDATE QUANTITIES
+  ========================= */
+
+  extraCurryOptions.forEach(
+    (button) => {
+
+      const curry =
+        button.dataset.curry || "";
+
+
+      const existing =
+        selectedExtraCurries.find(
+          (item) =>
+            item.curry === curry
+        );
+
+
+      const quantityText =
         button.querySelector(
           ".extra-curry-quantity"
         );
 
-      if (!quantityText) {
 
-        quantityText =
-          document.createElement("span");
+      if (quantityText) {
 
-        quantityText.className =
-          "extra-curry-quantity";
-
-        button.appendChild(
-          quantityText
-        );
+        quantityText.textContent =
+          existing
+            ? existing.quantity
+            : "0";
 
       }
 
 
-      quantityText.textContent =
-        ` × ${existing ? existing.quantity : 1}`;
+      if (existing) {
 
+        button.classList.add(
+          "selected"
+        );
 
-      /* =========================
-         UPDATE TOTAL
-      ========================= */
+      } else {
 
-      if (extraCurryTotal) {
-
-        extraCurryTotal.textContent =
-          `Extra Curry: ₹${selectedExtraTotal}`;
+        button.classList.remove(
+          "selected"
+        );
 
       }
 
     }
   );
 
-});
+
+  /* =========================
+     UPDATE TOTAL
+  ========================= */
+
+  if (extraCurryTotal) {
+
+    extraCurryTotal.textContent =
+      `Extra Curry: ₹${selectedExtraTotal}`;
+
+  }
+
+}
 
 
 /* =========================
