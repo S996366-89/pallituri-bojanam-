@@ -329,21 +329,21 @@ if (customerLoginSubmitBtn) {
                SUCCESS
         ========================= */
 
-if (customerLoginMessage) {
+      if (customerLoginMessage) {
 
-  customerLoginMessage.textContent =
-    "✅ Login విజయవంతమైంది.";
+          customerLoginMessage.textContent =
+           "✅ Login విజయవంతమైంది.";
 
-}
+   }
 
 
-/* =========================
-   CHANGE LOGIN TO LOGOUT
-========================= */
+   /* =========================
+    CHANGE TOP LOGIN BUTTON TO LOGOUT
+         ========================= */
 
-if (customerLoginTitle) {
+if (customerLoginBtn) {
 
-  customerLoginTitle.textContent =
+  customerLoginBtn.textContent =
     "🚪 కస్టమర్ లాగ్ అవుట్";
 
 }
@@ -389,17 +389,6 @@ if (loginDescription) {
 
 }
 
-
-/* =========================
-   SHOW LOGOUT BUTTON
-========================= */
-
-if (customerLogoutBtn) {
-
-  customerLogoutBtn.style.display =
-    "block";
-
-}
 
     /* =========================
         SHOW LOGGED-IN VIEW
@@ -2095,150 +2084,6 @@ if (backToMonthlyDetailsBtn) {
           behavior: "smooth",
           block: "center"
         });
-
-      }
-
-    }
-  );
-
-}
-/* =========================
-   CUSTOMER LOGOUT
-========================= */
-
-if (customerLogoutBtn) {
-
-  customerLogoutBtn.addEventListener(
-    "click",
-    async () => {
-
-      try {
-
-        await signOut(auth);
-
-
-        /* =========================
-           HIDE CURRY
-        ========================= */
-
-        if (monthlyCustomerCurry) {
-
-          monthlyCustomerCurry.style.display =
-            "none";
-
-        }
-        
-         /* =========================
-             RESTORE NORMAL VIEW
-         ========================= */
-
-         showLoggedOutCustomerView();
-
-
-        /* =========================
-           SHOW LOGIN SECTION
-        ========================= */
-
-        if (customerLoginSection) {
-
-          customerLoginSection.style.display =
-            "block";
-
-        }
-
-
-        /* =========================
-           RESET LOGIN TITLE
-        ========================= */
-
-        if (customerLoginTitle) {
-
-          customerLoginTitle.textContent =
-            "🔐 కస్టమర్ లాగిన్";
-
-        }
-
-
-        /* =========================
-           SHOW LOGIN FIELDS
-        ========================= */
-
-        if (loginPhone) {
-
-          loginPhone.style.display =
-            "block";
-
-          loginPhone.value = "";
-
-        }
-
-
-        if (loginPassword) {
-
-          loginPassword.style.display =
-            "block";
-
-          loginPassword.value = "";
-
-        }
-
-
-        /* =========================
-           SHOW LOGIN BUTTON
-        ========================= */
-       if (customerLoginSubmitBtn) {
-
-       customerLoginSubmitBtn.textContent =
-            "🚪 కస్టమర్ లాగ్ అవుట్";
-
-        customerLoginSubmitBtn.style.display =
-      "block";
-
-      }
-
-        /* =========================
-           HIDE LOGOUT BUTTON
-        ========================= */
-
-        if (customerLogoutBtn) {
-
-          customerLogoutBtn.style.display =
-            "none";
-
-        }
-
-
-        /* =========================
-           SHOW LOGIN MESSAGE
-        ========================= */
-
-        if (customerLoginMessage) {
-
-          customerLoginMessage.textContent =
-            "🚪 మీరు Logout అయ్యారు.";
-
-        }
-
-
-        /* =========================
-           SCROLL TO LOGIN
-        ========================= */
-
-        if (customerLoginSection) {
-
-          customerLoginSection.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-
-        }
-
-      } catch (error) {
-
-        console.error(
-          "CUSTOMER LOGOUT ERROR:",
-          error
-        );
 
       }
 
