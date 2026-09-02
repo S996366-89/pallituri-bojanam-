@@ -13,7 +13,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import { firebaseConfig } from "./firebase-config.js";
@@ -2161,3 +2162,38 @@ if (backToMonthlyDetailsBtn) {
   );
 
 }
+/* =========================
+   RESTORE LOGIN AFTER REFRESH
+========================= */
+
+onAuthStateChanged(auth, (user) => {
+
+  if (user) {
+
+    customerLoggedIn = true;
+
+    if (customerLoginBtn) {
+      customerLoginBtn.textContent =
+        "🚪 కస్టమర్ లాగ్ అవుట్";
+    }
+
+    showLoggedInCustomerView();
+
+    if (customerLoginSection) {
+      customerLoginSection.style.display = "none";
+    }
+
+  } else {
+
+    customerLoggedIn = false;
+
+    if (customerLoginBtn) {
+      customerLoginBtn.textContent =
+        "🔐 కస్టమర్ లాగిన్";
+    }
+
+    showLoggedOutCustomerView();
+
+  }
+
+});
