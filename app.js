@@ -222,14 +222,66 @@ function showLoggedOutCustomerView() {
 }
 
 /* =========================
-   OPEN CUSTOMER LOGIN
+   CUSTOMER LOGIN / LOGOUT TOGGLE
 ========================= */
 
 if (customerLoginBtn) {
 
   customerLoginBtn.addEventListener(
     "click",
-    () => {
+    async () => {
+
+      /* =========================
+         LOGOUT IF ALREADY LOGGED IN
+      ========================= */
+
+      if (auth.currentUser) {
+
+        try {
+
+          await signOut(auth);
+
+          monthlyCustomerPhone = "";
+
+          if (monthlyCustomerCurry) {
+            monthlyCustomerCurry.style.display = "none";
+          }
+
+          showLoggedOutCustomerView();
+
+          customerLoginBtn.textContent =
+            "🔐 కస్టమర్ లాగిన్";
+
+          if (customerLoginSection) {
+            customerLoginSection.style.display = "block";
+          }
+
+          if (customerLoginMessage) {
+            customerLoginMessage.textContent =
+              "🚪 మీరు Logout అయ్యారు.";
+          }
+
+          customerLoginSection?.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+        } catch (error) {
+
+          console.error(
+            "CUSTOMER LOGOUT ERROR:",
+            error
+          );
+
+        }
+
+        return;
+      }
+
+
+      /* =========================
+         OPEN LOGIN
+      ========================= */
 
       if (customerLoginSection) {
 
@@ -247,7 +299,6 @@ if (customerLoginBtn) {
   );
 
 }
-
 
 /* =========================
    CUSTOMER PHONE
