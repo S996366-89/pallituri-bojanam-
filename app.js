@@ -113,6 +113,115 @@ const customerLoginMessage =
   );
 
 /* =========================
+   CUSTOMER LOGIN VIEW
+========================= */
+
+const heroSection =
+  document.querySelector(".hero");
+
+const menuSection =
+  document.querySelector("#menu");
+
+const monthlyPlanSection =
+  document.querySelector(".monthly-plan");
+
+const orderSection =
+  document.querySelector(".order-card");
+
+
+/* =========================
+   SHOW LOGGED-IN CUSTOMER VIEW
+========================= */
+
+function showLoggedInCustomerView() {
+
+  /* HIDE WELCOME */
+
+  if (heroSection) {
+    heroSection.style.display = "none";
+  }
+
+
+  /* HIDE TODAY MENU */
+
+  if (menuSection) {
+    menuSection.style.display = "none";
+  }
+
+
+  /* HIDE MONTHLY PLANS */
+
+  if (monthlyPlanSection) {
+    monthlyPlanSection.style.display = "none";
+  }
+
+
+  /* HIDE PASSWORD ACCOUNT SECTION */
+
+  if (monthlyCustomerLogin) {
+    monthlyCustomerLogin.style.display = "none";
+  }
+
+
+  /* SHOW DAILY CURRY */
+
+  if (monthlyCustomerCurry) {
+    monthlyCustomerCurry.style.display = "block";
+  }
+
+
+  /* SHOW FOOD ORDER */
+
+  if (orderSection) {
+    orderSection.style.display = "block";
+  }
+
+}
+
+
+/* =========================
+   SHOW NORMAL CUSTOMER VIEW
+========================= */
+
+function showLoggedOutCustomerView() {
+
+  /* SHOW WELCOME */
+
+  if (heroSection) {
+    heroSection.style.display = "";
+  }
+
+
+  /* SHOW TODAY MENU */
+
+  if (menuSection) {
+    menuSection.style.display = "";
+  }
+
+
+  /* SHOW MONTHLY PLANS */
+
+  if (monthlyPlanSection) {
+    monthlyPlanSection.style.display = "";
+  }
+
+
+  /* HIDE DAILY CURRY */
+
+  if (monthlyCustomerCurry) {
+    monthlyCustomerCurry.style.display = "none";
+  }
+
+
+  /* SHOW ORDER */
+
+  if (orderSection) {
+    orderSection.style.display = "";
+  }
+
+}
+
+/* =========================
    OPEN CUSTOMER LOGIN
 ========================= */
 
@@ -292,22 +401,26 @@ if (customerLogoutBtn) {
 
 }
 
+    /* =========================
+        SHOW LOGGED-IN VIEW
+     ========================= */
 
-/* =========================
-   SHOW DAILY CURRY
-========================= */
+    showLoggedInCustomerView();
 
-if (monthlyCustomerCurry) {
 
-  monthlyCustomerCurry.style.display =
-    "block";
+  /* =========================
+       SCROLL TO CURRY
+   ========================= */
 
-  monthlyCustomerCurry.scrollIntoView({
+    if (monthlyCustomerCurry) {
+
+     monthlyCustomerCurry.scrollIntoView({
     behavior: "smooth",
     block: "center"
   });
 
 }
+
       } catch (error) {
 
         console.error(
@@ -2007,6 +2120,12 @@ if (customerLogoutBtn) {
             "none";
 
         }
+        
+         /* =========================
+             RESTORE NORMAL VIEW
+         ========================= */
+
+         showLoggedOutCustomerView();
 
 
         /* =========================
