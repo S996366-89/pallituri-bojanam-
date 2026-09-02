@@ -326,8 +326,8 @@ if (customerLoginSubmitBtn) {
          monthlyCustomerPhone = phone;
        
        /* =========================
-   SUCCESS
-========================= */
+               SUCCESS
+        ========================= */
 
 if (customerLoginMessage) {
 
@@ -407,6 +407,13 @@ if (customerLogoutBtn) {
 
     showLoggedInCustomerView();
 
+        /* =========================
+            HIDE CUSTOMER LOGIN
+        ========================= */
+
+       if (customerLoginSection) {
+           customerLoginSection.style.display = "none";
+}
 
   /* =========================
        SCROLL TO CURRY
