@@ -225,6 +225,8 @@ function showLoggedOutCustomerView() {
    CUSTOMER LOGIN / LOGOUT TOGGLE
 ========================= */
 
+let customerLoggedIn = false;
+
 if (customerLoginBtn) {
 
   customerLoginBtn.addEventListener(
@@ -232,15 +234,16 @@ if (customerLoginBtn) {
     async () => {
 
       /* =========================
-         LOGOUT IF ALREADY LOGGED IN
+         LOGOUT
       ========================= */
 
-      if (auth.currentUser) {
+      if (customerLoggedIn) {
 
         try {
 
           await signOut(auth);
 
+          customerLoggedIn = false;
           monthlyCustomerPhone = "";
 
           if (monthlyCustomerCurry) {
@@ -256,15 +259,31 @@ if (customerLoginBtn) {
             customerLoginSection.style.display = "block";
           }
 
+          if (loginPhone) {
+            loginPhone.style.display = "block";
+            loginPhone.value = "";
+          }
+
+          if (loginPassword) {
+            loginPassword.style.display = "block";
+            loginPassword.value = "";
+          }
+
+          if (customerLoginSubmitBtn) {
+            customerLoginSubmitBtn.style.display = "block";
+          }
+
           if (customerLoginMessage) {
             customerLoginMessage.textContent =
               "🚪 మీరు Logout అయ్యారు.";
           }
 
-          customerLoginSection?.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
+          if (customerLoginSection) {
+            customerLoginSection.scrollIntoView({
+              behavior: "smooth",
+              block: "center"
+            });
+          }
 
         } catch (error) {
 
@@ -398,7 +417,7 @@ if (customerLoginBtn) {
     "🚪 కస్టమర్ లాగ్ అవుట్";
 
 }
-
+ customerLoggedIn = true;
 
 if (loginPhone) {
 
