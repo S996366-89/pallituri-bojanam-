@@ -1501,9 +1501,7 @@ if (saveCustomerPasswordBtn) {
       }
 
 
-      if (
-        password.length < 6
-      ) {
+      if (password.length < 6) {
 
         customerLoginStatus.textContent =
           "❌ Password కనీసం 6 అక్షరాలు ఉండాలి.";
@@ -1547,6 +1545,55 @@ if (saveCustomerPasswordBtn) {
 
 
         /* =========================
+           CUSTOMER DATA
+        ========================= */
+
+        const customerName =
+          monthlyName
+            ?.value
+            .trim() || "";
+
+
+        const customerPhone =
+          monthlyPhone
+            ?.value
+            .trim() ||
+          monthlyCustomerPhone;
+
+
+        const customerAddress =
+          monthlyAddress
+            ?.value
+            .trim() || "";
+
+
+        const customerQuantity =
+          Number(
+            monthlyQuantity
+              ?.value || 1
+          );
+
+
+        const customerDays =
+          Number(
+            planDays
+              ?.value || 0
+          );
+
+
+        const customerPrice =
+          Number(
+            selectedPlanPriceValue
+              ?.value || 0
+          );
+
+
+        const customerPlan =
+          selectedPlanType
+            ?.value || "";
+
+
+        /* =========================
            INTERNAL EMAIL
         ========================= */
 
@@ -1556,13 +1603,64 @@ if (saveCustomerPasswordBtn) {
 
 
         /* =========================
-           CREATE ACCOUNT
+           CREATE FIREBASE ACCOUNT
         ========================= */
 
-        await createUserWithEmailAndPassword(
-          auth,
-          customerEmail,
-          password
+        const userCredential =
+          await createUserWithEmailAndPassword(
+            auth,
+            customerEmail,
+            password
+          );
+
+
+        const user =
+          userCredential.user;
+
+
+        /* =========================
+           SAVE CUSTOMER DATA
+           FIRESTORE
+        ========================= */
+
+        await addDoc(
+          collection(
+            db,
+            "customers"
+          ),
+          {
+
+            uid:
+              user.uid,
+
+            name:
+              customerName,
+
+            phone:
+              customerPhone,
+
+            address:
+              customerAddress,
+
+            plan:
+              customerPlan,
+
+            planPrice:
+              customerPrice,
+
+            days:
+              customerDays,
+
+            quantity:
+              customerQuantity,
+
+            email:
+              customerEmail,
+
+            accountCreated:
+              new Date()
+
+          }
         );
 
 
@@ -1571,11 +1669,11 @@ if (saveCustomerPasswordBtn) {
         ========================= */
 
         customerLoginStatus.textContent =
-          "✅ మీ Customer Account విజయవంతంగా సిద్ధమైంది.";
+          "✅ Account Create అయింది. మీ వివరాలు Databaseలో Save అయ్యాయి.";
 
 
         /* =========================
-           HIDE PASSWORD
+           HIDE PASSWORD STEP
         ========================= */
 
         if (customerPasswordStep) {
@@ -1584,6 +1682,19 @@ if (saveCustomerPasswordBtn) {
             "none";
 
         }
+
+
+        console.log(
+          "CUSTOMER DATA SAVED:",
+          {
+            name: customerName,
+            phone: customerPhone,
+            plan: customerPlan,
+            days: customerDays,
+            quantity: customerQuantity
+          }
+        );
+
 
       } catch (error) {
 
