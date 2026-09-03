@@ -770,47 +770,62 @@
 
     <form id="orderForm">
 
-      <!-- MEALS -->
+     <!-- MEAL QUANTITY -->
 
-      <div class="meal-row">
+<div class="meal-row">
 
-        <label>
-          భోజనాల సంఖ్య
-        </label>
+  <label>
+    భోజనాల సంఖ్య
+  </label>
 
-        <div class="meal-controls">
+  <div class="meal-controls">
 
-          <button
-            type="button"
-            id="mealMinus"
-            class="meal-btn"
-          >
-            −
-          </button>
+    <button
+      type="button"
+      id="mealMinus"
+      class="meal-btn"
+    >
+      −
+    </button>
 
-          <input
-            id="quantity"
-            type="number"
-            min="1"
-            value="1"
-            required
-          >
+    <input
+      id="quantity"
+      type="number"
+      min="1"
+      value="1"
+      readonly
+    >
 
-          <button
-            type="button"
-            id="mealPlus"
-            class="meal-btn"
-          >
-            +
-          </button>
+    <button
+      type="button"
+      id="mealPlus"
+      class="meal-btn"
+    >
+      +
+    </button>
 
-        </div>
+  </div>
 
-        <strong class="meal-price">
-          ₹89 / భోజనం
-        </strong>
+  <strong class="meal-price">
+    ₹89 / భోజనం
+  </strong>
 
-      </div>
+</div>
+
+
+<!-- TOTAL -->
+
+<div class="order-total-box">
+
+  <span>
+    మొత్తం
+  </span>
+
+  <strong id="orderTotal">
+    ₹89
+  </strong>
+
+</div>
 
 
       <!-- TOTAL -->
