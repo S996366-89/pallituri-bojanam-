@@ -482,6 +482,8 @@ async function loadOrders() {
 
   await loadMonthlyOrders();
 
+  await loadDailyCurryOrders();
+
   await loadDailyOrders();
 
 }
@@ -686,6 +688,178 @@ if (
 
     }
   );
+
+}
+ 
+   /* =========================
+       TODAY'S CURRY SELECTIONS
+    ========================= */
+
+async function loadDailyCurryOrders() {
+
+  const el =
+    document.querySelector(
+      "#dailyCurryOrders"
+    );
+
+  const countEl =
+    document.querySelector(
+      "#dailyCurryCount"
+    );
+
+  if (!el) return;
+
+  try {
+
+    const snap =
+      await getDocs(
+        query(
+          collection(
+            db,
+            "dailyCurrySelections"
+          ),
+          orderBy(
+            "createdAt",
+            "desc"
+          )
+        )
+      );
+
+    const today =
+      new Date().toLocaleDateString(
+        "en-CA"
+      );
+
+    const todayOrders =
+      snap.docs.filter(
+        (orderDoc) => {
+
+          const order =
+            orderDoc.data();
+
+          if (!order.createdAt) {
+            return false;
+          }
+
+          const dateTime =
+            new Date(
+              order.createdAt
+            );
+
+          const orderDate =
+            dateTime.toLocaleDateString(
+              "en-CA"
+            );
+
+          return orderDate === today;
+        }
+      );
+
+    if (countEl) {
+      countEl.textContent =
+        `మొత్తం: ${todayOrders.length}`;
+    }
+
+    if (todayOrders.length === 0) {
+
+      el.innerHTML =
+        `<p class="muted">
+          ఈరోజు కూరల ఎంపికలు ఇంకా లేవు.
+        </p>`;
+
+      return;
+    }
+
+    el.innerHTML =
+      todayOrders
+        .map((orderDoc) => {
+
+          const order =
+            orderDoc.data();
+
+          const curries =
+            order.curries ||
+            (
+              order.curry
+                ? [order.curry]
+                : []
+            );
+
+          const curryText =
+            curries.join(" + ");
+
+          const extraCurries =
+            order.extraCurries || [];
+
+          const extraText =
+            extraCurries.length
+              ? extraCurries
+                  .map(
+                    (item) =>
+                      `${item.curry} × ${
+                        item.quantity || 1
+                      } — ₹${
+                        Number(item.price || 0) *
+                        Number(item.quantity || 1)
+                      }`
+                  )
+                  .join("<br>")
+              : "ఏమీ లేవు";
+
+          return `
+            <div class="order daily-curry-order">
+
+              <div>
+                👤 ${
+                  order.name ||
+                  "పేరు లేదు"
+                }
+              </div>
+
+              <div>
+                📞 ${
+                  order.phone ||
+                  ""
+                }
+              </div>
+
+              <div>
+                🍛 ${
+                  curryText ||
+                  "కూర ఎంచుకోలేదు"
+                }
+              </div>
+
+              <div>
+                ➕ Extra Curries:<br>
+                ${extraText}
+              </div>
+
+              <div>
+                💰 Extra Total: ₹${
+                  Number(
+                    order.extraCurryTotal || 0
+                  )
+                }
+              </div>
+
+            </div>
+          `;
+
+        })
+        .join("");
+
+  } catch (error) {
+
+    console.error(
+      "DAILY CURRY ORDERS ERROR:",
+      error
+    );
+
+    el.innerHTML =
+      "ఈరోజు కూరల ఎంపికలు load కాలేదు.";
+
+  }
 
 }
 
