@@ -691,9 +691,9 @@ if (
 
 }
  
-   /* =========================
-       TODAY'S CURRY SELECTIONS
-    ========================= */
+  /* =========================
+   TODAY'S CURRY SELECTIONS
+========================= */
 
 async function loadDailyCurryOrders() {
 
@@ -711,6 +711,42 @@ async function loadDailyCurryOrders() {
 
   try {
 
+    /* =========================
+       LOAD CUSTOMER DETAILS
+    ========================= */
+
+    const customerSnap =
+      await getDocs(
+        collection(
+          db,
+          "customers"
+        )
+      );
+
+    const customerMap = {};
+
+    customerSnap.forEach(
+      (customerDoc) => {
+
+        const customer =
+          customerDoc.data();
+
+        if (customer.phone) {
+
+          customerMap[
+            String(customer.phone)
+          ] = customer;
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       LOAD DAILY CURRY DATA
+    ========================= */
+
     const snap =
       await getDocs(
         query(
@@ -725,10 +761,20 @@ async function loadDailyCurryOrders() {
         )
       );
 
+
+    /* =========================
+       TODAY DATE
+    ========================= */
+
     const today =
       new Date().toLocaleDateString(
         "en-CA"
       );
+
+
+    /* =========================
+       FILTER TODAY
+    ========================= */
 
     const todayOrders =
       snap.docs.filter(
@@ -742,9 +788,11 @@ async function loadDailyCurryOrders() {
           }
 
           const dateTime =
-            new Date(
-              order.createdAt
-            );
+            order.createdAt.toDate
+              ? order.createdAt.toDate()
+              : new Date(
+                  order.createdAt
+                );
 
           const orderDate =
             dateTime.toLocaleDateString(
@@ -752,13 +800,26 @@ async function loadDailyCurryOrders() {
             );
 
           return orderDate === today;
+
         }
       );
 
+
+    /* =========================
+       COUNT
+    ========================= */
+
     if (countEl) {
+
       countEl.textContent =
         `మొత్తం: ${todayOrders.length}`;
+
     }
+
+
+    /* =========================
+       NO DATA
+    ========================= */
 
     if (todayOrders.length === 0) {
 
@@ -768,7 +829,13 @@ async function loadDailyCurryOrders() {
         </p>`;
 
       return;
+
     }
+
+
+    /* =========================
+       DISPLAY DATA
+    ========================= */
 
     el.innerHTML =
       todayOrders
@@ -776,6 +843,33 @@ async function loadDailyCurryOrders() {
 
           const order =
             orderDoc.data();
+
+
+          /* =========================
+             CUSTOMER DETAILS
+          ========================= */
+
+          const customer =
+            customerMap[
+              String(order.phone || "")
+            ] || {};
+
+
+          const customerName =
+            customer.name ||
+            order.name ||
+            "పేరు లేదు";
+
+
+          const customerAddress =
+            customer.address ||
+            order.address ||
+            "చిరునామా లేదు";
+
+
+          /* =========================
+             INCLUDED CURRIES
+          ========================= */
 
           const curries =
             order.curries ||
@@ -785,42 +879,60 @@ async function loadDailyCurryOrders() {
                 : []
             );
 
+
           const curryText =
             curries.join(" + ");
+
+
+          /* =========================
+             EXTRA CURRIES
+          ========================= */
 
           const extraCurries =
             order.extraCurries || [];
 
+
           const extraText =
             extraCurries.length
+
               ? extraCurries
                   .map(
                     (item) =>
                       `${item.curry} × ${
                         item.quantity || 1
                       } — ₹${
-                        Number(item.price || 0) *
-                        Number(item.quantity || 1)
+                        Number(
+                          item.price || 0
+                        ) *
+                        Number(
+                          item.quantity || 1
+                        )
                       }`
                   )
                   .join("<br>")
+
               : "ఏమీ లేవు";
+
+
+          /* =========================
+             FINAL CUSTOMER ROW
+          ========================= */
 
           return `
             <div class="order daily-curry-order">
 
               <div>
-                👤 ${
-                  order.name ||
-                  "పేరు లేదు"
-                }
+                👤 ${customerName}
               </div>
 
               <div>
                 📞 ${
-                  order.phone ||
-                  ""
+                  order.phone || ""
                 }
+              </div>
+
+              <div>
+                📍 ${customerAddress}
               </div>
 
               <div>
@@ -848,6 +960,7 @@ async function loadDailyCurryOrders() {
 
         })
         .join("");
+
 
   } catch (error) {
 
