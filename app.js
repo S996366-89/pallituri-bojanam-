@@ -1663,6 +1663,51 @@ if (saveCustomerPasswordBtn) {
           }
         );
 
+      /* =========================
+            SAVE MONTHLY ORDER
+              FIRESTORE
+        ========================= */
+
+await addDoc(
+  collection(
+    db,
+    "monthlyOrders"
+  ),
+  {
+
+    uid:
+      user.uid,
+
+    name:
+      customerName,
+
+    phone:
+      customerPhone,
+
+    address:
+      customerAddress,
+
+    plan:
+      customerPlan,
+
+    planPrice:
+      customerPrice,
+
+    days:
+      customerDays,
+
+    quantity:
+      customerQuantity,
+
+    email:
+      customerEmail,
+
+    createdAt:
+      new Date()
+
+  }
+);
+
 
         /* =========================
            SUCCESS
