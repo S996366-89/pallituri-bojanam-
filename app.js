@@ -1974,7 +1974,7 @@ const saveDailyCurryBtn =
   document.querySelector("#saveDailyCurryBtn");
 
 
-let selectedDailyCurry = "";
+let selectedDailyCurries = [];
 
 let selectedExtraCurries = [];
 
@@ -1985,32 +1985,123 @@ let selectedExtraTotal = 0;
    INCLUDED CURRY
 ========================= */
 
+function getIncludedCurryLimit() {
+
+  const price =
+    Number(
+      selectedPlanPriceValue?.value || 0
+    );
+
+  if (price === 69) {
+    return 2;
+  }
+
+  return 1;
+}
+
+
 curryOptions.forEach((button) => {
 
   button.addEventListener(
     "click",
     () => {
 
-      selectedDailyCurry =
+      const curry =
         button.dataset.curry || "";
+
+      const maxCurry =
+        getIncludedCurryLimit();
 
 
       /* =========================
-         ACTIVE BUTTON
+         ALREADY SELECTED
       ========================= */
 
-      curryOptions.forEach((item) => {
+      const existingIndex =
+        selectedDailyCurries.indexOf(
+          curry
+        );
 
-        item.classList.remove(
+
+      /* =========================
+         REMOVE
+      ========================= */
+
+      if (existingIndex !== -1) {
+
+        selectedDailyCurries.splice(
+          existingIndex,
+          1
+        );
+
+        button.classList.remove(
           "selected"
         );
 
-      });
+      }
 
+      /* =========================
+         ADD
+      ========================= */
 
-      button.classList.add(
-        "selected"
-      );
+      else {
+
+        /* ₹49 = only 1 */
+
+        if (
+          maxCurry === 1
+        ) {
+
+          selectedDailyCurries =
+            [curry];
+
+          curryOptions.forEach(
+            (item) => {
+
+              item.classList.remove(
+                "selected"
+              );
+
+            }
+          );
+
+          button.classList.add(
+            "selected"
+          );
+
+        }
+
+        /* ₹69 = maximum 2 */
+
+        else {
+
+          if (
+            selectedDailyCurries.length >=
+            maxCurry
+          ) {
+
+            if (selectedCurryStatus) {
+
+              selectedCurryStatus.textContent =
+                "❌ ఈ పథకంలో 2 కూరలు మాత్రమే ఎంచుకోవచ్చు.";
+
+            }
+
+            return;
+
+          }
+
+          selectedDailyCurries.push(
+            curry
+          );
+
+          button.classList.add(
+            "selected"
+          );
+
+        }
+
+      }
 
 
       /* =========================
@@ -2019,8 +2110,23 @@ curryOptions.forEach((button) => {
 
       if (selectedCurryStatus) {
 
-        selectedCurryStatus.textContent =
-          `🍛 ఈరోజు కూర: ${selectedDailyCurry}`;
+        if (
+          selectedDailyCurries.length === 0
+        ) {
+
+          selectedCurryStatus.textContent =
+            "🍛 ఈరోజు కూర ఇంకా ఎంచుకోలేదు";
+
+        } else {
+
+          selectedCurryStatus.textContent =
+            `🍛 ఈరోజు కూరలు: ${
+              selectedDailyCurries.join(
+                " + "
+              )
+            }`;
+
+        }
 
       }
 
@@ -2367,18 +2473,28 @@ if (saveDailyCurryBtn) {
          CHECK CURRY
       ========================= */
 
-      if (!selectedDailyCurry) {
+      const requiredCurries =
+       getIncludedCurryLimit();
 
-        if (selectedCurryStatus) {
+   if (
+     selectedDailyCurries.length <
+       requiredCurries
+     ) {
 
-          selectedCurryStatus.textContent =
-            "❌ ముందుగా ఈరోజు కూరను ఎంచుకోండి.";
+      if (selectedCurryStatus) {
 
-        }
+       selectedCurryStatus.textContent =
+      `❌ ఈ పథకానికి ${requiredCurries} కూర ${
+        requiredCurries === 1
+          ? "ఎంచుకోండి."
+          : "ఎంచుకోండి."
+      }`;
 
-        return;
+  }
 
-      }
+  return;
+
+}
 
 
       try {
