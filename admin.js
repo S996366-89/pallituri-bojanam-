@@ -486,6 +486,40 @@ async function loadOrders() {
 
 }
 
+/* =========================
+   MONTHLY ORDERS TOGGLE
+========================= */
+
+const monthlyOrdersToggle =
+  document.querySelector("#monthlyOrdersToggle");
+
+const monthlyOrdersPanel =
+  document.querySelector("#monthlyOrdersPanel");
+
+if (monthlyOrdersToggle && monthlyOrdersPanel) {
+
+  monthlyOrdersToggle.addEventListener(
+    "click",
+    () => {
+
+      const isHidden =
+        monthlyOrdersPanel.style.display === "none";
+
+      monthlyOrdersPanel.style.display =
+        isHidden ? "block" : "none";
+
+      const arrow =
+        monthlyOrdersToggle.querySelector("span");
+
+      if (arrow) {
+        arrow.textContent =
+          isHidden ? "▲" : "▼";
+      }
+
+    }
+  );
+
+}
 
 /* =========================
    MONTHLY PLAN ORDERS
