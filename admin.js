@@ -651,6 +651,43 @@ return `
 
 }
 
+ /* =========================
+   DAILY CURRY TOGGLE
+========================= */
+
+const dailyCurryToggle =
+  document.querySelector("#dailyCurryToggle");
+
+const dailyCurryPanel =
+  document.querySelector("#dailyCurryPanel");
+
+if (
+  dailyCurryToggle &&
+  dailyCurryPanel
+) {
+
+  dailyCurryToggle.addEventListener(
+    "click",
+    () => {
+
+      const isHidden =
+        dailyCurryPanel.style.display === "none";
+
+      dailyCurryPanel.style.display =
+        isHidden ? "block" : "none";
+
+      const arrow =
+        dailyCurryToggle.querySelector("span");
+
+      if (arrow) {
+        arrow.textContent =
+          isHidden ? "▲" : "▼";
+      }
+
+    }
+  );
+
+}
 
 /* =========================
    DAILY FOOD ORDERS
