@@ -2742,6 +2742,23 @@ onAuthStateChanged(auth, (user) => {
 
     customerLoggedIn = true;
 
+    if (user.email) {
+
+  const email =
+    user.email;
+
+  const domain =
+    "@pallituri-bojanam.com";
+
+  if (email.endsWith(domain)) {
+
+    monthlyCustomerPhone =
+      email.replace(domain, "");
+
+  }
+
+}
+
     if (customerLoginBtn) {
       customerLoginBtn.textContent =
         "🚪 కస్టమర్ లాగ్ అవుట్";
