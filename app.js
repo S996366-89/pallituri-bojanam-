@@ -2521,8 +2521,11 @@ if (saveDailyCurryBtn) {
             phone:
               monthlyCustomerPhone,
 
-            curry:
-              selectedDailyCurry,
+          curry:
+             selectedDailyCurries.join(" + "),
+
+         curries:
+            selectedDailyCurries,
 
             extraCurries:
               selectedExtraCurries,
@@ -2546,9 +2549,8 @@ if (saveDailyCurryBtn) {
 
         if (selectedCurryStatus) {
 
-          selectedCurryStatus.textContent =
-            `✅ ఈరోజు ${selectedDailyCurry} సేవ్ అయింది.`;
-
+         selectedCurryStatus.textContent =
+           `✅ ఈరోజు ${selectedDailyCurries.join(" + ")} సేవ్ అయ్యాయి.`;
         }
 
 
