@@ -2175,3 +2175,145 @@ footer {
 .daily-curry-order:last-child {
   border-bottom: none;
 }
+/* =========================
+   ORDER CARD
+========================= */
+
+.order-card {
+  width: min(100%, 520px);
+  margin: 20px auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+/* TITLE */
+
+.order-card h2 {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+
+/* MEAL ROW */
+
+.meal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.meal-row label {
+  font-weight: 600;
+}
+
+
+/* PLUS MINUS */
+
+.meal-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meal-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#quantity {
+  width: 48px;
+  height: 34px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+
+/* PRICE */
+
+.meal-price {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+/* TOTAL BOX */
+
+.order-total-box {
+  width: 120px;
+  min-height: 70px;
+  margin: 12px auto 22px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.order-total-box span {
+  font-size: 14px;
+}
+
+.order-total-box strong {
+  font-size: 24px;
+  margin-top: 3px;
+}
+
+
+/* ADDRESS */
+
+.order-address {
+  width: 100%;
+}
+
+.order-address h3 {
+  margin: 0 0 14px;
+}
+
+.order-address label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: 600;
+}
+
+.order-address input,
+.order-address textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.order-address textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+
+/* ORDER BUTTON */
+
+.place-order-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
