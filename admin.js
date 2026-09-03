@@ -623,6 +623,10 @@ return `
       ⏰ ${time}
     </span>
 
+     <span>
+       💰 ${order.plan || ""}
+     </span>
+
     <span>
       🍱 ${order.quantity || 0}
     </span>
