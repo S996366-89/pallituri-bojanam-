@@ -106,25 +106,47 @@
        <div id="adminMenu"></div>
 
    </details>
-      <!-- =========================
-           MONTHLY PLAN ORDERS
-      ========================= -->
 
-      <section class="admin-orders-section">
+       <!-- =========================
+          MONTHLY PLAN ORDERS
+        ========================= -->
 
-        <h2>🍱 నెలవారీ పథకం ఆర్డర్లు</h2>
+<section class="admin-orders-section">
 
-        <p class="admin-note">
-          నెలవారీ పథకం తీసుకున్న కస్టమర్ల వివరాలు
-          ఇక్కడ ఒకసారి మాత్రమే కనిపిస్తాయి.
-        </p>
+  <button
+    type="button"
+    id="monthlyOrdersToggle"
+    class="admin-section-toggle"
+  >
+    🍱 నెలవారీ పథకం ఆర్డర్లు
+    <span>▼</span>
+  </button>
 
-        <div
-          id="monthlyOrders"
-          class="orders"
-        ></div>
+  <div
+    id="monthlyOrdersPanel"
+    class="admin-section-panel"
+    style="display:none;"
+  >
 
-      </section>
+    <p class="admin-note">
+      నెలవారీ పథకం తీసుకున్న కస్టమర్ల వివరాలు
+    </p>
+
+    <div
+      id="monthlyOrdersCount"
+      class="admin-orders-count"
+    >
+      మొత్తం: 0
+    </div>
+
+    <div
+      id="monthlyOrders"
+      class="orders admin-scroll-box"
+    ></div>
+
+  </div>
+
+</section>
 
 
       <!-- =========================
