@@ -327,6 +327,31 @@ if (customerLoginBtn) {
 }
 
 /* =========================
+   TODAY DATE
+========================= */
+
+function getTodayDate() {
+
+  const today =
+    new Date();
+
+  const year =
+    today.getFullYear();
+
+  const month =
+    String(
+      today.getMonth() + 1
+    ).padStart(2, "0");
+
+  const day =
+    String(
+      today.getDate()
+    ).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+/* =========================
    CUSTOMER PHONE
 ========================= */
 
@@ -2554,12 +2579,18 @@ if (existingDailyCurry.exists()) {
           SAVE TO FIRESTORE
       ========================= */
 
-  await setDoc(
-  dailyCurryRef,
-  {
+    await setDoc(
+      dailyCurryRef,
+     {
+
+    name:
+      monthlyName?.value?.trim() || "",
 
     phone:
       monthlyCustomerPhone,
+
+    address:
+      monthlyAddress?.value?.trim() || "",
 
     date:
       todayDate,
