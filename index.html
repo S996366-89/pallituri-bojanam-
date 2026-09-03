@@ -743,54 +743,32 @@
 
 </div>
     <!-- =========================
-         ORDER
-    ========================= -->
+              ORDER
+     ========================= -->
 
-    <section class="order-card">
+<section class="order-card">
 
-      <h2>భోజనం ఆర్డర్ చేయండి</h2>
+  <h2>🍱 భోజనం ఆర్డర్ చేయండి</h2>
 
-      <form id="orderForm">
+  <form id="orderForm">
 
-        <label for="name">
-          పేరు
-        </label>
+    <!-- MEAL QUANTITY -->
 
-        <input
-          id="name"
-          type="text"
-          required
-          placeholder="మీ పేరు"
+    <div class="meal-row">
+
+      <label for="quantity">
+        భోజనాల సంఖ్య
+      </label>
+
+      <div class="meal-controls">
+
+        <button
+          type="button"
+          id="mealMinus"
+          class="meal-btn"
         >
-
-
-        <label for="phone">
-          ఫోన్ నంబర్
-        </label>
-
-        <input
-          id="phone"
-          type="tel"
-          inputmode="tel"
-          required
-          placeholder="మీ ఫోన్ నంబర్"
-        >
-
-
-        <label for="address">
-          చిరునామా
-        </label>
-
-        <textarea
-          id="address"
-          required
-          placeholder="మీ చిరునామా"
-        ></textarea>
-
-
-        <label for="quantity">
-          ఎన్ని భోజనాలు?
-        </label>
+          −
+        </button>
 
         <input
           id="quantity"
@@ -800,22 +778,96 @@
           required
         >
 
-
-        <button type="submit">
-          ఆర్డర్ చేయండి
+        <button
+          type="button"
+          id="mealPlus"
+          class="meal-btn"
+        >
+          +
         </button>
 
-      </form>
+      </div>
+
+      <div class="meal-price">
+        ₹89 / భోజనం
+      </div>
+
+    </div>
 
 
-      <p
-        id="orderStatus"
-        class="status"
-      ></p>
+    <!-- TOTAL -->
 
-    </section>
+    <div class="order-total-box">
 
-  </main>
+      <span>మొత్తం</span>
+
+      <strong id="orderTotal">
+        ₹89
+      </strong>
+
+    </div>
+
+
+    <!-- ADDRESS -->
+
+    <div class="order-address">
+
+      <h3>📍 చిరునామా</h3>
+
+      <label for="name">
+        పేరు
+      </label>
+
+      <input
+        id="name"
+        type="text"
+        required
+        placeholder="మీ పేరు"
+      >
+
+
+      <label for="phone">
+        ఫోన్ నంబర్
+      </label>
+
+      <input
+        id="phone"
+        type="tel"
+        inputmode="tel"
+        required
+        placeholder="మీ ఫోన్ నంబర్"
+      >
+
+
+      <label for="address">
+        చిరునామా
+      </label>
+
+      <textarea
+        id="address"
+        required
+        placeholder="మీ పూర్తి చిరునామా"
+      ></textarea>
+
+    </div>
+
+
+    <button
+      type="submit"
+      class="place-order-btn"
+    >
+      ✅ ఆర్డర్ చేయండి
+    </button>
+
+  </form>
+
+
+  <p
+    id="orderStatus"
+    class="status"
+  ></p>
+
+</section>
 
 
   <!-- =========================
