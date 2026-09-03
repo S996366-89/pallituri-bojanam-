@@ -537,13 +537,12 @@ async function loadMonthlyOrders() {
           const order =
             orderDoc.data();
 
-
-          const dateTime =
-            order.createdAt
-              ? new Date(
-                  order.createdAt
-                )
-              : null;
+         const dateTime =
+           order.createdAt
+            ? order.createdAt.toDate
+           ? order.createdAt.toDate()
+           : new Date(order.createdAt)
+           : null;
 
 
           const date =
@@ -659,12 +658,12 @@ async function loadDailyOrders() {
             orderDoc.data();
 
 
-          const dateTime =
+         const dateTime =
+         order.createdAt
+         ? new Date(
             order.createdAt
-              ? new Date(
-                  order.createdAt
-                )
-              : null;
+          )
+           : null;
 
 
           const date =
