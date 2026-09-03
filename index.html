@@ -742,130 +742,152 @@
   </button>
 
 </div>
-    <!-- =========================
-              ORDER
-     ========================= -->
+
+  <!-- =========================
+     ORDER
+========================= -->
 
 <section class="order-card">
 
-  <h2>🍱 భోజనం ఆర్డర్ చేయండి</h2>
+  <!-- OPEN BUTTON -->
 
-  <form id="orderForm">
+  <button
+    type="button"
+    id="openOrderBtn"
+    class="open-order-btn"
+  >
+    🍱 భోజనం ఆర్డర్ చేయండి
+  </button>
 
-    <!-- MEAL QUANTITY -->
 
-    <div class="meal-row">
+  <!-- ORDER FORM -->
 
-      <label for="quantity">
-        భోజనాల సంఖ్య
-      </label>
+  <div
+    id="orderBox"
+    class="order-box"
+    style="display:none;"
+  >
 
-      <div class="meal-controls">
+    <form id="orderForm">
 
-        <button
-          type="button"
-          id="mealMinus"
-          class="meal-btn"
-        >
-          −
-        </button>
+      <!-- MEALS -->
+
+      <div class="meal-row">
+
+        <label>
+          భోజనాల సంఖ్య
+        </label>
+
+        <div class="meal-controls">
+
+          <button
+            type="button"
+            id="mealMinus"
+            class="meal-btn"
+          >
+            −
+          </button>
+
+          <input
+            id="quantity"
+            type="number"
+            min="1"
+            value="1"
+            required
+          >
+
+          <button
+            type="button"
+            id="mealPlus"
+            class="meal-btn"
+          >
+            +
+          </button>
+
+        </div>
+
+        <strong class="meal-price">
+          ₹89 / భోజనం
+        </strong>
+
+      </div>
+
+
+      <!-- TOTAL -->
+
+      <div class="order-total-box">
+
+        <span>మొత్తం</span>
+
+        <strong id="orderTotal">
+          ₹89
+        </strong>
+
+      </div>
+
+
+      <!-- ADDRESS -->
+
+      <div class="order-address">
+
+        <h3>📍 చిరునామా</h3>
+
+        <label for="name">
+          పేరు
+        </label>
 
         <input
-          id="quantity"
-          type="number"
-          min="1"
-          value="1"
+          id="name"
+          type="text"
           required
+          placeholder="మీ పేరు"
         >
 
-        <button
-          type="button"
-          id="mealPlus"
-          class="meal-btn"
+
+        <label for="phone">
+          ఫోన్ నంబర్
+        </label>
+
+        <input
+          id="phone"
+          type="tel"
+          inputmode="tel"
+          required
+          placeholder="మీ ఫోన్ నంబర్"
         >
-          +
-        </button>
+
+
+        <label for="address">
+          చిరునామా
+        </label>
+
+        <textarea
+          id="address"
+          required
+          placeholder="మీ పూర్తి చిరునామా"
+        ></textarea>
 
       </div>
 
-      <div class="meal-price">
-        ₹89 / భోజనం
-      </div>
 
-    </div>
+      <!-- ORDER BUTTON -->
 
-
-    <!-- TOTAL -->
-
-    <div class="order-total-box">
-
-      <span>మొత్తం</span>
-
-      <strong id="orderTotal">
-        ₹89
-      </strong>
-
-    </div>
-
-
-    <!-- ADDRESS -->
-
-    <div class="order-address">
-
-      <h3>📍 చిరునామా</h3>
-
-      <label for="name">
-        పేరు
-      </label>
-
-      <input
-        id="name"
-        type="text"
-        required
-        placeholder="మీ పేరు"
+      <button
+        type="submit"
+        class="place-order-btn"
       >
+        ✅ ఆర్డర్ చేయండి
+      </button>
+
+    </form>
 
 
-      <label for="phone">
-        ఫోన్ నంబర్
-      </label>
+    <p
+      id="orderStatus"
+      class="status"
+    ></p>
 
-      <input
-        id="phone"
-        type="tel"
-        inputmode="tel"
-        required
-        placeholder="మీ ఫోన్ నంబర్"
-      >
-
-
-      <label for="address">
-        చిరునామా
-      </label>
-
-      <textarea
-        id="address"
-        required
-        placeholder="మీ పూర్తి చిరునామా"
-      ></textarea>
-
-    </div>
-
-
-    <button
-      type="submit"
-      class="place-order-btn"
-    >
-      ✅ ఆర్డర్ చేయండి
-    </button>
-
-  </form>
-
-
-  <p
-    id="orderStatus"
-    class="status"
-  ></p>
+  </div>
 
 </section>
 
