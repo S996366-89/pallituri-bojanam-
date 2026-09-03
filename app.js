@@ -948,6 +948,31 @@ if (orderForm) {
 
 }
 
+/* =========================
+   OPEN NORMAL ORDER
+========================= */
+
+const openOrderBtn =
+  document.querySelector("#openOrderBtn");
+
+const orderBox =
+  document.querySelector("#orderBox");
+
+if (openOrderBtn && orderBox) {
+
+  openOrderBtn.addEventListener(
+    "click",
+    () => {
+
+      orderBox.style.display = "block";
+
+      openOrderBtn.style.display = "none";
+
+    }
+  );
+
+}
+
 
 /* =========================
    MONTHLY LUNCH PLANS
