@@ -2175,25 +2175,41 @@ footer {
 .daily-curry-order:last-child {
   border-bottom: none;
 }
+
 /* =========================
-   ORDER CARD
+   NORMAL ORDER - FINAL
 ========================= */
 
 .order-card {
-  width: min(100%, 520px);
+  width: min(100% - 24px, 500px);
   margin: 20px auto;
-  padding: 20px;
   box-sizing: border-box;
 }
 
+/* OPEN BUTTON */
 
-/* TITLE */
-
-.order-card h2 {
-  text-align: center;
-  margin-bottom: 18px;
+.open-order-btn {
+  display: block;
+  width: 100%;
+  padding: 11px 15px;
+  border: 1px solid #d8c9a8;
+  border-radius: 9px;
+  background: #fffaf0;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
+/* ORDER BOX */
+
+.order-box {
+  margin-top: 10px;
+  padding: 14px;
+  box-sizing: border-box;
+  border: 1px solid #eadfca;
+  border-radius: 11px;
+  background: #fffdf7;
+}
 
 /* MEAL ROW */
 
@@ -2202,90 +2218,92 @@ footer {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
+  padding: 4px 0 12px;
 }
 
 .meal-row label {
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-
-/* PLUS MINUS */
+/* CONTROLS */
 
 .meal-controls {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .meal-btn {
-  width: 34px;
-  height: 34px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
-  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid #d5d5d5;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
   cursor: pointer;
 }
 
 #quantity {
-  width: 48px;
-  height: 34px;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  width: 36px;
+  height: 30px;
+  padding: 0;
   box-sizing: border-box;
+  text-align: center;
+  border: 1px solid #d5d5d5;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
 }
-
 
 /* PRICE */
 
 .meal-price {
-  font-weight: 600;
+  font-size: 13px;
   white-space: nowrap;
 }
 
-
-/* TOTAL BOX */
+/* SMALL TOTAL BOX */
 
 .order-total-box {
-  width: 120px;
-  min-height: 70px;
-  margin: 12px auto 22px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
+  width: 82px;
+  height: 48px;
+  margin: 4px auto 15px;
+  padding: 4px;
+  box-sizing: border-box;
+
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  text-align: center;
+  gap: 5px;
+
+  border: 1px solid #d8c9a8;
+  border-radius: 7px;
+  background: #fffaf0;
 }
 
 .order-total-box span {
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .order-total-box strong {
-  font-size: 24px;
-  margin-top: 3px;
+  font-size: 16px;
 }
-
 
 /* ADDRESS */
 
-.order-address {
-  width: 100%;
-}
-
 .order-address h3 {
-  margin: 0 0 14px;
+  margin: 0 0 9px;
+  font-size: 15px;
 }
 
 .order-address label {
   display: block;
-  margin: 10px 0 5px;
+  margin: 8px 0 4px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -2293,50 +2311,61 @@ footer {
 .order-address textarea {
   width: 100%;
   box-sizing: border-box;
-  padding: 11px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
+  padding: 9px;
+  border: 1px solid #d8d8d8;
+  border-radius: 7px;
+  background: #ffffff;
+  font-size: 14px;
 }
 
 .order-address textarea {
-  min-height: 90px;
+  min-height: 65px;
   resize: vertical;
 }
-
 
 /* ORDER BUTTON */
 
 .place-order-btn {
+  display: block;
   width: 100%;
-  margin-top: 18px;
-  padding: 12px;
+  margin-top: 13px;
+  padding: 11px;
   border: none;
-  border-radius: 9px;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 8px;
+  background: #f3ead8;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
 }
-/* ORDER BUTTON FIX */
 
-.place-order-btn {
-  display: block !important;
-  width: 100% !important;
-  min-height: 46px !important;
-  margin-top: 20px !important;
-  padding: 12px 16px !important;
+#orderStatus {
+  margin: 9px 0 0;
+  text-align: center;
+  font-size: 13px;
+}
 
-  border: none !important;
-  border-radius: 10px !important;
 
-  background: #2e7d32 !important;
-  color: #ffffff !important;
+/* =========================
+   MOBILE
+========================= */
 
-  font-size: 16px !important;
-  font-weight: 700 !important;
-  text-align: center !important;
+@media (max-width: 600px) {
 
-  cursor: pointer !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  .order-card {
+    width: calc(100% - 18px);
+    margin: 15px auto;
+  }
+
+  .order-box {
+    padding: 12px;
+  }
+
+  .meal-row {
+    gap: 7px;
+  }
+
+  .meal-price {
+    font-size: 12px;
+  }
+
 }
