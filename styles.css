@@ -2141,4 +2141,10 @@ footer {
   }
 
 }
+/* =========================
+   ADMIN SECTION GAP
+========================= */
 
+.admin-orders-section {
+  margin-bottom: 20px;
+}
