@@ -551,7 +551,14 @@ async function loadMonthlyOrders() {
           )
         )
       );
+     
+      const monthlyOrdersCount =
+        document.querySelector("#monthlyOrdersCount");
 
+       if (monthlyOrdersCount) {
+          monthlyOrdersCount.textContent =
+           `మొత్తం నెలవారీ కస్టమర్లు: ${snap.size}`;
+     }
 
     if (snap.empty) {
 
