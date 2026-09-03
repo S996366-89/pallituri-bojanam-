@@ -6,8 +6,14 @@ import {
   getDocs,
   addDoc,
   query,
-  orderBy
+  where,
+  limit,
+  orderBy,
+  getDoc,
+  doc,
+  setDoc
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
 
 import {
   getAuth,
@@ -2468,7 +2474,44 @@ if (saveDailyCurryBtn) {
 
       }
 
+      /* =========================
+         CHECK TODAY DUPLICATE
+      ========================= */
 
+const todayDate =
+  getTodayDate();
+
+const dailyCurryId =
+  `${monthlyCustomerPhone}_${todayDate}`;
+
+const dailyCurryRef =
+  doc(
+    db,
+    "dailyCurrySelections",
+    dailyCurryId
+  );
+
+const existingDailyCurry =
+  await getDoc(dailyCurryRef);
+
+
+if (existingDailyCurry.exists()) {
+
+  if (selectedCurryStatus) {
+
+    selectedCurryStatus.textContent =
+      "❌ ఈరోజు కూర ఇప్పటికే ఎంచుకున్నారు. రేపు మళ్లీ ఎంచుకోండి.";
+
+  }
+
+  saveDailyCurryBtn.disabled =
+    true;
+
+  saveDailyCurryBtn.textContent =
+    "✅ ఈరోజు ఇప్పటికే సేవ్ అయింది";
+
+  return;
+}
       /* =========================
          CHECK CURRY
       ========================= */
@@ -2507,41 +2550,40 @@ if (saveDailyCurryBtn) {
           "⏳ సేవ్ అవుతోంది...";
 
 
-        /* =========================
-           SAVE TO FIRESTORE
-        ========================= */
+      /* =========================
+          SAVE TO FIRESTORE
+      ========================= */
 
-        await addDoc(
-          collection(
-            db,
-            "dailyCurrySelections"
-          ),
-          {
+  await setDoc(
+  dailyCurryRef,
+  {
 
-            phone:
-              monthlyCustomerPhone,
+    phone:
+      monthlyCustomerPhone,
 
-          curry:
-             selectedDailyCurries.join(" + "),
+    date:
+      todayDate,
 
-         curries:
-            selectedDailyCurries,
+    curry:
+      selectedDailyCurries.join(" + "),
 
-            extraCurries:
-              selectedExtraCurries,
+    curries:
+      selectedDailyCurries,
 
-            extraCurryTotal:
-              selectedExtraTotal,
+    extraCurries:
+      selectedExtraCurries,
 
-            createdAt:
-              new Date().toISOString(),
+    extraCurryTotal:
+      selectedExtraTotal,
 
-            status:
-              "selected"
+    createdAt:
+      new Date().toISOString(),
 
-          }
-        );
+    status:
+      "selected"
 
+  }
+);
 
         /* =========================
            SUCCESS
