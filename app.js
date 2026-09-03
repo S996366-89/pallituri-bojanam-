@@ -949,7 +949,7 @@ if (orderForm) {
 }
 
 /* =========================
-   OPEN NORMAL ORDER
+   OPEN / CLOSE NORMAL ORDER
 ========================= */
 
 const openOrderBtn =
@@ -964,9 +964,15 @@ if (openOrderBtn && orderBox) {
     "click",
     () => {
 
-      orderBox.style.display = "block";
+      if (orderBox.style.display === "none") {
 
-      openOrderBtn.style.display = "none";
+        orderBox.style.display = "block";
+
+      } else {
+
+        orderBox.style.display = "none";
+
+      }
 
     }
   );
