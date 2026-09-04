@@ -2181,7 +2181,8 @@ footer {
 ========================= */
 
 .order-card {
-  width: min(100% - 24px, 500px);
+  width: 100%;
+  max-width: 500px;
   margin: 20px auto;
   box-sizing: border-box;
 }
