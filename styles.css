@@ -2835,10 +2835,49 @@ h4:nth-of-type(2)
   font-size: 16px;
   line-height: 1.8;
 }
+/* =========================
+   TRAIN JOURNEY FOOD
+   SINGLE BOX
+========================= */
+
+.train-journey {
+  width: 100%;
+  max-width: 700px;
+  margin: 28px auto 20px;
+  padding: 30px 20px;
+
+  text-align: center;
+
+  background: #fffaf0;
+
+  border: 1px solid #e2dfd3;
+  border-radius: 18px;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.train-journey-content h2 {
+  margin: 0 0 10px;
+
+  color: #176b2c;
+
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.train-journey-text {
+  margin: 0;
+
+  color: #6f6f6f;
+
+  font-size: 16px;
+  line-height: 1.8;
+}
 
 
 /* =========================
-   TRAIN JOURNEY MOBILE
+   MOBILE
 ========================= */
 
 @media (max-width: 520px) {
