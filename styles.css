@@ -2695,3 +2695,95 @@ h4:nth-of-type(2)
   max-height: 85px;
   overflow-y: auto;
 }
+/* =========================
+   TODAY CURRY - SOFT PREMIUM LOOK
+========================= */
+
+#monthlyCustomerCurry {
+
+  background: #fffdf8;
+
+  border: 1px solid #e7e1d6;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.05);
+
+}
+
+
+/* DROPDOWN OUTER BOX */
+
+#monthlyCustomerCurry details {
+
+  border: 1px solid #e8e3d9;
+
+  background: #ffffff;
+
+  box-shadow: none;
+
+}
+
+
+/* DROPDOWN HEADER */
+
+#monthlyCustomerCurry details summary {
+
+  background: #faf8f2;
+
+  border-bottom: 1px solid #eee9df;
+
+  color: #315b2a;
+
+}
+
+
+/* REMOVE HEAVY LOOK FROM CURRY ITEMS */
+
+#monthlyCustomerCurry .curry-option,
+#monthlyCustomerCurry .extra-curry-option {
+
+  border: 1px solid #f0ece4;
+
+  background: #ffffff;
+
+  box-shadow: none;
+
+}
+
+
+/* SELECTED CURRY STATUS */
+
+#selectedCurryStatus {
+
+  border: 1px solid #e8e3d9;
+
+  background: #faf8f2;
+
+}
+
+
+/* EXTRA TOTAL */
+
+#extraCurryTotal {
+
+  padding: 8px;
+
+  border-radius: 9px;
+
+  background: #f7f5ef;
+
+}
+
+
+/* SAVE BUTTON */
+
+#saveDailyCurryBtn {
+
+  border: none;
+
+  box-shadow:
+    0 5px 12px rgba(23, 107, 44, 0.12);
+
+}
