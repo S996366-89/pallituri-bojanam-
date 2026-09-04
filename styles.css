@@ -2672,3 +2672,26 @@ h4:nth-of-type(2)
   }
 
 }
+/* =========================
+   EXTRA CURRY - COMPACT
+   DESKTOP + MOBILE
+========================= */
+
+#monthlyCustomerCurry
+.extra-curry-content
+h4:first-of-type
++ .curry-list {
+
+  max-height: 85px;
+  overflow-y: auto;
+}
+
+
+#monthlyCustomerCurry
+.extra-curry-content
+h4:nth-of-type(2)
++ .curry-list {
+
+  max-height: 85px;
+  overflow-y: auto;
+}
