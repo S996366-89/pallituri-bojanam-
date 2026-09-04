@@ -2426,82 +2426,249 @@ footer {
   font-weight: 700;
 }
 /* =========================
-   CUSTOMER CURRY LIST - COMPACT
+   CUSTOMER CURRY - FINAL
+   FIXED HEADER + SEPARATE SCROLL
 ========================= */
 
-#monthlyCustomerCurry details[open] {
-  max-height: 180px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+/* MAIN CURRY BOX */
 
-/* SMALL CURRY ROWS */
-
-#monthlyCustomerCurry .curry-option,
-#monthlyCustomerCurry .extra-curry-option {
-  min-height: 34px;
-  padding: 6px 10px;
-  margin: 3px 0;
-
-  font-size: 13px;
-
-  border-radius: 7px;
+#monthlyCustomerCurry {
+  max-width: 420px;
+  margin: 20px auto;
+  padding: 18px;
   box-sizing: border-box;
 }
 
-/* SCROLLBAR */
-
-#monthlyCustomerCurry details[open]::-webkit-scrollbar {
-  width: 5px;
-}
-
-#monthlyCustomerCurry details[open]::-webkit-scrollbar-thumb {
-  background: #b7cdb3;
-  border-radius: 10px;
-}
-
-#monthlyCustomerCurry details[open]::-webkit-scrollbar-track {
-  background: #f1f1eb;
-}
 
 /* =========================
-   CUSTOMER CURRY - SAME HEIGHT
+   DROPDOWN
 ========================= */
 
-#monthlyCustomerCurry details[open] {
-  max-height: 180px;
+#monthlyCustomerCurry details {
+  margin: 10px 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
+/* =========================
+   DROPDOWN HEADER
+========================= */
+
+#monthlyCustomerCurry details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 11px 13px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  position: static;
+}
+
+
+/* =========================
+   TODAY CURRY
+   LIST ONLY SCROLLS
+========================= */
+
+#monthlyCustomerCurry
+.curry-dropdown:first-of-type
+.curry-list {
+
+  max-height: 100px;
+
   overflow-y: auto;
   overflow-x: hidden;
+
+  padding-right: 4px;
 }
 
-/* Curry rows compact */
 
-#monthlyCustomerCurry .curry-option,
-#monthlyCustomerCurry .extra-curry-option {
+/* =========================
+   EXTRA CURRY MAIN BOX
+========================= */
+
+#monthlyCustomerCurry
+.extra-curry-content {
+
+  max-height: none;
+
+  overflow: visible;
+}
+
+
+/* =========================
+   EXTRA CURRY HEADINGS
+========================= */
+
+#monthlyCustomerCurry
+.extra-curry-content h4 {
+
+  margin: 8px 0 5px;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   EXTRA VEG LIST
+========================= */
+
+#monthlyCustomerCurry
+.extra-curry-content h4:first-of-type
++ .curry-list {
+
+  max-height: 100px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-right: 4px;
+}
+
+
+/* =========================
+   EXTRA NON-VEG LIST
+========================= */
+
+#monthlyCustomerCurry
+.extra-curry-content
+h4:nth-of-type(2)
++ .curry-list {
+
+  max-height: 100px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-right: 4px;
+}
+
+
+/* =========================
+   COMPACT CURRY ROWS
+========================= */
+
+#monthlyCustomerCurry
+.curry-option,
+#monthlyCustomerCurry
+.extra-curry-option {
+
+  width: 100%;
+
   min-height: 34px;
+
   padding: 6px 10px;
+
   margin: 3px 0;
-  font-size: 13px;
+
   box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 9px;
+
+  font-size: 13px;
 }
 
-/* Scrollbar */
 
-#monthlyCustomerCurry details[open]::-webkit-scrollbar {
+/* =========================
+   SCROLLBAR
+========================= */
+
+#monthlyCustomerCurry
+.curry-list::-webkit-scrollbar {
+
   width: 5px;
 }
 
-#monthlyCustomerCurry details[open]::-webkit-scrollbar-thumb {
+
+#monthlyCustomerCurry
+.curry-list::-webkit-scrollbar-thumb {
+
   background: #b7cdb3;
+
   border-radius: 10px;
 }
 
-#monthlyCustomerCurry details[open]::-webkit-scrollbar-track {
+
+#monthlyCustomerCurry
+.curry-list::-webkit-scrollbar-track {
+
   background: #f1f1eb;
 }
 
-/* Header should NOT stick */
 
-#monthlyCustomerCurry details summary {
-  position: static;
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  #monthlyCustomerCurry {
+
+    width: 92%;
+
+    max-width: 360px;
+
+    margin: 15px auto;
+
+    padding: 14px;
+  }
+
+
+  #monthlyCustomerCurry
+  details summary {
+
+    padding: 10px 11px;
+
+    font-size: 14px;
+  }
+
+
+  #monthlyCustomerCurry
+  .curry-option,
+  #monthlyCustomerCurry
+  .extra-curry-option {
+
+    min-height: 32px;
+
+    padding: 5px 9px;
+
+    font-size: 12px;
+  }
+
+
+  #monthlyCustomerCurry
+  .curry-dropdown:first-of-type
+  .curry-list {
+
+    max-height: 100px;
+  }
+
+
+  #monthlyCustomerCurry
+  .extra-curry-content
+  h4:first-of-type
+  + .curry-list {
+
+    max-height: 100px;
+  }
+
+
+  #monthlyCustomerCurry
+  .extra-curry-content
+  h4:nth-of-type(2)
+  + .curry-list {
+
+    max-height: 100px;
+  }
+
 }
