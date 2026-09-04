@@ -2266,32 +2266,42 @@ footer {
   white-space: nowrap;
 }
 
-/* SMALL TOTAL BOX */
+/* =========================
+   TOTAL BOX - FINAL
+========================= */
 
 .order-total-box {
-  width: 82px;
-  height: 48px;
-  margin: 4px auto 15px;
-  padding: 4px;
+  width: 100%;
+  min-height: 48px;
+  margin: 4px 0 15px;
+  padding: 8px 12px;
   box-sizing: border-box;
 
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
+  justify-content: space-between;
+  gap: 10px;
 
   border: 1px solid #d8c9a8;
-  border-radius: 7px;
+  border-radius: 8px;
   background: #fffaf0;
+
+  overflow: hidden;
 }
 
 .order-total-box span {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
+  color: #5a3a1e;
+  white-space: nowrap;
 }
 
 .order-total-box strong {
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #2f5d3a;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* ADDRESS */
@@ -2370,4 +2380,47 @@ footer {
     font-size: 12px;
   }
 
+}
+/* =========================
+   MEAL BUTTONS - FINAL
+========================= */
+
+.meal-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  border: 1px solid #2f5d3a;
+  border-radius: 7px;
+
+  background: #2f5d3a;
+  color: #fff8e7;
+
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.meal-btn:hover {
+  background: #24492e;
+}
+
+#quantity {
+  width: 40px;
+  height: 32px;
+  padding: 0;
+  box-sizing: border-box;
+
+  text-align: center;
+
+  border: 1px solid #d8c9a8;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #2f5d3a;
+
+  font-size: 14px;
+  font-weight: 700;
 }
