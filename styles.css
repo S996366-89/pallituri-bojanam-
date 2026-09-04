@@ -2795,3 +2795,67 @@ h4:nth-of-type(2)
 #monthlyCustomerCurry .extra-curry-option {
   color: #315B2A !important;
 }
+/* =========================
+   TRAIN JOURNEY FOOD
+   NEW COLOR STYLE
+========================= */
+
+.train-journey {
+  width: 100%;
+  max-width: 700px;
+  margin: 28px auto 20px;
+  padding: 30px 20px;
+
+  text-align: center;
+
+  background: #fff7f2;
+
+  border: 1px solid #e8cfc2;
+  border-radius: 18px;
+
+  box-shadow:
+    0 6px 18px rgba(120, 70, 45, 0.08);
+}
+
+.train-journey-content h2 {
+  margin: 0 0 10px;
+
+  color: #a44f3c;
+
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.train-journey-text {
+  margin: 0;
+
+  color: #6f625b;
+
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+
+/* =========================
+   TRAIN JOURNEY MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+  .train-journey {
+    margin: 22px auto 16px;
+    padding: 24px 15px;
+    border-radius: 16px;
+  }
+
+  .train-journey-content h2 {
+    font-size: 23px;
+  }
+
+  .train-journey-text {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+}
