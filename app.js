@@ -796,6 +796,109 @@ async function loadMenu() {
 
 }
 /* =========================
+   NORMAL ORDER QUANTITY
+========================= */
+
+const mealMinus =
+  document.querySelector("#mealMinus");
+
+const mealPlus =
+  document.querySelector("#mealPlus");
+
+const quantityInput =
+  document.querySelector("#quantity");
+
+const orderTotal =
+  document.querySelector("#orderTotal");
+
+const MEAL_PRICE = 89;
+
+
+/* =========================
+   UPDATE ORDER TOTAL
+========================= */
+
+function updateOrderTotal() {
+
+  const quantity =
+    Number(quantityInput?.value || 1);
+
+  const total =
+    quantity * MEAL_PRICE;
+
+  if (orderTotal) {
+
+    orderTotal.textContent =
+      `₹${total}`;
+
+  }
+
+}
+
+
+/* =========================
+   PLUS
+========================= */
+
+if (mealPlus && quantityInput) {
+
+  mealPlus.addEventListener(
+    "click",
+    () => {
+
+      let quantity =
+        Number(quantityInput.value || 1);
+
+      quantity += 1;
+
+      quantityInput.value =
+        quantity;
+
+      updateOrderTotal();
+
+    }
+  );
+
+}
+
+
+/* =========================
+   MINUS
+========================= */
+
+if (mealMinus && quantityInput) {
+
+  mealMinus.addEventListener(
+    "click",
+    () => {
+
+      let quantity =
+        Number(quantityInput.value || 1);
+
+      if (quantity > 1) {
+
+        quantity -= 1;
+
+        quantityInput.value =
+          quantity;
+
+        updateOrderTotal();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   INITIAL TOTAL
+========================= */
+
+updateOrderTotal();
+
+/* =========================
    NORMAL ORDER
 ========================= */
 
