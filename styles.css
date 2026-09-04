@@ -2464,9 +2464,44 @@ footer {
   background: #f1f1eb;
 }
 
-/* DROPDOWN HEADER */
+/* =========================
+   CUSTOMER CURRY - SAME HEIGHT
+========================= */
 
-#monthlyCustomerCurry summary {
-  padding: 9px 11px;
-  font-size: 14px;
+#monthlyCustomerCurry details[open] {
+  max-height: 180px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Curry rows compact */
+
+#monthlyCustomerCurry .curry-option,
+#monthlyCustomerCurry .extra-curry-option {
+  min-height: 34px;
+  padding: 6px 10px;
+  margin: 3px 0;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+/* Scrollbar */
+
+#monthlyCustomerCurry details[open]::-webkit-scrollbar {
+  width: 5px;
+}
+
+#monthlyCustomerCurry details[open]::-webkit-scrollbar-thumb {
+  background: #b7cdb3;
+  border-radius: 10px;
+}
+
+#monthlyCustomerCurry details[open]::-webkit-scrollbar-track {
+  background: #f1f1eb;
+}
+
+/* Header should NOT stick */
+
+#monthlyCustomerCurry details summary {
+  position: static;
 }
