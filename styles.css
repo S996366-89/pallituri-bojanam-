@@ -2425,3 +2425,48 @@ footer {
   font-size: 14px;
   font-weight: 700;
 }
+/* =========================
+   CUSTOMER CURRY LIST - COMPACT
+========================= */
+
+#monthlyCustomerCurry details[open] {
+  max-height: 180px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* SMALL CURRY ROWS */
+
+#monthlyCustomerCurry .curry-option,
+#monthlyCustomerCurry .extra-curry-option {
+  min-height: 34px;
+  padding: 6px 10px;
+  margin: 3px 0;
+
+  font-size: 13px;
+
+  border-radius: 7px;
+  box-sizing: border-box;
+}
+
+/* SCROLLBAR */
+
+#monthlyCustomerCurry details[open]::-webkit-scrollbar {
+  width: 5px;
+}
+
+#monthlyCustomerCurry details[open]::-webkit-scrollbar-thumb {
+  background: #b7cdb3;
+  border-radius: 10px;
+}
+
+#monthlyCustomerCurry details[open]::-webkit-scrollbar-track {
+  background: #f1f1eb;
+}
+
+/* DROPDOWN HEADER */
+
+#monthlyCustomerCurry summary {
+  padding: 9px 11px;
+  font-size: 14px;
+}
