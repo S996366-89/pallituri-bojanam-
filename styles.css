@@ -2788,10 +2788,10 @@ h4:nth-of-type(2)
 
 }
 /* =========================
-   CURRY NAMES - KEEP COLOR
+   CURRY NAMES - SOFT GREEN
 ========================= */
 
 #monthlyCustomerCurry .curry-option,
 #monthlyCustomerCurry .extra-curry-option {
-  color: inherit !important;
+  color: #315B2A !important;
 }
